@@ -2,6 +2,7 @@ import sys
 
 def has(flag_name):
     for arg in sys.argv:
+        print(arg)
         if arg == flag_name:
             return True
     return False
