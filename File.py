@@ -1,4 +1,5 @@
 import os
+import getpass
 import Shell
 
 def mkdir(name):
@@ -9,4 +10,4 @@ def cd(path):
     os.chdir(path)
 
 def chown(path):
-    Shell.run(['sudo', 'chown', '-R', '$(whoami)', path])
+    Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
