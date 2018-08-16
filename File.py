@@ -1,6 +1,7 @@
 import os
 import getpass
 import Shell
+import System
 
 def mkdir(name):
     if not os.path.exists(name):
@@ -10,4 +11,6 @@ def cd(path):
     os.chdir(path)
 
 def chown(path):
-    Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
+	if System.isWindows():
+		return
+	Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])

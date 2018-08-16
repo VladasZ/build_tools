@@ -1,10 +1,11 @@
 import platform
 import Shell
+import System
 
 def default_generator():
-    if platform.system() == 'Windows':
+    if System.isWindows():
         return 'Visual Studio 15 2017 Win64'
-    if platform.system()== 'Darwin':
+    if System.isMac():
         return 'Xcode'
     return 'Unix Makefiles'
 
