@@ -12,4 +12,9 @@ def get(index):
 
 def count():
     return len(sys.argv)
+
+make    = has('--make')
+rmbuild = has('--rmbuild')
+gcc     = has('--gcc')
+clang   = has('--clang')
     

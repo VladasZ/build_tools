@@ -23,11 +23,10 @@ def default():
 		return gcc
 
 def get():
-	if Args.has('--clang'):
+	if Args.clang:
 		if System.isMac:
 			return appleClang
 		return clang
-	if Args.has('--gcc'):
+	if Args.gcc:
 		return gcc
 	return default()
-	

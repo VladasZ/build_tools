@@ -7,7 +7,7 @@ def setup():
     os.system('conan remote add pocoproject     https://api.bintray.com/conan/pocoproject/conan')
     os.system('conan remote add conan-community https://api.bintray.com/conan/conan-community/conan')
 
-def run(compiler = Compiler.default()):
+def run(compiler = Compiler.get()):
 	command = [
 		'conan', 'install', '..', '--build=missing', 
 		'-scompiler='         + compiler.name,

@@ -21,6 +21,6 @@ def rm(path):
 		shutil.rmtree(path)
 
 def build_folder():
-	if Args.has('--make'):
+	if Args.make:
 		return 'make'
 	return 'build'
