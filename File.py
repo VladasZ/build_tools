@@ -3,6 +3,7 @@ import getpass
 import shutil
 import Shell
 import System
+import Args
 
 def mkdir(name):
     if not os.path.exists(name):
@@ -18,3 +19,8 @@ def chown(path):
 def rm(path):
 	if os.path.exists(path):
 		shutil.rmtree(path)
+
+def build_folder():
+	if Args.has('--make'):
+		return 'make'
+	return 'build'

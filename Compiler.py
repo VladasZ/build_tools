@@ -1,4 +1,5 @@
 import System
+import Args
 
 class Compiler(object):
 	def __init__(self, name, version, libcxx = '', needsLibcxx = True):
@@ -19,4 +20,14 @@ def default():
 	if System.isMac:
 		return appleClang
 	if System.isLinux:
+		return gcc
+
+def get():
+	if Args.has('--clang'):
+		if System.isMac:
+			return appleClang
 		return clang
+	if Args.has('--gcc'):
+		return gcc
+	return default()
+	
