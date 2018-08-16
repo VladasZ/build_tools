@@ -8,10 +8,10 @@ class Compiler(object):
 		self.needsLibcxx = needsLibcxx
 		
 
-visualStudio = Compiler('Visual Studio', '15',       needsLibcxx = False)
-gcc          = Compiler('gcc',           '8.1',     'libstdc++')
-clang        = Compiler('clang',         '6.0',     'libstdc++')
-appleClang   = Compiler('apple-clang',   'ospokol', 'spialgok')
+visualStudio = Compiler('Visual Studio', '15',   needsLibcxx = False)
+gcc          = Compiler('gcc',           '8.1', 'libstdc++')
+clang        = Compiler('clang',         '6.0', 'libstdc++')
+appleClang   = Compiler('apple-clang',   '9.1', 'libstdc++')
 
 def default():
 	if System.isWindows:
