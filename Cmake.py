@@ -13,4 +13,4 @@ def default_generator():
 make = 'Unix Makefiles'
 
 def run(generator = default_generator()):
-	Shell.run(['cmake', '..', '-G', generator])
+	Shell.run(['cmake', '-G', generator, '..'])

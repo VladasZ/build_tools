@@ -16,4 +16,5 @@ def chown(path):
 		Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
 
 def rm(path):
-	shutil.rmtree(path)
+	if os.path.exists(path):
+		shutil.rmtree(path)
