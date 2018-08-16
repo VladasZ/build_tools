@@ -1,7 +1,5 @@
 import platform
 
-def isWindows():
-	return platform.system() == 'Windows'
-
-def isMac():
-	return platform.system()== 'Darwin'
+isWindows = platform.system() == 'Windows'
+isMac     = platform.system() == 'Darwin'
+isLinux   = platform.system() == 'Linux'

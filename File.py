@@ -11,6 +11,5 @@ def cd(path):
     os.chdir(path)
 
 def chown(path):
-	if System.isWindows():
-		return
-	Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
+	if not System.isWindows:
+		Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
