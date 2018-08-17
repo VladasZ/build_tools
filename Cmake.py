@@ -16,4 +16,10 @@ def default_generator():
     	return 'CodeBlocks - Unix Makefiles'
 
 def run(generator = default_generator()):
-	Shell.run(['cmake', '-G', generator, '..'])
+	Shell.run(['cmake', '-G', generator, 
+		'-D', 'CMAKE_C_COMPILER=clang', 
+		'-D', 'CMAKE_CXX_COMPILER=clang++', 
+		'..'])
+
+
+#	-D CMAKE_CXX_COMPILER_ID=Clang',

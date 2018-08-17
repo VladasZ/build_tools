@@ -1,4 +1,5 @@
 import os
+import Args
 import Shell
 import Compiler
 
@@ -9,7 +10,12 @@ def setup():
 
 def run(compiler = Compiler.get()):
 
-	command = ['conan', 'install', '..', '--build=missing']
+	command = ['conan', 'install', '..']
+
+	if Args.forceBuild:
+		command += ['--build']
+	else:
+		command += ['--build=missing']
 
 	if not compiler.auto:
 		command += [
