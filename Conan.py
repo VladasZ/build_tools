@@ -11,7 +11,7 @@ def run(compiler = Compiler.get()):
 
 	command = ['conan', 'install', '..', '--build=missing']
 
-	if not Compiler.auto:
+	if not compiler.auto:
 		command += [
 			  '-scompiler='         + compiler.name
 			, '-scompiler.version=' + compiler.version

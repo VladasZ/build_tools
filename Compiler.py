@@ -11,7 +11,7 @@ class Compiler(object):
 		
 
 visualStudio = Compiler('Visual Studio', '15',   needsLibcxx = False) 
-gcc          = Compiler('gcc',           '7.1', 'libstdc++') 
+gcc          = Compiler('gcc',           '7.3', 'libstdc++') 
 clang        = Compiler('clang',         '6.0', 'libstdc++') 
 appleClang   = Compiler('apple-clang',   '9.1', 'libstdc++') 
 auto         = Compiler(auto = True)
