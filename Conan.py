@@ -8,13 +8,16 @@ def setup():
     os.system('conan remote add conan-community https://api.bintray.com/conan/conan-community/conan')
 
 def run(compiler = Compiler.get()):
-	command = [
-		  'conan', 'install', '..', '--build=missing'
-		, '-scompiler='         + compiler.name
-		, '-scompiler.version=' + compiler.version
-		]
 
-	if compiler.needsLibcxx:
-		command += ['-scompiler.libcxx='  + compiler.libcxx]
+	command = ['conan', 'install', '..', '--build=missing']
+
+	if not Compiler.auto:
+		command += [
+			  '-scompiler='         + compiler.name
+			, '-scompiler.version=' + compiler.version
+			]
+
+		if compiler.needsLibcxx:
+			command += ['-scompiler.libcxx='  + compiler.libcxx]
 
 	Shell.run(command)
