@@ -25,6 +25,8 @@ def run(generator = default_generator()):
     ])
 
 def setup(compiler = Compiler.get()):
+    if compiler.isApple():
+        return
     os.environ['CC']  = compiler.name
     os.environ['CXX'] = compiler.cppname
 

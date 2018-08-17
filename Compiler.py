@@ -11,12 +11,14 @@ class Compiler(object):
 
 	def isVS(self):
 		return self.name == 'Visual Studio'
-		
+
+	def isApple(self):
+		return self.name == 'apple-clang'
 
 visualStudio = Compiler('Visual Studio', '15'											                ) 
 gcc          = Compiler('gcc',           'g++',      Shell.get(['gcc', '-dumpversion'])[:3], 'libstdc++') 
 clang        = Compiler('clang',         'clang++',  '6.0',  								 'libstdc++') 
-appleClang   = Compiler('clang',         'clang++',  '9.1',   								 'libstdc++') 
+appleClang   = Compiler('apple-clang',   'clang++',  '9.1',   								 'libstdc++') 
 
 def default():
 	if System.isWindows:
