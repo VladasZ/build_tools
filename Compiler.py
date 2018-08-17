@@ -17,7 +17,7 @@ class Compiler(object):
 
 visualStudio = Compiler('Visual Studio', '15'											                ) 
 gcc          = Compiler('gcc',           'g++',      Shell.get(['gcc', '-dumpversion'])[:3], 'libstdc++') 
-clang        = Compiler('clang',         'clang++',  '6.0',  								 'libstdc++') 
+clang        = Compiler('clang',         'clang++',  '5.0',  								 'libstdc++') 
 appleClang   = Compiler('apple-clang',   'clang++',  '9.1',   								 'libstdc++') 
 
 def default():
