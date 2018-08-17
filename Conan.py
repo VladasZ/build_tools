@@ -9,9 +9,9 @@ def setup():
 
 def run(compiler = Compiler.get()):
 	command = [
-		'conan', 'install', '..', '--build=missing', 
-		'-scompiler='         + compiler.name,
-		'-scompiler.version=' + compiler.version
+		  'conan', 'install', '..', '--build=missing'
+		, '-scompiler='         + compiler.name
+		, '-scompiler.version=' + compiler.version
 		]
 
 	if compiler.needsLibcxx:
