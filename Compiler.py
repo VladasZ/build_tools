@@ -3,19 +3,20 @@ import Shell
 import System
 
 class Compiler(object):
-	def __init__(self, name = '', version = '', libcxx = '', needsLibcxx = True, auto = False):
+	def __init__(self, name = '', cppname = '', version = '', libcxx = ''):
 		self.name        = name
+		self.cppname     = cppname
 		self.version     = version
 		self.libcxx      = libcxx
-		self.needsLibcxx = needsLibcxx
-		self.auto        = auto
+
+	def isVS(self):
+		return self.name == 'Visual Studio'
 		
 
-visualStudio = Compiler('Visual Studio', '15',                                    needsLibcxx = False) 
-gcc          = Compiler('gcc',           Shell.get(['gcc', '-dumpversion'])[:3], 'libstdc++') 
-clang        = Compiler('clang',         '6.0',  								 'libstdc++') 
-appleClang   = Compiler('apple-clang',   '9.1',   								 'libstdc++') 
-auto         = Compiler(auto = True)
+visualStudio = Compiler('Visual Studio', '15'											                ) 
+gcc          = Compiler('gcc',           'g++',      Shell.get(['gcc', '-dumpversion'])[:3], 'libstdc++') 
+clang        = Compiler('clang',         'clang++',  '6.0',  								 'libstdc++') 
+appleClang   = Compiler('clang',         'clang++',  '9.1',   								 'libstdc++') 
 
 def default():
 	if System.isWindows:

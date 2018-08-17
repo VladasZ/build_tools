@@ -17,13 +17,12 @@ def run(compiler = Compiler.get()):
 	else:
 		command += ['--build=missing']
 
-	if not compiler.auto:
-		command += [
-			  '-scompiler='         + compiler.name
-			, '-scompiler.version=' + compiler.version
-			]
+	command += [
+		  '-scompiler='         + compiler.name
+		, '-scompiler.version=' + compiler.version
+	]
 
-		if compiler.needsLibcxx:
-			command += ['-scompiler.libcxx='  + compiler.libcxx]
+	if not compiler.isVS():
+		command += ['-scompiler.libcxx='  + compiler.libcxx]
 
 	Shell.run(command)
