@@ -33,7 +33,7 @@ def unzipNDK():
 
 def make_toolchain(destination, arch = _arch, api = _api):
 	Shell.run([
-		'py',
+		System.python_cmd,
 		ndk_path + '/build/tools/make_standalone_toolchain.py',
 		'--arch=' + arch,
 		'--api=' + api,
