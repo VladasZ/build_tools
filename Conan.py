@@ -10,7 +10,7 @@ def setup():
 	if System.conan:
 		print('conan OK')
 	else:
-		Shell.run(['pip', 'install', 'conan'])
+		Shell.run([System.pip_cmd, 'install', 'conan'])
 		System.add_conan_flag()
 
 	if System.conan_setup:

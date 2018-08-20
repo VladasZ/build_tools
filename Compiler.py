@@ -17,10 +17,10 @@ class Compiler(object):
 
 gcc_version = Shell.get(['gcc', '-dumpversion'])[:3]
 
-visualStudio = Compiler('Visual Studio', version = '15'         )
-gcc          = Compiler('gcc',           'g++',      gcc_version)
-clang        = Compiler('clang',         'clang++',  '6.0'      )
-appleClang   = Compiler('apple-clang',   'clang++',  '9.1'      )
+visualStudio = Compiler('Visual Studio', version = '15'             )
+gcc          = Compiler('gcc',           'g++',      gcc_version    )
+clang        = Compiler('clang',         'clang++',  '6.0'          )
+appleClang   = Compiler('apple-clang',   'clang++',  '9.1', 'libc++')
 
 def default():
 	if System.isWindows:

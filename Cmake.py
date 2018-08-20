@@ -21,7 +21,12 @@ def run(generator = default_generator()):
     Shell.run(['cmake', '-G', generator, '..'])
 
 def setup(compiler = Compiler.get()):
-    if compiler.isApple():
-        return
+
     os.environ['CC']  = compiler.name
     os.environ['CXX'] = compiler.cppname
+
+    if compiler.isApple():
+        os.environ['CC']  = 'clang'
+
+    print('CC = '  + os.environ['CC'])
+    print('CXX = ' + os.environ['CXX'])

@@ -6,6 +6,7 @@ isMac     = platform.system() == 'Darwin'
 isLinux   = platform.system() == 'Linux'
 
 python_cmd = 'py' if isWindows else 'python3'
+pip_cmd = 'pip' if isWindows else 'pip3'
 
 def add_flag(flag):
 	File.make(File.config_path() + '/' + flag)
