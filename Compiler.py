@@ -3,7 +3,7 @@ import Shell
 import System
 
 class Compiler(object):
-	def __init__(self, name = '', cppname = '', version = '', libcxx = ''):
+	def __init__(self, name = '', cppname = '', version = '', libcxx = 'libstdc++'):
 		self.name        = name
 		self.cppname     = cppname
 		self.version     = version
@@ -15,10 +15,12 @@ class Compiler(object):
 	def isApple(self):
 		return self.name == 'apple-clang'
 
-visualStudio = Compiler('Visual Studio', '15'											                ) 
-gcc          = Compiler('gcc',           'g++',      Shell.get(['gcc', '-dumpversion'])[:3], 'libstdc++') 
-clang        = Compiler('clang',         'clang++',  '5.0',  								 'libstdc++') 
-appleClang   = Compiler('apple-clang',   'clang++',  '9.1',   								 'libstdc++') 
+gcc_version = Shell.get(['gcc', '-dumpversion'])[:3]
+
+visualStudio = Compiler('Visual Studio', '15'                   )
+gcc          = Compiler('gcc',           'g++',      gcc_version)
+clang        = Compiler('clang',         'clang++',  '6.0'      )
+appleClang   = Compiler('apple-clang',   'clang++',  '9.1'      )
 
 def default():
 	if System.isWindows:

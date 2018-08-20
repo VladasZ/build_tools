@@ -17,4 +17,5 @@ rmbuild    = has('--rmbuild')
 gcc        = has('--gcc')
 clang      = has('--clang')
 forceBuild = has('--forcebuild')
+android    = has('--android')
     
