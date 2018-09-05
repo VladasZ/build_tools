@@ -15,7 +15,7 @@ def default_generator():
     if System.isMac:
         return 'Xcode'
     if System.isLinux:
-    	return 'CodeBlocks - Unix Makefiles'
+        return 'CodeBlocks - Unix Makefiles'
 
 def run(generator = default_generator()):
     Shell.run(['cmake', '-G', generator, '..'])

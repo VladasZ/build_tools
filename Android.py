@@ -12,39 +12,39 @@ __ndk_zip_path = File.config_path() + '/android_NDK.zip'
 ndk_path =  File.config_path() + '/android-ndk-r17b'
 
 def NDKLink():
-	if System.isWindows:
-		return 'https://dl.google.com/android/repository/android-ndk-r17b-windows-x86_64.zip'
-	if System.isMac:
-		return 'https://dl.google.com/android/repository/android-ndk-r17b-darwin-x86_64.zip'
-	if System.isLinux:
-		return 'https://dl.google.com/android/repository/android-ndk-r17b-linux-x86_64.zip'
+    if System.isWindows:
+        return 'https://dl.google.com/android/repository/android-ndk-r17b-windows-x86_64.zip'
+    if System.isMac:
+        return 'https://dl.google.com/android/repository/android-ndk-r17b-darwin-x86_64.zip'
+    if System.isLinux:
+        return 'https://dl.google.com/android/repository/android-ndk-r17b-linux-x86_64.zip'
 
 def downloadNDK():
-	if File.exists(__ndk_zip_path):
-		print('NDK zip OK')
-		return
-	File.download(NDKLink(), File.config_path() + '/android_NDK.zip')
+    if File.exists(__ndk_zip_path):
+        print('NDK zip OK')
+        return
+    File.download(NDKLink(), File.config_path() + '/android_NDK.zip')
 
 def unzipNDK():
-	if File.exists(ndk_path):
-		print('NDK OK')
-		return
-	File.unzip(__ndk_zip_path, File.config_path())
+    if File.exists(ndk_path):
+        print('NDK OK')
+        return
+    File.unzip(__ndk_zip_path, File.config_path())
 
 def make_toolchain(destination, arch = _arch, api = _api):
-	Shell.run([
-		System.python_cmd,
-		ndk_path + '/build/tools/make_standalone_toolchain.py',
-		'--arch=' + arch,
-		'--api=' + api,
-		'--stl=libc++',
-		'--install-dir=' + destination
-	])
+    Shell.run([
+        System.python_cmd,
+        ndk_path + '/build/tools/make_standalone_toolchain.py',
+        '--arch=' + arch,
+        '--api=' + api,
+        '--stl=libc++',
+        '--install-dir=' + destination
+    ])
 
 def setup():
-	if File.exists(_toolchain_path):
-		print('android ndk and toolchain OK')
-	else:
-		downloadNDK()
-		unzipNDK()
-		make_toolchain(_toolchain_path)
+    if File.exists(_toolchain_path):
+        print('android ndk and toolchain OK')
+    else:
+        downloadNDK()
+        unzipNDK()
+        make_toolchain(_toolchain_path)

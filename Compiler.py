@@ -4,20 +4,20 @@ import System
 
 class Compiler(object):
 
-	def __init__(self, name = '', cppname = '', version = ''):
-		self.name        = name
-		self.cppname     = cppname
-		self.version     = version
-		self.libcxx      = self._libcxx()
+    def __init__(self, name = '', cppname = '', version = ''):
+        self.name        = name
+        self.cppname     = cppname
+        self.version     = version
+        self.libcxx      = self._libcxx()
 
-	def isVS(self):
-		return self.name == 'Visual Studio'
+    def isVS(self):
+        return self.name == 'Visual Studio'
 
-	def isApple(self):
-		return self.name == 'apple-clang'
-		
-	def _libcxx(self):
-		return 'libc++' if self.isApple() else 'libstdc++'
+    def isApple(self):
+        return self.name == 'apple-clang'
+        
+    def _libcxx(self):
+        return 'libc++' if self.isApple() else 'libstdc++'
 
 
 
@@ -29,20 +29,20 @@ clang        = Compiler('clang',         'clang++',  '6.0'      )
 appleClang   = Compiler('apple-clang',   'clang++',  '9.1'      )
 
 def default():
-	if System.isWindows:
-		if Args.make:
-			return gcc
-		return visualStudio
-	if System.isMac:
-		return appleClang
-	if System.isLinux:
-		return gcc
+    if System.isWindows:
+        if Args.make:
+            return gcc
+        return visualStudio
+    if System.isMac:
+        return appleClang
+    if System.isLinux:
+        return gcc
 
 def get():
-	if Args.clang:
-		if System.isMac:
-			return appleClang
-		return clang
-	if Args.gcc:
-		return gcc
-	return default()
+    if Args.clang:
+        if System.isMac:
+            return appleClang
+        return clang
+    if Args.gcc:
+        return gcc
+    return default()

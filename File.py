@@ -11,8 +11,8 @@ user_dir = os.path.expanduser("~")
 __build_config_dir = user_dir + '/.build_config'
 
 def config_path():
-	mkdir(__build_config_dir)
-	return __build_config_dir
+    mkdir(__build_config_dir)
+    return __build_config_dir
 
 def mkdir(name):
     if not os.path.exists(name):
@@ -22,18 +22,18 @@ def cd(path):
     os.chdir(path)
 
 #def chown(path):
-#	if not platform.system() == 'Windows':
-#		Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
+#    if not platform.system() == 'Windows':
+#        Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
 
 def rm(path):
-	if os.path.exists(path):
-		shutil.rmtree(path)
+    if os.path.exists(path):
+        shutil.rmtree(path)
 
 def make(path):
-	open(path, 'w+')
+    open(path, 'w+')
 
 def exists(path):
-	return os.path.exists(path)
+    return os.path.exists(path)
 
 def unzip(path, destination):    
     print('Unzipping: ' + path)
@@ -41,9 +41,9 @@ def unzip(path, destination):
         zip_ref.extractall(destination)
 
 def build_folder():
-	if Args.make:
-		return 'make'
-	return 'build'
+    if Args.make:
+        return 'make'
+    return 'build'
 
 def reporthook(blocknum, blocksize, totalsize):
     readsofar = blocknum * blocksize
@@ -58,5 +58,5 @@ def reporthook(blocknum, blocksize, totalsize):
         sys.stderr.write("read %d\n" % (readsofar,))
 
 def download(url, file_name):
-	print('Donwloading: ' + url)
-	urllib.request.urlretrieve(url, file_name, reporthook)
+    print('Donwloading: ' + url)
+    urllib.request.urlretrieve(url, file_name, reporthook)
