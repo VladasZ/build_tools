@@ -1,0 +1,7 @@
+print('helloooyy')
+print('helloooyy')
+print('helloooyy')
+print('helloooyy')
+print('helloooyy')
+print('helloooyy')
+print('helloooyy')
