@@ -6,7 +6,7 @@ def has(flag_name):
             return True
     return False
 
-def get(index):
+def get(index = 1):
     return sys.argv[index]
 
 def count():

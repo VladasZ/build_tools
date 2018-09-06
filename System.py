@@ -5,6 +5,8 @@ isWindows = platform.system() == 'Windows'
 isMac     = platform.system() == 'Darwin'
 isLinux   = platform.system() == 'Linux'
 
+platform = platform.system()
+
 python_cmd = 'py' if isWindows else 'python3'
 pip_cmd = 'pip' if isWindows else 'pip3'
 

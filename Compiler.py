@@ -2,7 +2,7 @@ import Args
 import Shell
 import System
 
-class Compiler(object):
+class Compiler:
 
     def __init__(self, name = '', cppname = '', version = ''):
         self.name        = name

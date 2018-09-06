@@ -10,6 +10,12 @@ import Shell
 user_dir = os.path.expanduser("~")
 __build_config_dir = user_dir + '/.build_config'
 
+def file_name(name):
+    return os.path.basename(name)
+
+def get_name(name):
+    return os.path.splitext(file_name(name))[0]
+
 def config_path():
     mkdir(__build_config_dir)
     return __build_config_dir
@@ -20,10 +26,6 @@ def mkdir(name):
 
 def cd(path):
     os.chdir(path)
-
-#def chown(path):
-#    if not platform.system() == 'Windows':
-#        Shell.run(['sudo', 'chown', '-R', 'vladaszakrevskis', path])
 
 def rm(path):
     if os.path.exists(path):
@@ -58,5 +60,5 @@ def reporthook(blocknum, blocksize, totalsize):
         sys.stderr.write("read %d\n" % (readsofar,))
 
 def download(url, file_name):
-    print('Donwloading: ' + url)
+    print('Downloading: ' + url)
     urllib.request.urlretrieve(url, file_name, reporthook)
