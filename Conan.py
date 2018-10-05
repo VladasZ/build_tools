@@ -22,13 +22,16 @@ def setup():
         os.system('conan remote add conan-community https://api.bintray.com/conan/conan-community/conan')
         System.add_setup_conan_flag()
 
-def run(compiler = Compiler.get()):
+def run(compiler = Compiler.get(), multi = True):
 
     if Args.android:
         _run_android()
         return
 
     command = ['conan', 'install', '..']
+
+    if multi:
+        command += ['-g', 'cmake_multi']
 
     if Args.forceBuild:
         command += ['--build']
@@ -43,7 +46,12 @@ def run(compiler = Compiler.get()):
     if not compiler.isVS():
         command += ['-scompiler.libcxx='  + compiler.libcxx]
 
-    Shell.run(command)
+
+    if multi:
+        Shell.run(command + ['-s', 'build_type=Debug'])
+        Shell.run(command + ['-s', 'build_type=Release'])
+    else:
+        Shell.run(command)
 
 
 def _run_android():
