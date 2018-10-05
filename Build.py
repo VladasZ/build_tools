@@ -1,5 +1,5 @@
 import File
-
+import Debug
 
 cmake_file_name = "CMakeLists.txt"
 cmake_search_default_depth = 3
@@ -17,8 +17,16 @@ def has_parent_cmake_files(depth = cmake_search_default_depth):
 
 def root_cmake_dir(path = '.'):
     _path = path
-    
-
+    while not File.is_root(_path):
+        if has_parent_cmake_files(_path):
+            _path += "/.."
+        else:
+            if has_cmake_file(_path):
+                return _path
+            else:
+                Debug.throw("CMake root file not found")
+    Debug.throw("CMake root file not found")
+        
         
 files = File.get_files()
 
