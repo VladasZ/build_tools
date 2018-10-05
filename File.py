@@ -7,8 +7,17 @@ import urllib.request
 import Args
 import Shell
 
-user_dir = os.path.expanduser("~")
-__build_config_dir = user_dir + '/.build_config'
+home = os.path.expanduser("~")
+__build_config_dir = home + '/.build_config'
+
+def full_path(path = '.'):
+    return os.path.abspath(path)
+
+def is_root(path = '.'):
+    return full_path(path) == full_path(path + '/..')
+
+def get_files(path = '.'):
+    return os.listdir(path)
 
 def file_name(name):
     return os.path.basename(name)
