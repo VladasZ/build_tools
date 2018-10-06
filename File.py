@@ -40,6 +40,9 @@ def rm(path):
     if os.path.exists(path):
         shutil.rmtree(path)
 
+def pwd():
+    return full_path('.')
+
 def make(path):
     open(path, 'w+')
 
