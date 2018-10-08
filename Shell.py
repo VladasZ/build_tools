@@ -1,16 +1,19 @@
 import os
 import subprocess
 
+def run_string(string):
+    os.system(string)
+
 def run(commands = [], *args):
-       print(commands)
-       child = subprocess.Popen(commands, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True)
-       while child.poll() is None:
-           output_line = child.stdout.readline()
-           if (output_line):
-               print(output_line)
-       code = child.returncode
-       if (code):
-           os.sys.exit(code)
+    print(commands)
+    child = subprocess.Popen(commands, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True)
+    while child.poll() is None:
+        output_line = child.stdout.readline()
+        if (output_line):
+            print(output_line)
+    code = child.returncode
+    if (code):
+        os.sys.exit(code)
 
 def get(commands = [], *args):
     child = subprocess.Popen(commands, stdout=subprocess.PIPE)

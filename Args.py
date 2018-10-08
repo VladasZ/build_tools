@@ -18,6 +18,7 @@ gcc        = has('--gcc')
 clang      = has('--clang')
 forceBuild = has('--forcebuild')
 android    = has('--android')
+run        = has('--run')
 
 all = sys.argv
     
