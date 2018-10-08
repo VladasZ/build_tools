@@ -40,6 +40,9 @@ def rm(path):
     if os.path.exists(path):
         shutil.rmtree(path)
 
+def pwd():
+    return full_path('.')
+
 def make(path):
     open(path, 'w+')
 
@@ -56,6 +59,22 @@ def build_folder():
         return 'make'
     return 'build'
 
+def parent_folder(path = '.'):
+    return os.path.basename(full_path(path + '/..'))
+
+def get_project_name():
+    path = full_path('.')
+    while True:
+        if (is_root(path)):
+            return ""
+        if parent_folder(path) == "source":
+            return os.path.basename(path)
+        path = full_path(path + "/..")
+        
+        print(path)
+        print(path + "/..")
+            
+    
 def reporthook(blocknum, blocksize, totalsize):
     readsofar = blocknum * blocksize
     if totalsize > 0:
@@ -71,3 +90,5 @@ def reporthook(blocknum, blocksize, totalsize):
 def download(url, file_name):
     print('Downloading: ' + url)
     urllib.request.urlretrieve(url, file_name, reporthook)
+
+print("Hello")
