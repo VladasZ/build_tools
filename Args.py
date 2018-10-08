@@ -20,6 +20,7 @@ clang      = has('--clang')
 forceBuild = has('--forcebuild')
 android    = has('--android')
 run        = has('--run')
+simulate   = has('--simulate')
 
 all = sys.argv
     
