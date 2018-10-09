@@ -1,8 +1,10 @@
 import os
 import subprocess
+import Debug
 
 def run_string(string):
-    os.system(string)
+    if os.system(string):
+        Debug.throw("Shell script has failed")
 
 def run(commands = [], *args):
     print(commands)
