@@ -1,10 +1,19 @@
 import os
 import Args
+import File
 import Shell
+import Debug
 import System
 import Android
 import Compiler
 
+def root_dir(path = '.'):
+    _path = path
+    while not File.is_root(_path):
+        if File.exists(_path + '/conanfile.txt'):
+            return File.full_path(_path)
+        _path = _path + "/.."
+    Debug.throw("Conan root directory not found for path: " + File.full_path(path))
 
 def setup():
 

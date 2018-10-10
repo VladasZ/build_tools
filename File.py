@@ -54,11 +54,6 @@ def unzip(path, destination):
     with zipfile.ZipFile(path,"r") as zip_ref:
         zip_ref.extractall(destination)
 
-def build_folder():
-    if Args.make:
-        return 'make'
-    return 'build'
-
 def parent_folder(path = '.'):
     return os.path.basename(full_path(path + '/..'))
 
@@ -74,7 +69,6 @@ def get_project_name():
         print(path)
         print(path + "/..")
             
-    
 def reporthook(blocknum, blocksize, totalsize):
     readsofar = blocknum * blocksize
     if totalsize > 0:
@@ -90,5 +84,3 @@ def reporthook(blocknum, blocksize, totalsize):
 def download(url, file_name):
     print('Downloading: ' + url)
     urllib.request.urlretrieve(url, file_name, reporthook)
-
-print("Hello")
