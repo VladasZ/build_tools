@@ -12,15 +12,17 @@ def get(index = 1):
 def count():
     return len(sys.argv)
 
-
-make       = has('--make')
-rmbuild    = has('--rmbuild')
 gcc        = has('--gcc')
-clang      = has('--clang')
-forceBuild = has('--forcebuild')
-android    = has('--android')
 run        = has('--run')
+make       = has('--make')
+test       = has('--test')
+build      = has('--build')
+clang      = has('--clang')
+verilog    = has('--verilog')
+android    = has('--android')
+rmbuild    = has('--rmbuild')
 simulate   = has('--simulate')
+forceBuild = has('--forcebuild')
 
 all = sys.argv
     
