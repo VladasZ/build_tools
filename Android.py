@@ -12,11 +12,11 @@ __ndk_zip_path = File.config_path() + '/android_NDK.zip'
 ndk_path =  File.config_path() + '/android-ndk-r17b'
 
 def NDKLink():
-    if System.isWindows:
+    if System.is_windows:
         return 'https://dl.google.com/android/repository/android-ndk-r17b-windows-x86_64.zip'
-    if System.isMac:
+    if System.is_mac:
         return 'https://dl.google.com/android/repository/android-ndk-r17b-darwin-x86_64.zip'
-    if System.isLinux:
+    if System.is_linux:
         return 'https://dl.google.com/android/repository/android-ndk-r17b-linux-x86_64.zip'
 
 def downloadNDK():

@@ -1,14 +1,14 @@
 import platform
 import File
 
-isWindows = platform.system() == 'Windows'
-isMac     = platform.system() == 'Darwin'
-isLinux   = platform.system() == 'Linux'
+is_windows = platform.system() == 'Windows'
+is_mac     = platform.system() == 'Darwin'
+is_linux   = platform.system() == 'Linux'
 
 platform = platform.system()
 
-python_cmd = 'py' if isWindows else 'python3'
-pip_cmd = 'pip' if isWindows else 'pip3'
+python_cmd = 'py' if is_windows else 'python3'
+pip_cmd = 'pip' if is_windows else 'pip3'
 
 def add_flag(flag):
     File.make(File.config_path() + '/' + flag)

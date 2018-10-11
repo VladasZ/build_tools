@@ -36,11 +36,11 @@ def root_dir(path = '.'):
 def default_generator():
     if Args.make:
         return make
-    if System.isWindows:
+    if System.is_windows:
         return 'Visual Studio 15 2017 Win64'
-    if System.isMac:
+    if System.is_mac:
         return 'Xcode'
-    if System.isLinux:
+    if System.is_linux:
         return 'CodeBlocks - Unix Makefiles'
 
 def run(generator = default_generator()):

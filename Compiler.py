@@ -29,18 +29,18 @@ clang         = Compiler('clang',        'clang++',  '6.0'      )
 appleClang    = Compiler('apple-clang',  'clang++',  '10.0'     )
 
 def default():
-    if System.isWindows:
+    if System.is_windows:
         if Args.make:
             return gcc
         return visualStudio
-    if System.isMac:
+    if System.is_mac:
         return appleClang
-    if System.isLinux:
+    if System.is_linux:
         return gcc
 
 def get():
     if Args.clang:
-        if System.isMac:
+        if System.is_mac:
             return appleClang
         return clang
     if Args.gcc:
