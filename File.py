@@ -52,6 +52,11 @@ def make(path):
 def exists(path):
     return os.path.exists(path)
 
+def zip(file):
+    zip = zipfile.ZipFile(file + ".zip", 'w', zipfile.ZIP_DEFLATED)
+    zip.write(file)
+    zip.close()
+
 def unzip(path, destination):    
     print('Unzipping: ' + path)
     with zipfile.ZipFile(path,"r") as zip_ref:

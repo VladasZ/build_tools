@@ -30,5 +30,7 @@ def run():
     flash()
     
 def simulate():
-    Shell.run(["iverilog", "-g2009", "-o", project_name + ".out" , test_module])
-    Shell.run(["./" + project_name + ".out"])
+    file_name = project_name + ".out"
+    Shell.run(["iverilog", "-g2009", "-o", file_name , test_module])
+    Shell.run(["./" + file_name])
+    File.zip(project_name + ".vcd")
