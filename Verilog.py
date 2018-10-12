@@ -32,16 +32,3 @@ def run():
 def simulate():
     Shell.run(["iverilog", "-g2009", "-o", project_name + ".out" , test_module])
     Shell.run(["./" + project_name + ".out"])
-
-if Args.simulate:
-    simulate()
-
-if Args.build:
-    build()
-
-if Args.flash:
-    flash()
-
-
-
-    
