@@ -22,10 +22,13 @@ def build():
                      project_name + ".asc " +
                      project_name  + ".bin")
 
-def run():
-    build()
+def flash():
     Shell.run_string("icoprog -p < " + project_name + ".bin")
 
+def run():
+    build()
+    flash()
+    
 def simulate():
     Shell.run(["iverilog", "-g2009", "-o", project_name + ".out" , test_module])
     Shell.run(["./" + project_name + ".out"])
@@ -36,5 +39,9 @@ if Args.simulate:
 if Args.build:
     build()
 
-if Args.run:
-    run()
+if Args.flash:
+    flash()
+
+
+
+    
