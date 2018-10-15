@@ -1,3 +1,4 @@
+import Git
 import File
 import Args
 import Make
@@ -31,6 +32,7 @@ def cpp():
         print("Project build time: " + Time.duration())
 
 def verilog():
+    File.cd(Git.root_dir())
     Time.stamp()
     if Args.build:
         Verilog.build()
