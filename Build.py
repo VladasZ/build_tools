@@ -10,16 +10,11 @@ import Debug
 import Verilog
 
 def cpp():
-    Time.stamp()
     if Args.prepare:
         Cpp.prepare()
-        print("Project prepare time: " + Time.duration())
     elif Args.build:
         Cpp.build()
-        print("Project build time: " + Time.duration())
     elif Args.run:
-        Cpp.build()
-        print("Project build time: " + Time.duration())
         Cpp.run()
     elif Args.clean:
         Cpp.clean()
