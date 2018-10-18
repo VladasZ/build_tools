@@ -20,7 +20,7 @@ def get_files(path = '.'):
     return os.listdir(path)
 
 def folder_name(path):
-    return os.path.basename(path)
+    return os.path.basename(full_path(path))
 
 def file_name(name):
     return os.path.basename(name)

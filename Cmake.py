@@ -33,8 +33,10 @@ def root_dir(path = '.'):
         _path += "/.."
     Debug.throw("CMake root directory not found for path: " + File.full_path(path))
 
+
+    
 def default_generator():
-    if Args.make:
+    if not Args.ide:
         return make
     if System.is_windows:
         return 'Visual Studio 15 2017 Win64'

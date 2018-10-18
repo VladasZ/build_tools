@@ -2,6 +2,7 @@ import Git
 import File
 import Args
 import Make
+import Cpp
 import Time
 import Cmake
 import Conan
@@ -9,28 +10,21 @@ import Debug
 import Verilog
 
 def cpp():
-    conan_dir = Conan.root_dir()
-    File.cd(conan_dir)
-
-    print(conan_dir)
-
-    Conan.setup()
-    Cmake.setup()
-
     Time.stamp()
-    
-    File.mkdir('build')
-    File.cd('build')
-
-    Conan.run()
-    Cmake.run()
-
-    print("Project prebuild time: " + Time.duration())
-    
-    if Args.make:
-        Make.run()
+    if Args.prepare:
+        Cpp.prepare()
+        print("Project prepare time: " + Time.duration())
+    elif Args.build:
+        Cpp.build()
         print("Project build time: " + Time.duration())
-
+    elif Args.run:
+        Cpp.build()
+        print("Project build time: " + Time.duration())
+        Cpp.run()
+    elif Args.clean:
+        Cpp.clean()
+        print("Clean successful")
+    
 def verilog():
     File.cd(Git.root_dir())
     Time.stamp()
