@@ -10,7 +10,7 @@ import Debug
 import Verilog
 
 def cpp():
-    if Args.prepare:
+    if Args.prepare or Args.ide:
         Cpp.prepare()
     elif Args.build:
         Cpp.build()
