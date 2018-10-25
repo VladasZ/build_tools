@@ -7,7 +7,14 @@ def run_string(string):
         Debug.throw("Shell script has failed")
 
 def run(commands = [], *args):
-    print(commands)
+
+    command_string = ""
+    
+    for command in commands:
+        command_string += command + " "
+    
+    print(command_string)
+
     child = subprocess.Popen(commands, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True)
     while child.poll() is None:
         output_line = child.stdout.readline()

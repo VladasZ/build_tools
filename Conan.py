@@ -23,7 +23,7 @@ def setup():
         Shell.run([System.pip_cmd, 'install', 'conan'])
         System.add_conan_flag()
 
-    if System.conan_setup:
+    if System.conan_setup and False:
         print('conan setup OK')
     else:
         os.system('conan remote add bincraftes      https://api.bintray.com/conan/bincrafters/public-conan')

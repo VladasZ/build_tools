@@ -26,13 +26,13 @@ gcc_version = Shell.get(['gcc', '-dumpversion'])[:3]
 visualStudio  = Compiler('Visual Studio', version = '15'        )
 gcc           = Compiler('gcc',          'g++',      gcc_version)
 clang         = Compiler('clang',        'clang++',  '6.0'      )
-appleClang    = Compiler('apple-clang',  'clang++',  '10.0'     )
+appleClang    = Compiler('apple-clang',  'clang++',  '9.1'      )
 
 def default():
     if System.is_windows:
-        if Args.make:
-            return gcc
-        return visualStudio
+        if Args.ide:
+            return visualStudio
+        return gcc
     if System.is_mac:
         return appleClang
     if System.is_linux:
