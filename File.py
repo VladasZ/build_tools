@@ -39,9 +39,15 @@ def mkdir(name):
 def cd(path):
     os.chdir(path)
 
+def is_file(path):
+    return os.path.isfile(path)
+    
 def rm(path):
     if os.path.exists(path):
-        shutil.rmtree(path)
+        if is_file(path):
+            os.remove(path)
+        else:
+            shutil.rmtree(path)
 
 def pwd():
     return full_path('.')
@@ -92,3 +98,10 @@ def reporthook(blocknum, blocksize, totalsize):
 def download(url, file_name):
     print('Downloading: ' + url)
     urllib.request.urlretrieve(url, file_name, reporthook)
+
+def write(file_name, text):
+    rm(file_name)
+    file = open(file_name, "w+")
+    file.write(text)
+    file.close()
+

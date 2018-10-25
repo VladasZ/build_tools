@@ -9,7 +9,11 @@ project_name = File.folder_name(project_path)
 test_module  = "test.v"
 top_module   = "top.v"
 
+simulation_flag_file_name = "simulation_flag.v"
+
 def build():
+    File.write(simulation_flag_file_name, "")
+    
     print("yosys -q -p \"synth_ice40 -blif " + project_name + ".blif\" " + top_module)
     Shell.run_string("yosys -q -p \"synth_ice40 -blif " + project_name + ".blif\" " + top_module)
     
@@ -30,7 +34,9 @@ def run():
     flash()
     
 def simulate():
+    File.write(simulation_flag_file_name, "`define SIMULATION")
+
     file_name = project_name + ".out"
-    Shell.run(["iverilog", "-g2009", "-o", file_name , test_module])
+    Shell.run(["iverilog", "-g2012", "-o", file_name , test_module])
     Shell.run(["./" + file_name])
     File.zip(project_name + ".vcd")
