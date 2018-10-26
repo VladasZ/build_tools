@@ -11,10 +11,18 @@ class Compiler:
 
     def __init__(self, name = '', version = ''):
         self.name        = name
-        self.cppname     = "clang++" if self.isApple() else name + "++"
+        self.cppname     = self._cpp_name()
         self.version     = version if self.isVS() or self.isApple() else get_version(name)
         self.libcxx      = self._libcxx()
 
+    def _cpp_name(self):
+        if self.isGCC():
+            return "g++"
+        return self.name + "++"
+
+    def isGCC(self):
+        return self.name == "gcc"
+        
     def isVS(self):
         return self.name == 'Visual Studio'
 
@@ -30,7 +38,7 @@ visualStudio  = Compiler('Visual Studio', '15' )
 appleClang    = Compiler('apple-clang'  , '9.1')
 
 def print_info():
-    print(gcc.name   + " " + gcc  .version)
+    print(gcc.name   + " " + gcc.version)
     print(clang.name + " " + clang.version)
     
 def default():

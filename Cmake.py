@@ -50,9 +50,9 @@ def run(generator = default_generator()):
 
 def setup(compiler = Compiler.get()):
 
-    os.environ['CC']  = compiler.name
-    os.environ['CXX'] = compiler.cppname
-
+    os.environ['CC']  = Shell.which(compiler.name)
+    os.environ['CXX'] = Shell.which(compiler.cppname)
+    
     if compiler.isApple():
         os.environ['CC']  = 'clang'
 

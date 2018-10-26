@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 import Debug
 
@@ -35,4 +36,6 @@ def get(commands = [], *args):
     if (code):
         os.sys.exit(code)
     return result
-    
+
+def which(command):
+    return shutil.which(command)
