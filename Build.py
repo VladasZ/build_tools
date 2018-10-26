@@ -8,6 +8,7 @@ import Cmake
 import Conan
 import Debug
 import Verilog
+import Compiler
 
 def cpp():
     if Args.prepare or Args.ide:
@@ -39,6 +40,10 @@ def verilog():
         print("Verilog flash time: " + Time.duration())
     else:
         print("No argument provided to build script")
+
+if Args.has("--dump-available-compilers"):
+    Compiler.print_info()
+    exit()
         
 if Args.verilog:
     verilog()

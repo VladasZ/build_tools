@@ -1,13 +1,18 @@
+import re
 import Args
 import Shell
 import System
 
+def get_version(compiler):
+    version = Shell.get([compiler,  "--version"])
+    return re.search("[0-9].[0-9].[0-9]", version).group(0)[0:3]
+
 class Compiler:
 
-    def __init__(self, name = '', cppname = '', version = ''):
+    def __init__(self, name = '', version = ''):
         self.name        = name
-        self.cppname     = cppname
-        self.version     = version
+        self.cppname     = "clang++" if self.isApple() else name + "++"
+        self.version     = version if self.isVS() or self.isApple() else get_version(name)
         self.libcxx      = self._libcxx()
 
     def isVS(self):
@@ -19,15 +24,15 @@ class Compiler:
     def _libcxx(self):
         return 'libc++' if self.isApple() else 'libstdc++'
 
+gcc           = Compiler('gcc'                 )
+clang         = Compiler('clang'               )
+visualStudio  = Compiler('Visual Studio', '15' )
+appleClang    = Compiler('apple-clang'  , '9.1')
 
-
-gcc_version = Shell.get(['gcc', '-dumpversion'])[:3]
-
-visualStudio  = Compiler('Visual Studio', version = '15'        )
-gcc           = Compiler('gcc',          'g++',      gcc_version)
-clang         = Compiler('clang',        'clang++',  '6.0'      )
-appleClang    = Compiler('apple-clang',  'clang++',  '9.1'      )
-
+def print_info():
+    print(gcc.name   + " " + gcc  .version)
+    print(clang.name + " " + clang.version)
+    
 def default():
     if System.is_windows:
         if Args.ide:
