@@ -11,15 +11,17 @@ import Verilog
 import Compiler
 
 def cpp():
+
+    if Args.clean:
+        Cpp.clean()
+        print("Clean successful")
+    
     if Args.prepare or Args.ide:
         Cpp.prepare()
     elif Args.build:
         Cpp.build()
     elif Args.run:
         Cpp.run()
-    elif Args.clean:
-        Cpp.clean()
-        print("Clean successful")
     else:
         print("No argument provided to build script")
         

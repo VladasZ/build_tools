@@ -23,15 +23,15 @@ def setup():
         Shell.run([System.pip_cmd, 'install', 'conan'])
         System.add_conan_flag()
 
-    if System.conan_setup and False:
-        print('conan setup OK')
+    if System.conan_setup and False: #FIX THIS
+        print('conan remotes OK')
     else:
         os.system('conan remote add bincraftes      https://api.bintray.com/conan/bincrafters/public-conan')
         os.system('conan remote add pocoproject     https://api.bintray.com/conan/pocoproject/conan')
         os.system('conan remote add conan-community https://api.bintray.com/conan/conan-community/conan')
         System.add_setup_conan_flag()
 
-def run(compiler = Compiler.get(), multi = True):
+def run(compiler = Compiler.get(), multi = Args.multi):
 
     if Args.android:
         _run_android()
@@ -54,7 +54,6 @@ def run(compiler = Compiler.get(), multi = True):
 
     if not compiler.isVS():
         command += ['-scompiler.libcxx='  + compiler.libcxx]
-
 
     if multi:
         Shell.run(command + ['-s', 'build_type=Debug'])

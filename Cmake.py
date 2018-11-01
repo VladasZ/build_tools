@@ -50,6 +50,9 @@ def run(generator = default_generator()):
 
 def setup(compiler = Compiler.get()):
 
+    if compiler.isVS():
+        return
+    
     os.environ['CC']  = Shell.which(compiler.name)
     os.environ['CXX'] = Shell.which(compiler.cppname)
     

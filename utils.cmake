@@ -59,3 +59,5 @@ function(link_project linked_project_name)
     include_recursive(${PROJECT_SOURCE_DIR}/../${linked_project_name})
     target_link_libraries(${PROJECT_NAME} ${linked_project_name})
 endfunction(link_project)
+
+SET(CONAN_BUILD_INFO ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
