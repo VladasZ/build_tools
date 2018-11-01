@@ -3,31 +3,65 @@ import Args
 import Shell
 import System
 
-def get_version(compiler):
+_dpkg_list = Shell.get(['dpkg', '--list'])
+
+def _get_version(compiler):
     version = Shell.get([compiler,  "--version"])
     return re.search("[0-9].[0-9].[0-9]", version).group(0)[0:3]
 
+def _get_versions(base_name):
+
+    two_digits_versions = sorted(list(set(re.findall(base_name + '-[0-9].[0-9]', _dpkg_list))))
+    two_digits_versions = [version[-3:] for version in two_digits_versions]
+    two_digits_major_versions = [ver[:1] for ver in two_digits_versions]
+
+    one_digit_versions = sorted(list(set(re.findall(base_name + '-[0-9]',       _dpkg_list))))
+    one_digits_major_versions = [ver[-1:] for ver in one_digit_versions]
+    unique_one_digits_major_version = [ver for ver in one_digits_major_versions if ver not in two_digits_major_versions]
+
+    return two_digits_versions + unique_one_digits_major_version
+   
+
+versions_gcc = _get_versions("gcc")
+print("-----------------------")
+versions_clang = _get_versions("clang")
+
+print("gcc:")
+for version in versions_gcc:
+    print("gcc-" + version)
+
+print("clang:")
+for version in versions_clang:
+    print("clang-" + version)
+    
 class Compiler:
 
     def __init__(self, name = '', version = ''):
-        self.name        = name
-        self.cppname     = self._cpp_name()
-        self.version     = version if self.isVS() or self.isApple() else get_version(name)
-        self.libcxx      = self._libcxx()
+        self.base_name = name
+        self.version   = version if self.isVS() or self.isApple() else _get_version(name)
+        self.libcxx    = self._libcxx()
 
-    def _cpp_name(self):
+    def name(self):
+        return self.base_name + "-" + self.version
+    
+    def _cpp_name_prefix(self):
         if self.isGCC():
             return "g++"
+        if self.isClang():
+            return "clang"
         return self.name + "++"
 
+    def isClang(self):
+        return self.base_name == "clang"
+    
     def isGCC(self):
-        return self.name == "gcc"
+        return self.base_name == "gcc"
         
     def isVS(self):
-        return self.name == 'Visual Studio'
-
+        return self.base_name == "Visual Studio"
+    
     def isApple(self):
-        return self.name == 'apple-clang'
+        return self.base_name == "apple-clang"
         
     def _libcxx(self):
         return 'libc++' if self.isApple() else 'libstdc++'
