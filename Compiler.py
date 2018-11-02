@@ -32,7 +32,7 @@ class Compiler:
     def __init__(self, name):
         self.base_name = name
         self.versions  = _get_versions(name)
-        self.version   = self.versions[-1] if len(self.versions) < 0 else '0.0'
+        self.version   = '0.0' if self.is_empty() else self.versions[-1]
         self.libcxx    = self._libcxx()
 
     def _cpp_name_prefix(self):
@@ -42,6 +42,9 @@ class Compiler:
             return "clang"
         return self.base_name + "++"
 
+    def is_empty(self):
+        return len(self.versions) == 0  
+    
     def CXX(self):
         return self._cpp_name_prefix() + "-" + self.version
         
@@ -61,6 +64,8 @@ class Compiler:
         return self.base_name == "apple-clang"
 
     def info(self):
+        if self.is_empty():
+            return "No " + self.base_name
         _info = self.base_name + ":\n"
         for ver in self.versions:
             self.version = ver
