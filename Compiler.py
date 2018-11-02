@@ -26,13 +26,13 @@ def _get_versions(base_name):
     unique_one_digits_major_version = [ver for ver in one_digits_major_versions if ver not in two_digits_major_versions]
 
     return two_digits_versions + unique_one_digits_major_version
-    
+
 class Compiler:
 
     def __init__(self, name):
         self.base_name = name
         self.versions  = _get_versions(name)
-        self.version   = self.versions[-1]
+        self.version   = self.versions[-1] if len(self.versions) < 0 else '0.0'
         self.libcxx    = self._libcxx()
 
     def _cpp_name_prefix(self):
