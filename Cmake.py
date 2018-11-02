@@ -56,8 +56,8 @@ def setup(compiler = Compiler.get()):
     print(compiler.version)
     print(compiler.CC())
     print(compiler.CXX())
-    print(Shell.which(compiler.CC())
-    print(Shell.which(compiler.CXX())
+    print(Shell.which(compiler.CC()))
+    print(Shell.which(compiler.CXX()))
     print(compiler.info())
     
     os.environ['CC']  = Shell.which(compiler.CC())
@@ -68,3 +68,5 @@ def setup(compiler = Compiler.get()):
 
     print('CC = '  + os.environ['CC'])
     print('CXX = ' + os.environ['CXX'])
+
+          
