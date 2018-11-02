@@ -22,7 +22,11 @@ def _get_versions(base_name):
     two_digits_major_versions = [ver[:1] for ver in two_digits_versions]
 
     one_digit_versions = sorted(list(set(re.findall(base_name + '-[0-9]', _dpkg_list))))
-    one_digits_major_versions = [ver[-1:] for ver in one_digit_versions]
+
+    regex = "[^b]" +  base_name + "-[0-9][^-.]"
+
+    one_digit_versions = sorted(list(set(re.findall(regex, _dpkg_list))))
+    one_digits_major_versions = [ver[-2:] for ver in one_digit_versions]
     unique_one_digits_major_version = [ver for ver in one_digits_major_versions if ver not in two_digits_major_versions]
 
     return two_digits_versions + unique_one_digits_major_version
@@ -85,6 +89,8 @@ def print_info():
     print("Avaliable compilers:")
     print(clang.info())
     print(gcc.info())    
+
+print_info()
     
 def default():
     if System.is_windows:
