@@ -12,6 +12,8 @@ import Compiler
 
 def cpp():
 
+    Compiler.print_info()
+    
     if Args.clean:
         Cpp.clean()
         print("Clean successful")

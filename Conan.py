@@ -48,7 +48,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         command += ['--build=missing']
 
     command += [
-          '-scompiler='         + compiler.name
+          '-scompiler='         + compiler.base_name
         , '-scompiler.version=' + compiler.version
     ]
 

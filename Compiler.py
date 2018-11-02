@@ -12,10 +12,10 @@ def _get_version(compiler):
 def _get_versions(base_name):
 
     if base_name == "Visual Studio":
-        return "15"
+        return ["15"]
 
     if base_name == "apple-clang":
-        return "9.1"
+        return ["9.1"]
     
     two_digits_versions = sorted(list(set(re.findall(base_name + '-[0-9].[0-9]', _dpkg_list))))
     two_digits_versions = [version[-3:] for version in two_digits_versions]
@@ -26,17 +26,6 @@ def _get_versions(base_name):
     unique_one_digits_major_version = [ver for ver in one_digits_major_versions if ver not in two_digits_major_versions]
 
     return two_digits_versions + unique_one_digits_major_version
-   
-versions_gcc = _get_versions("gcc")
-versions_clang = _get_versions("clang")
-
-print("gcc:")
-for version in versions_gcc:
-    print("gcc-" + version)
-
-print("clang:")
-for version in versions_clang:
-    print("clang-" + version)
     
 class Compiler:
 
@@ -46,15 +35,18 @@ class Compiler:
         self.version   = self.versions[-1]
         self.libcxx    = self._libcxx()
 
-    def name(self):
-        return self.base_name + "-" + self.version
-    
     def _cpp_name_prefix(self):
         if self.isGCC():
             return "g++"
         if self.isClang():
             return "clang"
-        return self.name + "++"
+        return self.base_name + "++"
+
+    def CXX(self):
+        return self._cpp_name_prefix() + "-" + self.version
+        
+    def CC(self):
+        return self.base_name + "-" + self.version
 
     def isClang(self):
         return self.base_name == "clang"
@@ -71,7 +63,9 @@ class Compiler:
     def info(self):
         _info = self.base_name + ":\n"
         for ver in self.versions:
-            _info += self.base_name + "-" + ver + "\n"
+            self.version = ver
+            _info += self.CC()  + "\n"
+        self.version = self.versions[-1]
         return _info
             
     def _libcxx(self):
@@ -79,15 +73,13 @@ class Compiler:
 
 gcc          = Compiler('gcc'          )
 clang        = Compiler('clang'        )
-visualStudio = Compiler('Visual Studio')
 appleClang   = Compiler('apple-clang'  )
-
-print(clang.info())
-print(gcc.info())
+visualStudio = Compiler('Visual Studio')
 
 def print_info():
-    print(gcc.name   + " " + gcc.version)
-    print(clang.name + " " + clang.version)
+    print("Avaliable compilers:")
+    print(clang.info())
+    print(gcc.info())    
     
 def default():
     if System.is_windows:

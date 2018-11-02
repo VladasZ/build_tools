@@ -33,7 +33,6 @@ def root_dir(path = '.'):
         _path += "/.."
     Debug.throw("CMake root directory not found for path: " + File.full_path(path))
 
-
     
 def default_generator():
     if not Args.ide:
@@ -53,8 +52,8 @@ def setup(compiler = Compiler.get()):
     if compiler.isVS():
         return
     
-    os.environ['CC']  = Shell.which(compiler.name)
-    os.environ['CXX'] = Shell.which(compiler.cppname)
+    os.environ['CC']  = Shell.which(compiler.CC())
+    os.environ['CXX'] = Shell.which(compiler.CXX())
     
     if compiler.isApple():
         os.environ['CC']  = 'clang'
