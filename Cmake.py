@@ -51,6 +51,14 @@ def setup(compiler = Compiler.get()):
 
     if compiler.isVS():
         return
+
+    print(compiler.versions)
+    print(compiler.version)
+    print(compiler.CC())
+    print(compiler.CXX())
+    print(Shell.which(compiler.CC())
+    print(Shell.which(compiler.CXX())
+    print(compiler.info())
     
     os.environ['CC']  = Shell.which(compiler.CC())
     os.environ['CXX'] = Shell.which(compiler.CXX())
