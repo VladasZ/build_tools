@@ -3,7 +3,9 @@ import Args
 import Shell
 import System
 
-_dpkg_list = Shell.get(['dpkg', '--list'])
+_installed_packages = System.installed_packages() 
+
+#print(_installed_packages)
 
 def _get_version(compiler):
     version = Shell.get([compiler,  "--version"])
@@ -17,15 +19,15 @@ def _get_versions(base_name):
     if base_name == "apple-clang":
         return ["9.1"]
     
-    two_digits_versions = sorted(list(set(re.findall(base_name + '-[0-9].[0-9]', _dpkg_list))))
+    two_digits_versions = sorted(list(set(re.findall(base_name + '-[0-9].[0-9]', _installed_packages))))
     two_digits_versions = [version[-3:] for version in two_digits_versions]
     two_digits_major_versions = [ver[:1] for ver in two_digits_versions]
 
-    one_digit_versions = sorted(list(set(re.findall(base_name + '-[0-9]', _dpkg_list))))
+    one_digit_versions = sorted(list(set(re.findall(base_name + '-[0-9]', _installed_packages))))
 
     regex = "[^b]" +  base_name + "-[0-9][^-.]"
 
-    one_digit_versions = sorted(list(set(re.findall(regex, _dpkg_list))))
+    one_digit_versions = sorted(list(set(re.findall(regex, _installed_packages))))
     one_digits_major_versions = [ver.strip()[-1:] for ver in one_digit_versions]
     unique_one_digits_major_version = [ver for ver in one_digits_major_versions if ver not in two_digits_major_versions]
 

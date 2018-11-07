@@ -1,5 +1,7 @@
 import platform
 import File
+import Shell
+import Debug
 
 is_windows = platform.system() == 'Windows'
 is_mac     = platform.system() == 'Darwin'
@@ -10,6 +12,13 @@ platform = platform.system()
 python_cmd = 'py' if is_windows else 'python3'
 pip_cmd = 'pip' if is_windows else 'pip3'
 
+def installed_packages():
+    if is_linux:
+        return Shell.get(['dpkg', '--list'])
+    if is_mac:
+        return Shell.get(['brew', 'list'])
+    Debug.not_implemented()
+    
 def add_flag(flag):
     File.make(File.config_path() + '/' + flag)
 
