@@ -91,8 +91,6 @@ def print_info():
     print("Avaliable compilers:")
     print(clang.info())
     print(gcc.info())    
-
-print_info()
     
 def default():
     if System.is_windows:

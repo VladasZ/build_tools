@@ -39,4 +39,5 @@ def simulate():
     file_name = project_name + ".out"
     Shell.run(["iverilog", "-g2012", "-o", file_name , test_module])
     Shell.run(["./" + file_name])
-    File.zip(project_name + ".vcd")
+#    File.zip(project_name + ".vcd")
+    File.zip("dump.vcd")
