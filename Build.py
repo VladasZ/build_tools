@@ -10,9 +10,8 @@ import Debug
 import Verilog
 import Compiler
 
-def cpp():
 
-    Compiler.print_info()
+def cpp():
     
     if Args.clean:
         Cpp.clean()
@@ -24,7 +23,7 @@ def cpp():
         Cpp.build()
     elif Args.run:
         Cpp.run()
-    else:
+    elif not Args.clean:
         print("No argument provided to build script")
         
 def verilog():

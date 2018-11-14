@@ -71,8 +71,13 @@ class Compiler:
 
     def info(self):
         if self.is_empty():
+            return "Not available"
+        return self.base_name + "-" + self.version
+    
+    def all_versions_info(self):
+        if self.is_empty():
             return "No " + self.base_name
-        _info = self.base_name + ":\n"
+        _info = ""
         for ver in self.versions:
             self.version = ver
             _info += self.CC()  + "\n"
@@ -86,11 +91,6 @@ gcc          = Compiler('gcc'          )
 clang        = Compiler('clang'        )
 appleClang   = Compiler('apple-clang'  )
 visualStudio = Compiler('Visual Studio')
-
-def print_info():
-    print("Avaliable compilers:")
-    print(clang.info())
-    print(gcc.info())    
     
 def default():
     if System.is_windows:
@@ -110,3 +110,6 @@ def get():
     if Args.gcc:
         return gcc
     return default()
+
+def get_info():
+    return clang.all_versions_info() + gcc.all_versions_info()

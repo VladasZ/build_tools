@@ -4,8 +4,6 @@ import shutil
 import getpass
 import zipfile
 import urllib.request
-import Args
-import Shell
 
 home = os.path.expanduser("~")
 __build_config_dir = home + '/.build_config'
@@ -100,8 +98,9 @@ def download(url, file_name):
     urllib.request.urlretrieve(url, file_name, reporthook)
 
 def write(file_name, text):
-    rm(file_name)
-    file = open(file_name, "w+")
+    path = full_path(file_name)
+    rm(path)
+    file = open(path, "w+")
     file.write(text)
     file.close()
 

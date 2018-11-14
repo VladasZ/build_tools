@@ -35,9 +35,7 @@ def run():
     
 def simulate():
     File.write(simulation_flag_file_name, "`define SIMULATION")
-
     file_name = project_name + ".out"
     Shell.run(["iverilog", "-g2001", "-o", file_name , test_module])
     Shell.run(["./" + file_name])
-#    File.zip(project_name + ".vcd")
     File.zip("dump.vcd")

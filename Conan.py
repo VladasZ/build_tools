@@ -33,6 +33,8 @@ def setup():
 
 def run(compiler = Compiler.get(), multi = Args.multi):
 
+    build_info_script_name = "conanbuildinfo.cmake"
+    
     if Args.android:
         _run_android()
         return
@@ -41,7 +43,10 @@ def run(compiler = Compiler.get(), multi = Args.multi):
 
     if multi:
         command += ['-g', 'cmake_multi']
-
+        build_info_script_name = "conanbuildinfo_multi.cmake"
+        
+    File.write("build_info.cmake", "set(BUILD_INFO " + build_info_script_name + ")")
+        
     if Args.forceBuild:
         command += ['--build']
     else:
