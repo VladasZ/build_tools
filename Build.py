@@ -21,7 +21,7 @@ def cpp():
         Cpp.prepare()
     elif Args.build:
         Cpp.build()
-    elif Args.run:
+    elif Args.run or Args.test:
         Cpp.run()
     elif not Args.clean:
         print("No argument provided to build script")

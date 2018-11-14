@@ -2,6 +2,7 @@ import Git
 import File
 import Make
 import Time
+import Args
 import Shell
 import Debug
 import Conan
@@ -41,7 +42,7 @@ def build():
     print("Project build time: " + Time.duration())
 
 def run():
-    _project_name = project_name()
+    _project_name = "Test" if Args.test else project_name()
     build()
     # Shell.run([File.full_path(build_dir) + "/source/" + _project_name + "/" + _project_name])
     Shell.run([File.full_path(build_dir) + "/bin/" + _project_name])
