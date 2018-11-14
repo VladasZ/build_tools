@@ -44,7 +44,6 @@ def build():
 def run():
     _project_name = "Test" if Args.test else project_name()
     build()
-    # Shell.run([File.full_path(build_dir) + "/source/" + _project_name + "/" + _project_name])
     Shell.run([File.full_path(build_dir) + "/bin/" + _project_name])
 
 def clean():

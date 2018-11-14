@@ -10,7 +10,7 @@ import Compiler
 make = 'Unix Makefiles'
 
 cmake_file_name = "CMakeLists.txt"
-cmake_search_default_depth = 3
+cmake_search_default_depth = 3  # 
 
 def has_cmake_file(path = "."):
     return cmake_file_name in File.get_files(path)
@@ -51,14 +51,6 @@ def setup(compiler = Compiler.get()):
 
     if compiler.isVS():
         return
-
-    Debug.info(compiler.versions)
-    Debug.info(compiler.version)
-    Debug.info(compiler.CC())
-    Debug.info(compiler.CXX())
-    Debug.info(Shell.which(compiler.CC()))
-    Debug.info(Shell.which(compiler.CXX()))
-    Debug.info(compiler.info())
     
     os.environ['CC']  = Shell.which(compiler.CC())
     os.environ['CXX'] = Shell.which(compiler.CXX())

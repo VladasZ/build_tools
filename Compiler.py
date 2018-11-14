@@ -1,130 +1,96 @@
 import re
 import Args
 import Shell
+import Debug
 import System
 
-
-#print(_installed_packages)
-
-def _get_version(compiler):
-    version = Shell.get([compiler,  "--version"])
-    return re.search("[0-9].[0-9].[0-9]", version).group(0)[0:3]
-
-def _get_versions(base_name):
-
-    if base_name == "Visual Studio":
-        return ["15"]
-
-    if base_name == "apple-clang":
-        return ["9.1"]
-
-    if System.is_windows:
-        return []
-    
-    _installed_packages = System.installed_packages()
-    
-    two_digits_versions = sorted(list(set(re.findall(base_name + '-[0-9].[0-9]', _installed_packages))))
-    two_digits_versions = [version[-3:] for version in two_digits_versions]
-    two_digits_major_versions = [ver[:1] for ver in two_digits_versions]
-
-    one_digit_versions = sorted(list(set(re.findall(base_name + '-[0-9]', _installed_packages))))
-
-    regex = "[^b]" +  base_name + "-[0-9][^-.]"
-
-    one_digit_versions = sorted(list(set(re.findall(regex, _installed_packages))))
-    one_digits_major_versions = [ver.strip()[-1:] for ver in one_digit_versions]
-    unique_one_digits_major_version = [ver for ver in one_digits_major_versions if ver not in two_digits_major_versions]
-
-    return two_digits_versions + unique_one_digits_major_version
 
 class Compiler:
 
     def __init__(self, name):
-        self.base_name = name
-        self.versions  = _get_versions(name)
-        self.version   = '0.0' if self.is_empty() else self.versions[-1]
-        self.libcxx    = self._libcxx()
+        self.name         = name
+        self.libcxx       = self._libcxx()
+        self.version      = self._find_version()
+        self.full_version = self._get_full_version()
+        self._is_apple()
+        
+    def _is_apple(self):
+        if not self.isClang():
+            return False
+        info = Shell.get(["clang", "-v"], simple = False)
+        Debug.info(info)
+        Debug.info("Apple" in info)
+        return "Apple" in info
 
-        if System.is_windows and not self.isVS():
-            self.version = "8.1"
+    def _get_apple_version(self):
+        version = re.search("[0-9]{1,2}[.][0-9][.][0-9]", Shell.get(["clang", "-v"], simple = False)).group()[0]
+        Debug.info(version)
+        return version
+        
+    def _check_version(self, version):
+        self.version = version
+        return (Shell.check([self.CC() , "-dumpversion"]) and
+                Shell.check([self.CXX(), "-dumpversion"])    )
+        
+    def _find_version(self, supported_versions = ["8", "7"]):
+        if self._is_apple():
+            return _get_apple_version()
+        for version in supported_versions:
+            if self._check_version(version):
+                return version
+        return ""
 
+    def _get_full_version(self):
+        if not self.available():
+            return ""
+        return Shell.get([self.CC(), "-dumpversion"])
+    
     def _cpp_name_prefix(self):
         if self.isGCC():
             return "g++"
         if self.isClang():
             return "clang"
-        return self.base_name + "++"
+        return self.name + "++"
 
-    def is_empty(self):
-        return len(self.versions) == 0  
+    def available(self):
+        return len(self.version) != 0  
     
     def CXX(self):
-        if System.is_windows:
-            return "g++"
         return self._cpp_name_prefix() + "-" + self.version
-        
+    
     def CC(self):
-        if System.is_windows:
-            return "gcc"
-        return self.base_name + "-" + self.version
+        return self.name + "-" + self.version
 
     def isClang(self):
-        return self.base_name == "clang"
+        return self.name == "clang"
     
     def isGCC(self):
-        return self.base_name == "gcc"
-        
+        return self.name == "gcc"
+    
     def isVS(self):
-        return self.base_name == "Visual Studio"
+        return self.name == "Visual Studio"
     
     def isApple(self):
-        return self.base_name == "apple-clang"
+        return self.name == "apple-clang"
 
     def info(self):
-        if System.is_windows:
-            return "gcc"
-        if self.is_empty():
-            return "Not available"
-        return self.base_name + "-" + self.version
+        if not self.available():
+            return self.name + " - not available"
+        return self.name + "-" + self.full_version
     
-    def all_versions_info(self):
-        if System.is_windows:
-            return self.base_name + "\n"
-        if self.is_empty():
-            return "No " + self.base_name + "\n"
-        _info = ""
-        for ver in self.versions:
-            self.version = ver
-            _info += self.CC()  + "\n"
-        self.version = self.versions[-1]
-        return _info
-            
     def _libcxx(self):
         return 'libc++' if self.isApple() else 'libstdc++'
 
-gcc          = Compiler('gcc'          )
-clang        = Compiler('clang'        )
-appleClang   = Compiler('apple-clang'  )
-visualStudio = Compiler('Visual Studio')
-    
+gcc   = Compiler('gcc')
+clang = Compiler('clang')
+
 def default():
-    if System.is_windows:
-        if Args.ide:
-            return visualStudio
-        return gcc
-    if System.is_mac:
-        return appleClang
-    if System.is_linux:
-        return gcc
+    return gcc
 
 def get():
-    if Args.clang:
-        if System.is_mac:
-            return appleClang
-        return clang
-    if Args.gcc:
-        return gcc
     return default()
 
 def get_info():
-    return clang.all_versions_info() + gcc.all_versions_info()
+    return gcc.info() + clang.info()
+
+print(get_info())
