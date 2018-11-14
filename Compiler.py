@@ -3,7 +3,6 @@ import Args
 import Shell
 import System
 
-_installed_packages = System.installed_packages() 
 
 #print(_installed_packages)
 
@@ -18,6 +17,11 @@ def _get_versions(base_name):
 
     if base_name == "apple-clang":
         return ["9.1"]
+
+    if System.is_windows:
+        return []
+    
+    _installed_packages = System.installed_packages()
     
     two_digits_versions = sorted(list(set(re.findall(base_name + '-[0-9].[0-9]', _installed_packages))))
     two_digits_versions = [version[-3:] for version in two_digits_versions]
@@ -41,6 +45,9 @@ class Compiler:
         self.version   = '0.0' if self.is_empty() else self.versions[-1]
         self.libcxx    = self._libcxx()
 
+        if System.is_windows and not self.isVS():
+            self.version = "8.1"
+
     def _cpp_name_prefix(self):
         if self.isGCC():
             return "g++"
@@ -52,9 +59,13 @@ class Compiler:
         return len(self.versions) == 0  
     
     def CXX(self):
+        if System.is_windows:
+            return "g++"
         return self._cpp_name_prefix() + "-" + self.version
         
     def CC(self):
+        if System.is_windows:
+            return "gcc"
         return self.base_name + "-" + self.version
 
     def isClang(self):
@@ -70,13 +81,17 @@ class Compiler:
         return self.base_name == "apple-clang"
 
     def info(self):
+        if System.is_windows:
+            return "gcc"
         if self.is_empty():
             return "Not available"
         return self.base_name + "-" + self.version
     
     def all_versions_info(self):
+        if System.is_windows:
+            return self.base_name + "\n"
         if self.is_empty():
-            return "No " + self.base_name
+            return "No " + self.base_name + "\n"
         _info = ""
         for ver in self.versions:
             self.version = ver
