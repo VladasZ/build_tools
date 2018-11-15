@@ -56,7 +56,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
 
     command += [
           '-scompiler='         + compiler.name
-        , '-scompiler.version=' + compiler.full_version[:3]
+        , '-scompiler.version=' + compiler.conan_version()
     ]
 
     if not compiler.isVS():

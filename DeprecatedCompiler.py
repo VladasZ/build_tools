@@ -101,23 +101,26 @@ class Compiler:
     def info(self):
         if not self.available():
             return self.name + " - not available"
-        if self.isVS():
+        if Args.ide():
             return self.name + " " + self.full_version
         return self.name + "-" + self.full_version + " CC: " + self.CC() + " CXX: " + self.CXX()
     
     def _libcxx(self):
         return 'libc++' if self.isApple() else 'libstdc++'
 
-gcc   = Compiler("gcc")
-clang = Compiler("clang")
-msvc  = Compiler("Visual Studio")
+gcc    = Compiler("gcc")
+clang  = Compiler("clang")
+msvc   = Compiler("Visual Studio")
 
 def default():
     return gcc
 
 def get():
-    if Args.ide and System.is_windows:
-        return msvc
+    if Args.ide:
+        if System.is_windows:
+            return msvc
+        if System.is_mac:
+            return clang
     if Args.clang:
         return clang
     return default()
