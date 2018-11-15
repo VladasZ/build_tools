@@ -8,11 +8,17 @@ import System
 class Compiler:
 
     def __init__(self, name):
-        self.name         = name
-        self.libcxx       = self._libcxx()
-        self.version      = self._find_version()
-        self.full_version = self._get_full_version()
+        self.name               = name
+        self.supported_versions = ["8", "7"]
+        self.libcxx             = self._libcxx()
+        self.is_default         = self._check_if_default()
+        self.version            = self._find_version()
+        self.full_version       = self._get_full_version()
         self._is_apple()
+
+    def _check_if_default(self):
+        default_version = Shell.get([self.name, "-dumpversion"])[:1]
+        return default_version in self.supported_versions
         
     def _is_apple(self):
         return False
@@ -29,10 +35,14 @@ class Compiler:
         return (Shell.check([self.name               + "-" + version, "-dumpversion"]) and
                 Shell.check([self._cpp_name_prefix() + "-" + version, "-dumpversion"])    )
         
-    def _find_version(self, supported_versions = ["8", "7"]):
+    def _find_version(self):
         if self._is_apple():
             return _get_apple_version()
-        for version in supported_versions:
+
+        if self.is_default:
+            return Shell.get([self.name, "-dumpversion"])[:1]
+        
+        for version in self.supported_versions:
             if self._check_version(version):
                 return version
         return ""
@@ -53,9 +63,13 @@ class Compiler:
         return len(self.version) != 0  
     
     def CXX(self):
+        if self.is_default:
+            return self._cpp_name_prefix()
         return self._cpp_name_prefix() + "-" + self.version
     
     def CC(self):
+        if self.is_default:
+            return self.name
         return self.name + "-" + self.version
 
     def isClang(self):
@@ -68,12 +82,12 @@ class Compiler:
         return self.name == "Visual Studio"
     
     def isApple(self):
-        return self.name == "apple-clang"
+        return False
 
     def info(self):
         if not self.available():
             return self.name + " - not available"
-        return self.name + "-" + self.full_version
+        return self.name + "-" + self.full_version + " CC: " + self.CC() + " CXX: " + self.CXX()
     
     def _libcxx(self):
         return 'libc++' if self.isApple() else 'libstdc++'
