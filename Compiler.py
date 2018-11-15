@@ -15,22 +15,19 @@ class Compiler:
         self._is_apple()
         
     def _is_apple(self):
+        return False
         if not self.isClang():
             return False
-        info = Shell.get(["clang", "-v"], simple = False)
-        Debug.info(info)
-        Debug.info("Apple" in info)
+        info = Shell.run(["clang", "-v"], simple = False)
         return "Apple" in info
 
     def _get_apple_version(self):
-        version = re.search("[0-9]{1,2}[.][0-9][.][0-9]", Shell.get(["clang", "-v"], simple = False)).group()[0]
-        Debug.info(version)
+        version = re.search("[0-9]{1,2}[.][0-9][.][0-9]", Shell.run(["clang", "-v"], simple = False)).group()[0]
         return version
         
     def _check_version(self, version):
-        self.version = version
-        return (Shell.check([self.CC() , "-dumpversion"]) and
-                Shell.check([self.CXX(), "-dumpversion"])    )
+        return (Shell.check([self.name               + "-" + version, "-dumpversion"]) and
+                Shell.check([self._cpp_name_prefix() + "-" + version, "-dumpversion"])    )
         
     def _find_version(self, supported_versions = ["8", "7"]):
         if self._is_apple():
@@ -43,7 +40,7 @@ class Compiler:
     def _get_full_version(self):
         if not self.available():
             return ""
-        return Shell.get([self.CC(), "-dumpversion"])
+        return Shell.get([self.CC(), "-dumpversion"]).strip()
     
     def _cpp_name_prefix(self):
         if self.isGCC():
@@ -91,6 +88,4 @@ def get():
     return default()
 
 def get_info():
-    return gcc.info() + clang.info()
-
-print(get_info())
+    return gcc.info() + "\n" + clang.info()

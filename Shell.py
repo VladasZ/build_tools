@@ -7,35 +7,40 @@ def run_string(string):
     if os.system(string):
         Debug.throw("Shell script has failed")
 
-def run(commands = [], *args):
+def _execute(commands, silent):
     command_string = ""
     for command in commands:
         command_string += command + " "
-    print(command_string)
-    child = subprocess.Popen(commands, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True)
-    while child.poll() is None:
-        output_line = child.stdout.readline()
-        if (output_line):
-            print(output_line)
-    code = child.returncode
-    if (code):
-        os.sys.exit(code)
+    if not silent:
+        print(command_string)
 
-def get(commands, simple = True):
-    if simple:
-        command = ""
-        for com in commands:
-            command += com + " "
-        temp = os.popen(command).read()
-        return temp
-    p = subprocess.Popen(exe, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    while(True):
-        retcode = p.poll() #returns None while subprocess is running
-        line = p.stdout.readline()
-        yield line
-        if(retcode is not None):
-            break   
+    output_line = ""
+    output = ""
 
+    try:
+        stdout = subprocess.PIPE
+        child = subprocess.Popen(commands, stdout = stdout, bufsize = 1, universal_newlines = True)
+        output = ""
+        while child.poll() is None:
+            output_line = child.stdout.readline()
+            if (output_line):
+                if not silent:
+                    print(output_line)
+                output += output_line
+        code = child.returncode
+        if (code and not silent):
+            os.sys.exit(code)
+    except:
+        if not silent:
+            raise
+    return output
+
+
+def run(commands):
+    return _execute(commands, silent = False)
+
+def get(commands):
+    return _execute(commands, silent = True)
 
 def which(command):
     return shutil.which(command)
@@ -46,3 +51,5 @@ def check(commands):
         return retcode == 0
     except:
         return False
+
+    
