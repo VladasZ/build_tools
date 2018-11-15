@@ -51,14 +51,16 @@ def setup(compiler = Compiler.get()):
 
     if compiler.isVS():
         return
-    
-    os.environ['CC']  = Shell.which(compiler.CC())
-    os.environ['CXX'] = Shell.which(compiler.CXX())
-    
-    if compiler.isApple():
-        os.environ['CC']  = 'clang'
 
-    Debug.info('CC = '  + os.environ['CC'])
-    Debug.info('CXX = ' + os.environ['CXX'])
+    if not Args.ide:
+    
+        os.environ['CC']  = Shell.which(compiler.CC())
+        os.environ['CXX'] = Shell.which(compiler.CXX())
+    
+        if compiler.isApple():
+            os.environ['CC']  = 'clang'
+
+        Debug.info('CC = '  + os.environ['CC'])
+        Debug.info('CXX = ' + os.environ['CXX'])
 
           

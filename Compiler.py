@@ -17,6 +17,8 @@ class Compiler:
         self._is_apple()
 
     def _check_if_default(self):
+        if self.isVS():
+            return True
         default_version = Shell.get([self.name, "-dumpversion"])[:1]
         return default_version in self.supported_versions
         
@@ -36,6 +38,10 @@ class Compiler:
                 Shell.check([self._cpp_name_prefix() + "-" + version, "-dumpversion"])    )
         
     def _find_version(self):
+
+        if self.isVS():
+            return "15"
+        
         if self._is_apple():
             return _get_apple_version()
 
@@ -50,6 +56,8 @@ class Compiler:
     def _get_full_version(self):
         if not self.available():
             return ""
+        if self.isVS():
+            return "15"
         return Shell.get([self.CC(), "-dumpversion"]).strip()
     
     def _cpp_name_prefix(self):
@@ -60,14 +68,20 @@ class Compiler:
         return self.name + "++"
 
     def available(self):
+        if not System.is_windows and self.isVS():
+            return False
         return len(self.version) != 0  
     
     def CXX(self):
+        if self.isVS():
+            return self.name
         if self.is_default:
             return self._cpp_name_prefix()
         return self._cpp_name_prefix() + "-" + self.version
     
     def CC(self):
+        if self.isVS():
+            return self.name
         if self.is_default:
             return self.name
         return self.name + "-" + self.version
@@ -87,19 +101,26 @@ class Compiler:
     def info(self):
         if not self.available():
             return self.name + " - not available"
+        if self.isVS():
+            return self.name + " " + self.full_version
         return self.name + "-" + self.full_version + " CC: " + self.CC() + " CXX: " + self.CXX()
     
     def _libcxx(self):
         return 'libc++' if self.isApple() else 'libstdc++'
 
-gcc   = Compiler('gcc')
-clang = Compiler('clang')
+gcc   = Compiler("gcc")
+clang = Compiler("clang")
+msvc  = Compiler("Visual Studio")
 
 def default():
     return gcc
 
 def get():
+    if Args.ide and System.is_windows:
+        return msvc
+    if Args.clang:
+        return clang
     return default()
 
 def get_info():
-    return gcc.info() + "\n" + clang.info()
+    return gcc.info() + "\n" + clang.info() + "\n" + msvc.info()

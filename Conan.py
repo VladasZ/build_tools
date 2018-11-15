@@ -32,7 +32,9 @@ def setup():
         System.add_setup_conan_flag()
 
 def run(compiler = Compiler.get(), multi = Args.multi):
-
+    
+    print("Using: " + compiler.info())
+    
     build_info_script_name = "conanbuildinfo.cmake"
     
     if Args.android:
