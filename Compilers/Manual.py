@@ -1,4 +1,3 @@
-
 from Compilers.CompilerBase import CompilerBase
 
 class Manual(CompilerBase):

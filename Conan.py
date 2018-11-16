@@ -59,8 +59,8 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         , '-scompiler.version=' + compiler.conan_version
     ]
 
-    #if not compiler.isVS():
-    command += ['-scompiler.libcxx='  + compiler.libcxx]
+    if not compiler.is_ide:
+        command += ['-scompiler.libcxx='  + compiler.libcxx]
 
     if multi:
         Shell.run(command + ['-s', 'build_type=Debug'])
