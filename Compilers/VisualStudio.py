@@ -3,9 +3,6 @@ from Compilers.CompilerBase import CompilerBase
 
 class VisualStudio(CompilerBase):
 
-    def __init__(self):
-        super().__init__()
-
     def _get_name(self):
         return "Visual Studio"
     

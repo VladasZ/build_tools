@@ -55,7 +55,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         command += ['--build=missing']
 
     command += [
-          '-scompiler='         + compiler.name
+          '-scompiler='         + compiler.conan_name
         , '-scompiler.version=' + compiler.conan_version
     ]
 

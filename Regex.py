@@ -1,9 +1,13 @@
 import re
 
-def version(string):
-    result = re.search("[0-9]{1,2}[.][0-9][.][0-9]", string)
+
+def _get(string, regex):
+    result = re.search(regex, string)
     if result:
         return result.group()
 
+def first_number(string):
+    return _get(string, "^(\D*)(\d+)")
 
-    
+def version(string):
+    return _get(string, "[0-9]{1,2}[.][0-9][.][0-9]")
