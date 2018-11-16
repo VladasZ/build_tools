@@ -27,7 +27,7 @@ android         = has("--android")
 prepare         = has("--prepare")
 rmbuild         = has("--rmbuild")
 simulate        = has("--simulate")
-forceBuild      = has("--forcebuild")
+force_build     = has("--force-build")
 manual_compiler = has("--manual-compiler")
 
 all = sys.argv

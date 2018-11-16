@@ -49,16 +49,10 @@ def run(generator = default_generator()):
 
 def setup(compiler = Compiler.get()):
 
-    if compiler.isVS():
-        return
-
     if not Args.ide:
     
-        os.environ['CC']  = Shell.which(compiler.CC())
-        os.environ['CXX'] = Shell.which(compiler.CXX())
-    
-        if compiler.isApple():
-            os.environ['CC']  = 'clang'
+        os.environ['CC']  = Shell.which(compiler.CC)
+        os.environ['CXX'] = Shell.which(compiler.CXX)
 
         Debug.info('CC = '  + os.environ['CC'])
         Debug.info('CXX = ' + os.environ['CXX'])

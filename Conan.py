@@ -33,7 +33,7 @@ def setup():
 
 def run(compiler = Compiler.get(), multi = Args.multi):
     
-    print("Using: " + compiler.info())
+    print("Using: " + str(compiler))
     
     build_info_script_name = "conanbuildinfo.cmake"
     
@@ -49,18 +49,18 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         
     File.write("build_info.cmake", "set(BUILD_INFO " + build_info_script_name + ")")
         
-    if Args.forceBuild:
+    if Args.force_build:
         command += ['--build']
     else:
         command += ['--build=missing']
 
     command += [
           '-scompiler='         + compiler.name
-        , '-scompiler.version=' + compiler.conan_version()
+        , '-scompiler.version=' + compiler.conan_version
     ]
 
-    if not compiler.isVS():
-        command += ['-scompiler.libcxx='  + compiler.libcxx]
+    #if not compiler.isVS():
+    command += ['-scompiler.libcxx='  + compiler.libcxx]
 
     if multi:
         Shell.run(command + ['-s', 'build_type=Debug'])
