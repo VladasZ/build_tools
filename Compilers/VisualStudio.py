@@ -20,5 +20,5 @@ class VisualStudio(CompilerBase):
     
     def __str__(self):
         if self._is_available():
-            return self.name + " " + self.version
+            return self.name + " " + self.full_version
         return super().__str__()
