@@ -1,3 +1,4 @@
+import Shell
 from Compilers.CompilerBase import CompilerBase
 
 class GCC(CompilerBase):
@@ -7,9 +8,6 @@ class GCC(CompilerBase):
 
     def _get_name(self):
         return "gcc"
-    
-    def _get_version(self):
-        return "8.1"
 
     def _is_available(self):
         return True

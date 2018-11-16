@@ -2,11 +2,9 @@ import Args
 import System
 
 from Compilers.GCC          import GCC
-from Compilers.Manual       import Manual
 from Compilers.VisualStudio import VisualStudio
 
 gcc           = GCC()
-manual        = Manual()
 visual_studio = VisualStudio()
 
 def get_ide():

@@ -9,7 +9,7 @@ class VisualStudio(CompilerBase):
     def _get_name(self):
         return "Visual Studio"
     
-    def _get_version(self):
+    def _get_full_version(self):
         return "15"
 
     def _is_available(self):

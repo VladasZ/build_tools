@@ -40,7 +40,10 @@ def run(commands):
     return _execute(commands, silent = False)
 
 def get(commands):
-    return _execute(commands, silent = True)
+    command = ""
+    for com in commands:
+        command += com + " "
+    return subprocess.getoutput(command)
 
 def which(command):
     return shutil.which(command)
@@ -51,5 +54,3 @@ def check(commands):
         return retcode == 0
     except:
         return False
-
-       
