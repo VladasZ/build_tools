@@ -10,6 +10,7 @@ visual_studio = VisualStudio()
 def get_ide():
     if System.is_windows:
         return visual_studio
+    return gcc
 
 def get():
     if Args.ide:

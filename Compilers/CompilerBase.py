@@ -16,7 +16,7 @@ class CompilerBase():
         self.is_ide        = self._is_ide           ()
 
     def _get_name(self):
-        return ""
+        return None
 
     def _libcxx(self):
         return "libstdc++"
