@@ -8,6 +8,9 @@ class GCC(CompilerBase):
     def _is_available(self):
         return True
 
+    def _get_conan_version(self):
+        return self.major_version
+    
     def _CXX(self):
         return "g++"
     
