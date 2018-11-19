@@ -19,6 +19,10 @@ def get_ide():
 def get():
     if Args.ide:
         return get_ide()
+    if Args.clang:
+        return clang
+    if Args.gcc:
+        return gcc
     if System.is_mac:
         return clang
     return gcc

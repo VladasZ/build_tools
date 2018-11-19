@@ -18,9 +18,6 @@ class Clang(CompilerBase):
         if (self.major_version == "10"):
             return self.full_version[:4]
         return self.full_version[:3]
-
-    def _CXX(self):
-        return self.name
     
     def _is_available(self):
         return Shell.check(["clang", "-dumpversion"])    
