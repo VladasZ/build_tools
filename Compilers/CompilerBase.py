@@ -1,45 +1,51 @@
-import Shell
-import Regex
-import Debug
 
-class CompilerBase():
+class Compiler():
 
-    def name(self):
-        return None
+    def __init__(self,
+                 name,
+                 is_available  = False,
+                 libcxx        = "libstdc++",
+                 conan_name    = None,
+                 full_version  = "",
+                 major_version = 0,
+                 conan_version = "",
+                 is_ide        = False,
+                 CC            = None,
+                 CXX           = None,
+                 _str          = None):
 
-    def conan_name(self):
-        return self.name()
-    
-    def libcxx(self):
-        return "libstdc++"
+        self.name          = name
+        self.is_available  = is_available
+        self.libcxx        = libcxx
 
-    def full_version(self):
-        return Regex.version(Shell.get([self.name(), "-v"]))
+        if conan_name:
+            self.conan_name = conan_name
+        else:
+            self.conan_name = name
+            
+        self.full_version  = full_version
+        self.major_version = major_version
+        self.conan_version = conan_version
+        self.is_ide        = is_ide
 
-    def major_version(self):
-        return Regex.first_number(self.full_version())
+        if CC:
+            self.CC = CC
+        else:
+            self.CC = name
 
-    def conan_version(self):
-        if self.full_version():
-            return self.full_version()[:3]
-        
-    def is_available(self):
-        return False
-
-    def CC(self):
-        return self.name()
-
-    def CXX(self):
-        return self.name() + "++"
-
-    def is_ide(self):
-        return False
-    
+        if CXX:
+            self.CXX = CXX
+        else:
+            self.CXX = name + "++"
+            
+        if _str:
+            self._str = _str
+        else:
+            if is_available:
+                self._str = self.name + " " + self.full_version
+            else:
+                self._str = self.name + " - not avalilable"
+            
     def __str__(self):
-        if not self.is_available():
-            return self.name() + " is not available"
-        return self.name() + "-" + str(self.full_version())
+        return self._str
 
-    
-
-    

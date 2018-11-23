@@ -47,7 +47,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         command += ['-g', 'cmake_multi']
         build_info_script_name = "conanbuildinfo_multi.cmake"
         
-    File.write("build_info.cmake", "set(BUILD_INFO " + build_info_script_name + ")")
+    File.append("build_info.cmake", "set(BUILD_INFO " + build_info_script_name + ")\n")
         
     if Args.force_build:
         command += ['--build']
@@ -55,12 +55,12 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         command += ['--build=missing']
 
     command += [
-          '-scompiler='         + compiler.conan_name()
-        , '-scompiler.version=' + compiler.conan_version()
+          '-scompiler='         + compiler.conan_name
+        , '-scompiler.version=' + compiler.conan_version
     ]
 
-    if not compiler.is_ide():
-        command += ['-scompiler.libcxx='  + compiler.libcxx()]
+    if not compiler.is_ide:
+        command += ['-scompiler.libcxx='  + compiler.libcxx]
 
     if multi:
         Shell.run(command + ['-s', 'build_type=Debug'])

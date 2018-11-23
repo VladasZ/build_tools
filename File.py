@@ -54,7 +54,7 @@ def make(path):
     open(path, 'w+')
 
 def exists(path):
-    return os.path.exists(path)
+    return os.path.exists(full_path(path))
 
 def zip(file):
     zip = zipfile.ZipFile(file + ".zip", 'w', zipfile.ZIP_DEFLATED)
@@ -101,6 +101,12 @@ def write(file_name, text):
     path = full_path(file_name)
     rm(path)
     file = open(path, "w+")
+    file.write(text)
+    file.close()
+
+def append(file_name, text):
+    path = full_path(file_name)
+    file = open(path, "a+")
     file.write(text)
     file.close()
 

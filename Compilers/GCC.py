@@ -1,16 +1,49 @@
-from Compilers.CompilerBase import CompilerBase
+import sys
+sys.path.append("..")
 
-class GCC(CompilerBase):
+import Shell
+import Regex
+import Debug
 
-    def name(self):
-        return "gcc"
+from Compilers.CompilerBase import Compiler
 
-    def is_available(self):
-        return True
+def get():
 
-    def conan_version(self):
-        return self.major_version()
+    name = "gcc"
+    supported_versions = [7, 8]
+    default_version = Shell.get(["gcc", "-dumpversion"])
+    default_major_version = Regex.first_number(default_version)
+
+    print(default_major_version)
+    print(default_major_version in [7,8])
+
+    if default_major_version in supported_versions:
+        return Compiler(name = "gcc",
+                        is_available = True,
+                        full_version = default_version,
+                        major_version = default_major_version,
+                        conan_version = default_version[:3],
+                        CXX = "g++")
+
+    version = None
+
+    for ver in supported_versions:
+        Debug.info(ver)
+        if Shell.check(["gcc-" + str(ver), "-dumpversion"]):
+            version = ver
+            break
+
+    if not version:
+        return Compiler("gcc")
+
+    full_version = Shell.get(["gcc-" + str(version), "-dumpversion"])
+    major_version = Regex.first_number(full_version)
     
-    def CXX(self):
-        return "g++"
-    
+    return Compiler(name = "gcc",
+                    is_available = True,
+                    full_version = full_version,
+                    major_version = Regex.first_number(full_version),
+                    conan_version = full_version[:3],
+                    CC = "gcc-" + str(version),
+                    CXX = "g++-" + str(version))
+
