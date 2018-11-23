@@ -28,7 +28,6 @@ def get():
     version = None
 
     for ver in supported_versions:
-        Debug.info(ver)
         if Shell.check(["gcc-" + str(ver), "-dumpversion"]):
             version = ver
             break

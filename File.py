@@ -9,7 +9,7 @@ home = os.path.expanduser("~")
 __build_config_dir = home + '/.build_config'
 
 def full_path(path = '.'):
-    return os.path.abspath(path)
+    return os.path.abspath(os.path.expanduser(path))
 
 def is_root(path = '.'):
     return full_path(path) == full_path(path + '/..')
