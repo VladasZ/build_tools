@@ -8,8 +8,12 @@ import Debug
 from Compilers.CompilerBase import Compiler
 
 def get():
+    
+    if not Shell.check(["gcc", "-dumpversion"]):
+        return Compiler("gcc")
 
     name = "gcc"
+    
     supported_versions = [7, 8]
     default_version = Shell.get(["gcc", "-dumpversion"])
     default_major_version = Regex.first_number(default_version)
