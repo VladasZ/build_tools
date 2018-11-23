@@ -59,7 +59,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         , '-scompiler.version=' + compiler.conan_version
     ]
 
-    if not compiler.is_ide:
+    if not (Args.ide and System.is_windows):
         command += ['-scompiler.libcxx='  + compiler.libcxx]
 
     if multi:

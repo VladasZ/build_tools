@@ -49,7 +49,8 @@ def run(generator = default_generator()):
 
 def setup(compiler = Compiler.get()):
 
-#    if not Args.ide:
+    if Args.ide and System.is_windows:
+        return
     
     os.environ['CC']  = Shell.which(compiler.CC)
     os.environ['CXX'] = Shell.which(compiler.CXX)

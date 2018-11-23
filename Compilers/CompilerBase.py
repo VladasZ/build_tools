@@ -8,8 +8,7 @@ class Compiler():
                  conan_name    = None,
                  full_version  = "",
                  major_version = 0,
-                 conan_version = "",
-                 is_ide        = False,
+                 conan_version = None,
                  CC            = None,
                  CXX           = None,
                  _str          = None):
@@ -25,8 +24,11 @@ class Compiler():
             
         self.full_version  = full_version
         self.major_version = major_version
-        self.conan_version = conan_version
-        self.is_ide        = is_ide
+
+        if conan_version:
+            self.conan_version = conan_version
+        else:
+            self.conan_version = full_version
 
         if CC:
             self.CC = CC
