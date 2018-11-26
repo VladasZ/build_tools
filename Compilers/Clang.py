@@ -1,30 +1,40 @@
-# import Shell
-# import Regex
-# import Debug
-# import System
-# from Compilers.CompilerBase import CompilerBase
+import sys
+sys.path.append("..")
 
-# class Clang(CompilerBase):
+import Shell
+import Regex
+import Debug
+import System
 
-#     def name(self):
-#         return "clang"    
+from Compilers.CompilerBase import Compiler
+
+
+def get():
+
+    if not Shell.check(["clang", "-dumpversion"]) or not System.is_mac:
+        return Compiler("clang")
+
+    supported_versions = [9, 10]
+
+    version_output = Shell.get(["clang", "-v"])
+    full_version  = Regex.version(version_output)
+
+    major_version = Regex.first_number(full_version)
+
+    if not major_version in supported_versions:
+        return Compiler("clang")
+
+    conan_version = full_version[:3]
+
+    if major_version > 9:
+        conan_version = full_version[:4]
     
-#     def conan_name(self):
-#         return "apple-clang" if System.is_mac else self.name()
-
-#     def libcxx(self):
-#         return 'libc++'
-    
-#     def conan_version(self):
-#         Debug.info(self.major_version())
-#         if (self.major_version() == "10"):
-#             return self.full_version()[:4]
-#         return self.full_version()[:3]
-    
-#     def is_available(self):
-#         return Shell.check(["clang", "-dumpversion"])    
-
-#     def __str__(self):
-#         if self.is_available() and System.is_mac:
-#             return self.conan_name() + " " + self.full_version()
-#         return super().__str__()
+    return Compiler(name          = "clang",
+                    is_available  = True,
+                    libcxx        = "libc++",
+                    conan_name    = "apple-clang",
+                    full_version  = full_version,
+                    major_version = major_version,
+                    conan_version = conan_version,
+                    CC            = "clang",
+                    CXX           = "clang++")
