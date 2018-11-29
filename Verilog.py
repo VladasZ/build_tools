@@ -6,10 +6,10 @@ import Shell
 project_path = Git.root_dir()
 project_name = File.folder_name(project_path)
 
-test_module  = "test.v"
-top_module   = "top.v"
+test_module  = "test.sv"
+top_module   = "top.sv"
 
-simulation_flag_file_name = "simulation_flag.v"
+simulation_flag_file_name = "simulation_flag.sv"
 
 def build():
     File.write(simulation_flag_file_name, "")
