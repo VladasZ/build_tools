@@ -65,3 +65,13 @@ function(link_project linked_project_name)
 endfunction(link_project)
 
 SET(CONAN_BUILD_INFO ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+
+if (WIN32)
+	add_definitions(-DWINDOWS=1)
+	add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
+endif ()
+
+if (APPLE)
+	add_definitions(-DAPPLE=1)
+	add_definitions(-DMAC_OS=1)
+endif ()
