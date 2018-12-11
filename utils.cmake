@@ -64,6 +64,11 @@ function(link_project linked_project_name)
   target_link_libraries(${PROJECT_NAME} ${linked_project_name})
 endfunction(link_project)
 
+function(link_project_at_path linked_project_name path)
+  include_recursive(${path})
+  target_link_libraries(${PROJECT_NAME} ${linked_project_name})
+endfunction(link_project_at_path)
+
 SET(CONAN_BUILD_INFO ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
 if (WIN32)

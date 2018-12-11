@@ -2,8 +2,7 @@
 # Compute the position of a Lighthouse given
 # sensor readings in a known configuration.
 
-from sympy import *
-from sympy import solve_poly_system
+import sympy
 from math import pi
 from sys import stdin
 
@@ -19,13 +18,13 @@ def cross(a, b):
 		a[0]*b[1] - a[1]*b[0]
 	]
 
-def vecmul(a, k):
+def vector_multiply(a, k):
 	return [
 		a[0]*k,
 		a[1]*k,
 		a[2]*k
 	]
-def vecsub(a, b):
+def vector_subtract(a, b):
 	return [
 		a[0] - b[0],
 		a[1] - b[1],
@@ -35,27 +34,31 @@ def vecsub(a, b):
 def dot(a, b):
 	return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]
 
-def len(a):
-	return sqrt(dot(a,a))
+def vector_len(a):
+	return sympy.sqrt(dot(a,a))
 
-def unitv(a):
-	mag = len(a)
+def normalize(a):
+	mag = vector_len(a)
 	return [a[0]/mag, a[1]/mag, a[2]/mag]
 
 def ray(a1,a2):
 	#print "a1=", a1*180/pi
 	#print "a2=", a2*180/pi
 
+	print("a1: " + str(a1))
+	print("a2: " + str(a2))
+        
 	# Normal to X plane
-	plane1 = [+cos(a1), 0, -sin(a1)]
+	plane1 = [+sympy.cos(a1), 0, -sympy.sin(a1)]
 	# Normal to Y plane
-	plane2 = [0, +cos(a2), +sin(a2)]
+	plane2 = [0, +sympy.cos(a2), +sympy.sin(a2)]
 
 	# Cross the two planes to get the ray vector
-	return unitv(cross(plane2,plane1))
+	return normalize(cross(plane2,plane1))
 
 def tick2angle(a):
-	return pi * (a - 4000) / 8333
+        print("angle: " + str(a))
+        return pi * (a - 4000) / 8333
 
 
 # The default sensor array is 22mm square
@@ -69,13 +72,12 @@ pos = [
 ]
 
 # Compute the distances between each of the sensors
-r01 = N(len(vecsub(pos[0],pos[1])))
-r02 = N(len(vecsub(pos[0],pos[2])))
-r03 = N(len(vecsub(pos[0],pos[3])))
-r12 = N(len(vecsub(pos[1],pos[2])))
-r13 = N(len(vecsub(pos[1],pos[3])))
-r23 = N(len(vecsub(pos[2],pos[3])))
-
+r01 = sympy.N(vector_len(vector_subtract(pos[0],pos[1])))
+r02 = sympy.N(vector_len(vector_subtract(pos[0],pos[2])))
+r03 = sympy.N(vector_len(vector_subtract(pos[0],pos[3])))
+r12 = sympy.N(vector_len(vector_subtract(pos[1],pos[2])))
+r13 = sympy.N(vector_len(vector_subtract(pos[1],pos[3])))
+r23 = sympy.N(vector_len(vector_subtract(pos[2],pos[3])))
 
 # Translate them into angles, compute each ray vector for each sensor
 # and then compute the angles between them
@@ -84,6 +86,11 @@ def lighthouse_pos(samples,id):
 	v1 = ray(tick2angle(samples[1][id*2]), tick2angle(samples[1][id*2+1]))
 	v2 = ray(tick2angle(samples[2][id*2]), tick2angle(samples[2][id*2+1]))
 	v3 = ray(tick2angle(samples[3][id*2]), tick2angle(samples[3][id*2+1]))
+	
+	print(v0)
+	print(v1)
+	print(v2)
+	print(v3)
 
 	v01 = dot(v0,v1)
 	v02 = dot(v0,v2)
@@ -96,16 +103,16 @@ def lighthouse_pos(samples,id):
 	#print "v1=", v1
 	#print "v2=", v2
 	#print "v3=", v3
-	print("v01=", acos(v01) * 180/pi, " deg")
-	print("v02=", acos(v02) * 180/pi, " deg")
-	print("v03=", acos(v03) * 180/pi, " deg")
-	print("v12=", acos(v12) * 180/pi, " deg")
-	print("v13=", acos(v13) * 180/pi, " deg")
-	print("v23=", acos(v23) * 180/pi, " deg")
+	print("v01=", sympy.acos(v01) * 180/pi, " deg")
+	print("v02=", sympy.acos(v02) * 180/pi, " deg")
+	print("v03=", sympy.acos(v03) * 180/pi, " deg")
+	print("v12=", sympy.acos(v12) * 180/pi, " deg")
+	print("v13=", sympy.acos(v13) * 180/pi, " deg")
+	print("v23=", sympy.acos(v23) * 180/pi, " deg")
 
-	k0, k1, k2, k3 = symbols('k0, k1, k2, k3')
+	k0, k1, k2, k3 = sympy.symbols('k0, k1, k2, k3')
 
-	sol = nsolve((
+	sol = sympy.nsolve((
 		k0**2 + k1**2 - 2*k0*k1*v01 - r01**2,
 		k0**2 + k2**2 - 2*k0*k2*v02 - r02**2,
 		k0**2 + k3**2 - 2*k0*k3*v03 - r03**2,
@@ -120,10 +127,10 @@ def lighthouse_pos(samples,id):
 
 	#print sol
 
-	p0 = vecmul(v0,sol[0])
-	p1 = vecmul(v1,sol[1])
-	p2 = vecmul(v2,sol[2])
-	p3 = vecmul(v3,sol[3])
+	p0 = vector_multiply(v0,sol[0])
+	p1 = vector_multiply(v1,sol[1])
+	p2 = vector_multiply(v2,sol[2])
+	p3 = vector_multiply(v3,sol[3])
 
 	print("p0=", p0)
 	print("p1=", p1)
@@ -131,12 +138,12 @@ def lighthouse_pos(samples,id):
 	print("p3=", p3)
 
 	# compute our own estimate of the error
-	print("err01=", len(vecsub(p0,p1)) - r01, " mm")
-	print("err02=", len(vecsub(p0,p2)) - r02, " mm")
-	print("err03=", len(vecsub(p0,p3)) - r03, " mm")
-	print("err12=", len(vecsub(p1,p2)) - r12, " mm")
-	print("err13=", len(vecsub(p1,p3)) - r13, " mm")
-	print("err23=", len(vecsub(p2,p3)) - r23, " mm")
+	print("err01=", vector_len(vector_subtract(p0,p1)) - r01, " mm")
+	print("err02=", vector_len(vector_subtract(p0,p2)) - r02, " mm")
+	print("err03=", vector_len(vector_subtract(p0,p3)) - r03, " mm")
+	print("err12=", vector_len(vector_subtract(p1,p2)) - r12, " mm")
+	print("err13=", vector_len(vector_subtract(p1,p3)) - r13, " mm")
+	print("err23=", vector_len(vector_subtract(p2,p3)) - r23, " mm")
 
   
  
@@ -148,9 +155,8 @@ samples = [
 ]
 
 
-print(samples)
-
 lighthouse_pos(samples, 0)
 lighthouse_pos(samples, 1)
 
 print(Time.duration())
+
