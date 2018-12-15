@@ -9,7 +9,15 @@ import Debug
 import Conan
 import Cmake
 
-root_dir = Git.root_dir()
+def _root_dir(path = '.'):
+    _path = path
+    while not File.is_root(_path):
+        if File.exists(_path + '/build.py'):
+            return File.full_path(_path)
+        _path = _path + "/.."
+    Debug.throw("Git root directory not found for path: " + File.full_path(path))
+
+root_dir = _root_dir()
 project_name = File.folder_name(root_dir)
 needs_conan = File.exists(root_dir + "/conanfile.txt")
 build_dir = root_dir + "/build"
@@ -25,7 +33,6 @@ def prepare():
 
     File.mkdir('build')
     File.cd('build')
-
 
     build_script_path = "build_tools/utils.cmake"
 

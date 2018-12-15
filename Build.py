@@ -12,7 +12,7 @@ import Compiler
 
 
 def cpp():
-    
+
     if Args.clean:
         Cpp.clean()
         print("Clean successful")
