@@ -27,12 +27,7 @@ def prepare():
     File.cd('build')
 
 
-    has_local_scripts = File.exists("~/.emacs.d/utils/Build.py")
-
-    build_script_path = "utils/utils.cmake"
-
-    if has_local_scripts:
-        build_script_path = "~/.emacs.d/" + build_script_path
+    build_script_path = "build_tools/utils.cmake"
 
     File.write("build_info.cmake", "set(BUILD_SCRIPT_PATH " + build_script_path + ")\n")
     
