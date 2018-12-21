@@ -19,7 +19,7 @@ def _execute(commands, silent):
 
     try:
         stdout = subprocess.PIPE
-        child = subprocess.Popen(commands, stdout = stdout, bufsize = 1, universal_newlines = True, shell=True, executable="/bin/bash")
+        child = subprocess.Popen(commands, stdout = stdout, bufsize = 1, universal_newlines = True)
         output = ""
         while child.poll() is None:
             output_line = child.stdout.readline()
