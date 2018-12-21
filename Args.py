@@ -1,16 +1,21 @@
 import sys
 
+all = sys.argv
+
 def has(flag_name):
-    for arg in sys.argv:
+    for arg in all:
         if arg == flag_name:
             return True
     return False
 
 def get(index = 1):
-    return sys.argv[index]
+    return all[index]
 
 def count():
-    return len(sys.argv)
+    return len(all)
+
+def dump():
+    print(all)
 
 gcc             = has("--gcc")
 run             = has("--run")
@@ -30,5 +35,4 @@ simulate        = has("--simulate")
 force_build     = has("--force-build")
 manual_compiler = has("--manual-compiler")
 
-all = sys.argv
     

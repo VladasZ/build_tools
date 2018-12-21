@@ -16,18 +16,20 @@ import Compiler
 def cpp():
 
     if File.exists(Cpp.root_dir + "/Makefile"):
+
         if Args.clean:
             Arm.clean()
+            print("Clean successful")
         if Args.run:
             Arm.run()
-        else:
+        elif Args.build:
             Arm.build()
         return
     
     if Args.clean:
         Cpp.clean()
         print("Clean successful")
-    
+        
     if Args.prepare or Args.ide:
         Cpp.prepare()
     elif Args.build:
@@ -54,11 +56,7 @@ def verilog():
         print("Verilog flash time: " + Time.duration())
     else:
         print("No argument provided to build script")
-
-if Args.has("--dump-available-compilers"):
-    Compiler.print_info()
-    exit()
-        
+    
 if Args.verilog:
     verilog()
 else:
