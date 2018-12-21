@@ -1,9 +1,11 @@
+import Arm
+import Cpp
 import Git
 import File
 import Args
 import Make
-import Cpp
 import Time
+import File
 import Cmake
 import Conan
 import Debug
@@ -13,6 +15,15 @@ import Compiler
 
 def cpp():
 
+    if File.exists(Cpp.root_dir + "/Makefile"):
+        if Args.clean:
+            Arm.clean()
+        if Args.run:
+            Arm.run()
+        else:
+            Arm.build()
+        return
+    
     if Args.clean:
         Cpp.clean()
         print("Clean successful")

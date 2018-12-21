@@ -8,6 +8,9 @@ import urllib.request
 home = os.path.expanduser("~")
 __build_config_dir = home + '/.build_config'
 
+def copy(src, dst):
+    shutil.copyfile(src, dst)
+
 def full_path(path = '.'):
     return os.path.abspath(os.path.expanduser(path))
 

@@ -12,10 +12,10 @@ import Cmake
 def _root_dir(path = '.'):
     _path = path
     while not File.is_root(_path):
-        if File.exists(_path + '/build.py'):
+        if File.exists(_path + '/.projectile'):
             return File.full_path(_path)
         _path = _path + "/.."
-    Debug.throw("Git root directory not found for path: " + File.full_path(path))
+    Debug.throw("C++ project root directory not found for path: " + File.full_path(path))
 
 root_dir = _root_dir()
 project_name = File.folder_name(root_dir)
