@@ -5,7 +5,7 @@ import Shell
 def root_dir(path = '.'):
     _path = path
     while not File.is_root(_path):
-        if File.exists(_path + '/.git'):
+        if File.exists(_path + '/.projectile'):
             super_project = Shell.get(["git", "rev-parse", "--show-superproject-working-tree"])
             if super_project:
                 return super_project

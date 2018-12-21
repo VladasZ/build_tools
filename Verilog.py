@@ -26,6 +26,8 @@ def build():
                      project_name + ".asc " +
                      project_name  + ".bin")
 
+    File.copy("./" + project_name + ".bin", "../../remote_NodeFPGA/NodeFPGA.bin")
+
 def flash():
     Shell.run_string("icoprog -p < " + project_name + ".bin")
 
