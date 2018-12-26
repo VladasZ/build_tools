@@ -7,6 +7,7 @@ def build():
     
 def run():
     build()
+    print("Uploading arm build")
     File.copy("BUILD/Nucleo_blink_led.bin", "/media/vladas/NODE_F446RE/Nucleo_blink_led.bin")
     
 def clean():
