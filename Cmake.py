@@ -47,7 +47,7 @@ def default_generator():
 def run(generator = default_generator()):
     if Args.debug:
         Shell.run(["cmake", "-G", generator, "-DCMAKE_BUILD_TYPE=Debug", ".."]) 
-    elif Args.Release:
+    elif Args.release:
         Shell.run(["cmake", "-G", generator, "-DCMAKE_BUILD_TYPE=Release", ".."]) 
     else:
         Shell.run(["cmake", "-G", generator, ".."])
