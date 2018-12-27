@@ -45,7 +45,12 @@ def default_generator():
         return 'CodeBlocks - Unix Makefiles'
 
 def run(generator = default_generator()):
-    Shell.run(['cmake', '-G', generator, '..'])
+    if Args.debug:
+        Shell.run(["cmake", "-G", generator, "-DCMAKE_BUILD_TYPE=Debug", ".."]) 
+    elif Args.Release:
+        Shell.run(["cmake", "-G", generator, "-DCMAKE_BUILD_TYPE=Release", ".."]) 
+    else:
+        Shell.run(["cmake", "-G", generator, ".."])
 
 def setup(compiler = Compiler.get()):
 
