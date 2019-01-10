@@ -14,8 +14,7 @@ simulation_flag_file_name = "simulation_flag.sv"
 def build():
     File.write(simulation_flag_file_name, "")
     
-    print("yosys -q -p \"synth_ice40 -blif " + project_name + ".blif\" " + top_module)
-    Shell.run_string("yosys -q -p \"synth_ice40 -blif " + project_name + ".blif\" " + top_module)
+    Shell.run_string("yosys -q -p \"synth_ice40 -top top -blif " + project_name + ".blif\" " + top_module)
     
     Shell.run_string("arachne-pnr -d 8k -p " +
                      project_name + ".pcf " +
