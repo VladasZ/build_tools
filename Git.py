@@ -12,3 +12,13 @@ def root_dir(path = '.'):
             return File.full_path(_path)
         _path = _path + "/.."
     Debug.throw("Git root directory not found for path: " + File.full_path(path))
+
+def clone(link, destination, delete_existing = False):
+
+    if (delete_existing):
+        File.rm(destination)
+
+    if (len(destination) > 0 and File.exists(destination)):
+        Debug.throw("Git repository: " + link + " already exists for path: " + File.full_path(destination))
+    
+    Shell.get(["git", "clone", link, destination])

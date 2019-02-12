@@ -10,6 +10,7 @@ import Compiler
 make = 'Unix Makefiles'
 
 cmake_file_name = "CMakeLists.txt"
+cmake_config_file_name = "build_info.cmake"
 cmake_search_default_depth = 3  # 
 
 def has_cmake_file(path = "."):
@@ -64,3 +65,8 @@ def setup(compiler = Compiler.get()):
     Debug.info('CXX = ' + os.environ['CXX'])
 
           
+def reset_config():
+    File.rm(cmake_config_file_name)
+
+def add_var(name, value):
+    File.append(cmake_config_file_name, "set(" + name + " " + value + ")\n")    

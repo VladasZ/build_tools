@@ -113,3 +113,8 @@ def append(file_name, text):
     file.write(text)
     file.close()
 
+def get_lines(path):
+    with open(path) as file:
+        lines = file.readlines()
+    lines = [line.strip() for line in lines]
+    return lines

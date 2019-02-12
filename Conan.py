@@ -1,6 +1,7 @@
 import os
 import Args
 import File
+import Cmake
 import Shell
 import Debug
 import System
@@ -46,8 +47,8 @@ def run(compiler = Compiler.get(), multi = Args.multi):
     if multi:
         command += ['-g', 'cmake_multi']
         build_info_script_name = "conanbuildinfo_multi.cmake"
-        
-    File.append("build_info.cmake", "set(BUILD_INFO " + build_info_script_name + ")\n")
+
+    Cmake.add_var("BUILD_INFO", build_info_script_name)
         
     if Args.force_build:
         command += ['--build']

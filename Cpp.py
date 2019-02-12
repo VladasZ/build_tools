@@ -18,8 +18,9 @@ def _root_dir(path = '.'):
     Debug.throw("C++ project root directory not found for path: " + File.full_path(path))
 
 root_dir = _root_dir()
-project_name = File.folder_name(root_dir)
-needs_conan = File.exists(root_dir + "/conanfile.txt")
+project_name     = File.folder_name(root_dir)
+needs_conan      = File.exists(root_dir + "/conanfile.txt")
+has_dependencies = File.exists(root_dir + "/dependencies.txt")
 build_dir = root_dir + "/build"
 
 stamp = Time.stamp()
@@ -36,8 +37,9 @@ def prepare():
 
     build_script_path = "build_tools/utils.cmake"
 
-    File.write("build_info.cmake", "set(BUILD_SCRIPT_PATH " + build_script_path + ")\n")
-    
+    Cmake.reset_config()
+    Cmake.add_var("BUILD_SCRIPT_PATH", build_script_path)
+        
     if needs_conan:
         Conan.run()
     Cmake.run()
