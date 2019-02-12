@@ -64,9 +64,15 @@ def setup(compiler = Compiler.get()):
     Debug.info('CC = '  + os.environ['CC'])
     Debug.info('CXX = ' + os.environ['CXX'])
 
+def _append(value):
+    File.append(cmake_config_file_name, value)    
           
 def reset_config():
     File.rm(cmake_config_file_name)
 
 def add_var(name, value):
-    File.append(cmake_config_file_name, "set(" + name + " " + value + ")\n")    
+    _append("set(" + name + " " + value + ")\n")  
+
+def append_var(name, value):
+    _append("set(" + name + " ${" + name + "} " + value + ")\n")
+    

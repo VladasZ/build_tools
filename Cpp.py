@@ -8,6 +8,7 @@ import Shell
 import Debug
 import Conan
 import Cmake
+import Dependency
 
 def _root_dir(path = '.'):
     _path = path
@@ -42,7 +43,12 @@ def prepare():
         
     if needs_conan:
         Conan.run()
+
+    if has_dependencies:
+        Dependency.install()
+        
     Cmake.run()
+    
     print("Project prepare time: " + Time.duration())
     
 def build():

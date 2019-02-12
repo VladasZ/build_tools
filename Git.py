@@ -21,4 +21,4 @@ def clone(link, destination, delete_existing = False):
     if (len(destination) > 0 and File.exists(destination)):
         Debug.throw("Git repository: " + link + " already exists for path: " + File.full_path(destination))
     
-    Shell.get(["git", "clone", link, destination])
+    Shell.run(["git", "clone", link, destination])
