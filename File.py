@@ -8,11 +8,16 @@ import urllib.request
 home = os.path.expanduser("~")
 __build_config_dir = home + '/.build_config'
 
+def convert_path(path):
+    if os.path.sep != '/':
+        path = path.replace(os.path.sep, '/')
+    return path
+
 def copy(src, dst):
     shutil.copyfile(src, dst)
 
 def full_path(path = '.'):
-    return os.path.abspath(os.path.expanduser(path))
+    return convert_path(os.path.abspath(os.path.expanduser(path)))
 
 def is_root(path = '.'):
     return full_path(path) == full_path(path + '/..')
