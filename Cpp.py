@@ -36,10 +36,10 @@ def prepare():
     File.mkdir('build')
     File.cd('build')
 
-    build_script_path = "build_tools/utils.cmake"
+    build_script_path = "../build_tools/utils.cmake"
 
     Cmake.reset_config()
-    Cmake.add_var("BUILD_SCRIPT_PATH", build_script_path)
+    Cmake.add_var("BUILD_SCRIPT_PATH", File.full_path(build_script_path))
         
     if needs_conan:
         Conan.run()
