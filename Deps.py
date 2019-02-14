@@ -5,11 +5,14 @@ import Cmake
 _deps_dir = "/.deps"
 _storage_dir = File.home_dir + _deps_dir
 
+def _clean_project_name(name):
+    return name.replace("-", "_")
+
 def _install(name, update = False):
     path = _storage_dir + "/" + name
     local_path = File.full_path("." + _deps_dir + "/" + name)
-    Cmake.append_var("GIT_DEPENDENCIES", path)
-    Cmake.add_var(name + "_path", path)
+    Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
+    Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
     if update:
         File.rm(path)
     elif File.exists(path):
@@ -24,7 +27,7 @@ def install():
     print(deps)
     for dep in deps:
         _install(dep)
-    Cmake.add_var(project_name + "_path", File.full_path(".."))
+    Cmake.add_var(_clean_project_name(project_name) + "_path", "\"" + File.full_path("..") + "\"")
 
 def print_info():
     changes = False
