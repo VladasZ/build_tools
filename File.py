@@ -39,7 +39,7 @@ def is_root(path = '.'):
     return full_path(path) == full_path(path + '/..')
 
 def get_files(path = '.'):
-    return os.listdir(path)
+    return os.listdir(full_path(path))
 
 def folder_name(path):
     return os.path.basename(full_path(path))

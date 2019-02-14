@@ -6,6 +6,7 @@ import Args
 import Make
 import Time
 import File
+import Deps
 import Cmake
 import Conan
 import Debug
@@ -14,6 +15,10 @@ import Compiler
 
 
 def cpp():
+
+    if Args.deps_info:
+        Deps.print_info()
+        return
 
     if File.exists(Cpp.root_dir + "/Makefile"):
 

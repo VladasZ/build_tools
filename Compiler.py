@@ -27,10 +27,6 @@ def get():
         return clang
     return gcc
 
-print(gcc)
-print(clang)
-print(visual_studio)
-
 
 
 

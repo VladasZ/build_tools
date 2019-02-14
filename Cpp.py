@@ -70,5 +70,3 @@ def run():
 
 def clean():
     File.rm(build_dir)
-
-print(File.exists("~/"))

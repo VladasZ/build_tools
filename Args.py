@@ -34,6 +34,7 @@ android         = has("--android")
 prepare         = has("--prepare")
 rmbuild         = has("--rmbuild")
 simulate        = has("--simulate")
+deps_info       = has("--deps-info")
 force_build     = has("--force-build")
 manual_compiler = has("--manual-compiler")
 
