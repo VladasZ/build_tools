@@ -9,8 +9,8 @@ def _install(name, update = False):
     path = _storage_dir + "/" + name
     local_path = File.full_path("." + _deps_dir + "/" + name)
 
-    Cmake.append_var("GIT_DEPENDENCIES", local_path)
-    Cmake.add_var(name + "_path", local_path)
+    Cmake.append_var("GIT_DEPENDENCIES", path)
+    Cmake.add_var(name + "_path", path)
     
     if update:
         File.rm(path)
@@ -33,7 +33,7 @@ def install():
 
     Cmake.add_var(project_name + "_path", File.full_path(".."))
 
-    File.copy(_storage_dir, File.full_path("." + _deps_dir))
+    #File.copy(_storage_dir, File.full_path("." + _deps_dir))
 
     
 
