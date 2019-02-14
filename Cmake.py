@@ -71,8 +71,8 @@ def reset_config():
     File.rm(cmake_config_file_name)
 
 def add_var(name, value):
-    _append("set(" + name + " " + value + ")\n")  
+    _append("set(" + name + " " + File.convert_path(value) + ")\n")  
 
 def append_var(name, value):
-    _append("set(" + name + " ${" + name + "} " + value + ")\n")
+    _append("set(" + name + " ${" + name + "} " + File.convert_path(value) + ")\n")
     
