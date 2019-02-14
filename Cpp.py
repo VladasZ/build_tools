@@ -3,12 +3,12 @@ import File
 import Make
 import Time
 import Args
+import Deps
 import File
 import Shell
 import Debug
 import Conan
 import Cmake
-import Dependency
 
 def _root_dir(path = '.'):
     _path = path
@@ -21,7 +21,7 @@ def _root_dir(path = '.'):
 root_dir = _root_dir()
 project_name     = File.folder_name(root_dir)
 needs_conan      = File.exists(root_dir + "/conanfile.txt")
-has_dependencies = File.exists(root_dir + "/dependencies.txt")
+has_dependencies = File.exists(root_dir + "/deps.txt")
 build_dir = root_dir + "/build"
 
 stamp = Time.stamp()
@@ -45,7 +45,7 @@ def prepare():
         Conan.run()
 
     if has_dependencies:
-        Dependency.install()
+        Deps.install()
         
     Cmake.run()
     

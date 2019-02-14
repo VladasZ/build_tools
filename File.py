@@ -4,9 +4,22 @@ import shutil
 import getpass
 import zipfile
 import urllib.request
+import Debug
 
-home = os.path.expanduser("~")
-__build_config_dir = home + '/.build_config'
+home_dir = os.path.expanduser("~")
+__build_config_dir = home_dir + '/.build_config'
+
+
+def is_file(path):
+    return os.path.isfile(path)
+    
+def rm(path):
+    Debug.info(path)
+    if os.path.exists(path):
+        if is_file(path):
+            os.remove(path)
+        else:
+            shutil.rmtree(path)
 
 def convert_path(path):
     if os.path.sep != '/':
@@ -14,7 +27,10 @@ def convert_path(path):
     return path
 
 def copy(src, dst):
-    shutil.copyfile(src, dst)
+    if is_file(src):
+        shutil.copyfile(src, dst)
+    else:
+        shutil.copytree(src, dst)
 
 def full_path(path = '.'):
     return convert_path(os.path.abspath(os.path.expanduser(path)))
@@ -44,16 +60,6 @@ def mkdir(name):
 
 def cd(path):
     os.chdir(path)
-
-def is_file(path):
-    return os.path.isfile(path)
-    
-def rm(path):
-    if os.path.exists(path):
-        if is_file(path):
-            os.remove(path)
-        else:
-            shutil.rmtree(path)
 
 def pwd():
     return full_path('.')
