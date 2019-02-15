@@ -32,6 +32,8 @@ def install():
 def print_info():
     changes = False
     for dep in File.get_files(_storage_dir):
+        if dep == ".DS_Store":
+            continue
         if Git.has_changes(_storage_dir + "/" + dep):
             changes = True
             print(dep + " - has changes")
