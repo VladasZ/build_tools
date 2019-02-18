@@ -59,7 +59,7 @@ def build():
     print("Project build time: " + Time.duration())
 
 def run():
-    _project_name = "sand" if Args.test else project_name
+    _project_name = "sand" if File.exists(build_dir + "/../source/sand") else project_name
     build()
     bin_dir = File.full_path(build_dir) + "/"
 
