@@ -14,7 +14,7 @@ if(${DESKTOP_BUILD})
   add_definitions(-DIOS_BUILD=0)
 endif()
 
-if(${IOS})
+if(${IOS_BUILD})
   add_definitions(-DDESKTOP_BUILD=0)
   add_definitions(-DIOS_BUILD=1)
 endif()

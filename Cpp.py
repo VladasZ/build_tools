@@ -42,7 +42,7 @@ def prepare():
     Cmake.add_var("BUILD_SCRIPT_PATH", File.full_path(build_script_path))
 
     Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)
-    Cmake.add_bool("IOS", Args.ios)
+    Cmake.add_bool("IOS_BUILD", Args.ios)
         
     if needs_conan:
         Conan.run()
