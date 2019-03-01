@@ -9,6 +9,16 @@ else()
   add_definitions(-DLINUX=1)
 endif()
 
+if(${DESKTOP_BUILD})
+  add_definitions(-DDESKTOP_BUILD=1)
+  add_definitions(-DIOS_BUILD=0)
+endif()
+
+if(${IOS})
+  add_definitions(-DDESKTOP_BUILD=0)
+  add_definitions(-DIOS_BUILD=1)
+endif()
+
 function(get_subdirs out dir)
   file(GLOB children RELATIVE ${dir} ${dir}/*)
   foreach(child ${children})
