@@ -40,6 +40,9 @@ def prepare():
 
     Cmake.reset_config()
     Cmake.add_var("BUILD_SCRIPT_PATH", File.full_path(build_script_path))
+
+    Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)
+    Cmake.add_bool("IOS", Args.ios)
         
     if needs_conan:
         Conan.run()

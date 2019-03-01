@@ -17,6 +17,7 @@ def count():
 def dump():
     print(all)
 
+ios             = has("--ios")
 gcc             = has("--gcc")
 run             = has("--run")
 ide             = has("--ide")
@@ -37,5 +38,13 @@ simulate        = has("--simulate")
 deps_info       = has("--deps-info")
 force_build     = has("--force-build")
 manual_compiler = has("--manual-compiler")
+
+desktop_build = True
+
+if ios:
+	desktop_build = False
+
+
+
 
     

@@ -69,9 +69,13 @@ def _append(value):
           
 def reset_config():
     File.rm(cmake_config_file_name)
+    File.append(cmake_config_file_name, "# GENERATED FILE. DO NOT EDIT\n")    
 
 def add_var(name, value):
     _append("set(" + name + " " + File.convert_path(value) + ")\n")  
+
+def add_bool(name, value):
+    _append("set(" + name + " " + ("YES" if value else "NO") + ")\n")  
 
 def append_var(name, value):
     _append("set(" + name + " ${" + name + "} " + File.convert_path(value) + ")\n")

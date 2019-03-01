@@ -1,4 +1,5 @@
 import Git
+import Args
 import File
 import Cmake
 
@@ -26,6 +27,8 @@ def install():
     print("Cloning git dependencies:")
     print(deps)
     for dep in deps:
+        if Args.ios and dep == "soil":
+            continue
         _install(dep)
     Cmake.add_var(_clean_project_name(project_name) + "_path", "\"" + File.full_path("..") + "\"")
 

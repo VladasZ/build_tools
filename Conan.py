@@ -62,6 +62,11 @@ def run(compiler = Compiler.get(), multi = Args.multi):
 
     if not (Args.ide and System.is_windows):
         command += ['-scompiler.libcxx='  + compiler.libcxx]
+        
+    if Args.ios:
+        command += ['-sos=iOS']
+        command += ['-sos.version=7.0']
+        command += ['-sarch=armv7']
 
     if multi:
         Shell.run(command + ['-s', 'build_type=Debug'])
