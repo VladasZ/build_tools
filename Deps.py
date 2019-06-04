@@ -31,10 +31,10 @@ def install():
 
 def print_info():
     changes = False
-    for dep in File.get_files(directory):
+    for dep in File.get_files(Paths.deps):
         if dep == ".DS_Store":
             continue
-        if Git.has_changes(directory + "/" + dep):
+        if Git.has_changes(Paths.deps + "/" + dep):
             changes = True
             print(dep + " - has changes")
     if not changes:
