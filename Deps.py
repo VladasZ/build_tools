@@ -15,7 +15,7 @@ def _install(name, update = False):
         File.rm(path)
     elif File.exists(path):
         return
-    Git.clone("https://github.com/vladasz/" + name, path)
+    Git.clone("https://github.com/vladasz/" + name, path, recursive = True)
     
 
 def install():
