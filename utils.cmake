@@ -1,22 +1,20 @@
 
 if (WIN32)
-  add_definitions(-DWINDOWS=1)
+  add_definitions(-DWINDOWS)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
 elseif (APPLE)
-  add_definitions(-DAPPLE=1)
-  add_definitions(-DMAC_OS=1)
+  add_definitions(-DAPPLE)
+  add_definitions(-DMAC_OS)
 else()
-  add_definitions(-DLINUX=1)
+  add_definitions(-DLINUX)
 endif()
 
 if(${DESKTOP_BUILD})
-  add_definitions(-DDESKTOP_BUILD=1)
-  add_definitions(-DIOS_BUILD=0)
+  add_definitions(-DDESKTOP_BUILD)
 endif()
 
 if(${IOS_BUILD})
-  add_definitions(-DDESKTOP_BUILD=0)
-  add_definitions(-DIOS_BUILD=1)
+  add_definitions(-DIOS_BUILD)
 endif()
 
 function(get_subdirs out dir)
