@@ -3,15 +3,12 @@ import Args
 import File
 import Cmake
 
-_deps_dir = "/.deps"
-_storage_dir = File.home_dir + _deps_dir
-
 def _clean_project_name(name):
     return name.replace("-", "_")
 
 def _install(name, update = False):
-    path = _storage_dir + "/" + name
-    local_path = File.full_path("." + _deps_dir + "/" + name)
+    path = directory + "/" + name
+    local_path = File.full_path("." + deps_directory_name + "/" + name)
     Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
     Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
     if update:
@@ -34,10 +31,10 @@ def install():
 
 def print_info():
     changes = False
-    for dep in File.get_files(_storage_dir):
+    for dep in File.get_files(directory):
         if dep == ".DS_Store":
             continue
-        if Git.has_changes(_storage_dir + "/" + dep):
+        if Git.has_changes(directory + "/" + dep):
             changes = True
             print(dep + " - has changes")
     if not changes:

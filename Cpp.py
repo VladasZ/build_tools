@@ -18,11 +18,11 @@ def _root_dir(path = '.'):
         _path = _path + "/.."
     Debug.throw("C++ project root directory not found for path: " + File.full_path(path))
 
-root_dir = _root_dir()
+root_dir         = _root_dir()
 project_name     = File.folder_name(root_dir)
 needs_conan      = File.exists(root_dir + "/conanfile.txt")
 has_dependencies = File.exists(root_dir + "/deps.txt")
-build_dir = root_dir + "/build"
+build_dir        = root_dir + "/build"
 
 stamp = Time.stamp()
 
@@ -58,7 +58,10 @@ def build():
     if not File.exists(build_dir):
         prepare()
     File.cd(build_dir)
-    Make.run()    
+    if Args.ios:
+        Cmake.build()
+    else:
+        Make.run()    
     print("Project build time: " + Time.duration())
 
 def run():

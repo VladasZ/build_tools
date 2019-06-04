@@ -1,5 +1,6 @@
 import os
 import platform
+import iOS
 import File
 import Args
 import Debug
@@ -11,7 +12,7 @@ make = 'Unix Makefiles'
 
 cmake_file_name = "CMakeLists.txt"
 cmake_config_file_name = "build_info.cmake"
-cmake_search_default_depth = 3  # 
+cmake_search_default_depth = 3
 
 def has_cmake_file(path = "."):
     return cmake_file_name in File.get_files(path)
@@ -36,6 +37,8 @@ def root_dir(path = '.'):
 
     
 def default_generator():
+    if Args.ios:
+        return 'Xcode'
     if not Args.ide:
         return make
     if System.is_windows:
@@ -46,12 +49,20 @@ def default_generator():
         return 'CodeBlocks - Unix Makefiles'
 
 def run(generator = default_generator()):
+
+    build_type = "-DCMAKE_BUILD_TYPE=Release"
+
     if Args.debug:
-        Shell.run(["cmake", "-G", generator, "-DCMAKE_BUILD_TYPE=Debug", ".."]) 
-    elif Args.release:
-        Shell.run(["cmake", "-G", generator, "-DCMAKE_BUILD_TYPE=Release", ".."]) 
-    else:
-        Shell.run(["cmake", "-G", generator, ".."])
+        build_type = "-DCMAKE_BUILD_TYPE=Debug"
+
+    args = ["cmake", "..", "-G", generator, build_type]
+
+    if Args.ios:
+        args += ["-DCMAKE_TOOLCHAIN_FILE=" + iOS.toolchain_file]
+        args += ["-DPLATFORM=OS64COMBINED"]
+
+    Shell.run(args)
+    
 
 def setup(compiler = Compiler.get()):
 
@@ -64,6 +75,9 @@ def setup(compiler = Compiler.get()):
     Debug.info('CC = '  + os.environ['CC'])
     Debug.info('CXX = ' + os.environ['CXX'])
 
+def build():
+    Shell.run(["cmake", "--build", "."])
+    
 def _append(value):
     File.append(cmake_config_file_name, value)    
           

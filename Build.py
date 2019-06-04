@@ -21,7 +21,6 @@ def cpp():
         return
 
     if File.exists(Cpp.root_dir + "/Makefile"):
-
         if Args.clean:
             Arm.clean()
             print("Clean successful")
