@@ -1,7 +1,8 @@
 import Git
 import File
+import Paths
 
-toolchain_path = File.deps_path + "/toolchains/iOS/"
+toolchain_path = Paths.deps + "/toolchains/iOS/"
 toolchain_file = toolchain_path + "ios.toolchain.cmake"
 
 def toolchain_ready():

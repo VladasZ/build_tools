@@ -1,14 +1,14 @@
 import Git
 import Args
 import File
+import Paths
 import Cmake
 
 def _clean_project_name(name):
     return name.replace("-", "_")
 
 def _install(name, update = False):
-    path = directory + "/" + name
-    local_path = File.full_path("." + deps_directory_name + "/" + name)
+    path = Paths.deps + "/" + name
     Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
     Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
     if update:

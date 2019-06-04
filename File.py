@@ -4,10 +4,10 @@ import shutil
 import getpass
 import zipfile
 import urllib.request
+import Paths
 import Debug
 
-home_dir = os.path.expanduser("~")
-__build_config_dir = home_dir + '/.build_config'
+__build_config_dir = Paths.home + '/.build_config'
 
 def is_file(path):
     return os.path.isfile(path)
@@ -129,5 +129,3 @@ def get_lines(path):
     lines = [line.strip() for line in lines]
     return lines
 
-deps_directory_name = "/.deps"
-deps_path = home_dir + deps_directory_name
