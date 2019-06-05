@@ -20,7 +20,6 @@ def _root_dir(path = '.'):
 
 root_dir         = _root_dir()
 project_name     = File.folder_name(root_dir)
-needs_conan      = File.exists(root_dir + "/conanfile.txt")
 has_dependencies = File.exists(root_dir + "/deps.txt")
 build_dir        = root_dir + "/build"
 
@@ -29,8 +28,7 @@ stamp = Time.stamp()
 def prepare():
     File.cd(root_dir)
 
-    if needs_conan:
-        Conan.setup()
+    Conan.setup()
     Cmake.setup()
 
     File.mkdir('build')
@@ -44,8 +42,7 @@ def prepare():
     Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)
     Cmake.add_bool("IOS_BUILD", Args.ios)
         
-    if needs_conan:
-        Conan.run()
+    Conan.run()
 
     if has_dependencies:
         Deps.install()

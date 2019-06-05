@@ -35,7 +35,24 @@ def setup():
 def run(compiler = Compiler.get(), multi = Args.multi):
     
     print("Using: " + str(compiler))
-    
+
+    conanfile_name = "../conanfile.txt"
+    mobile_name = "../conanfile_mobile.txt"
+    desktop_name = "../conanfile_desktop.txt"
+
+    has_conanfile = File.exists(conanfile_name)
+    has_platforms = File.exists(mobile_name) or File.exists(desktop_name)
+
+    needed = has_conanfile or has_platforms
+
+    if not needed:
+        return
+
+    if has_platforms:
+        File.rm(conanfile_name)
+        target_name = desktop_name if Args.desktop_build else mobile_name
+        File.copy(target_name, "./" + conanfile_name)
+        
     build_info_script_name = "conanbuildinfo.cmake"
     
     if Args.android:
