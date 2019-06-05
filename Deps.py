@@ -40,3 +40,6 @@ def print_info():
     if not changes:
         print("no changes")
 
+def clean():
+    for dep in File.get_files(Paths.deps):
+        File.rm(Paths.deps + "/" + dep + "/dep_build")

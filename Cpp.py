@@ -76,3 +76,4 @@ def run():
 
 def clean():
     File.rm(build_dir)
+    Deps.clean()
