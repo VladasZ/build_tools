@@ -2,9 +2,9 @@ import sys
 
 all = sys.argv
 
-def has(flag_name):
+def has(flag_name, short_flag = "zzzzzzzzzz"):
     for arg in all:
-        if arg == flag_name:
+        if arg == flag_name or arg == short_flag:
             return True
     return False
 
@@ -17,32 +17,32 @@ def count():
 def dump():
     print(all)
 
-ios             = has("--ios")
+ios             = has("--ios", "ios")
 gcc             = has("--gcc")
 run             = has("--run")
-ide             = has("--ide")
+ide             = has("--ide", "id")
 make            = has("--make")
 test            = has("--test")
 multi           = has("--multi")
 flash           = has("--flash")
-build           = has("--build")
+build           = has("--build", "b")
 clang           = has("--clang")
-clean           = has("--clean")
-debug           = has("--debug")
-release         = has("--release")
+clean           = has("--clean", "c")
+debug           = has("--debug", "db")
+release         = has("--release", "rl")
 verilog         = has("--verilog")
 android         = has("--android")
-prepare         = has("--prepare")
+prepare         = has("--prepare", "p")
 rmbuild         = has("--rmbuild")
 simulate        = has("--simulate")
-deps_info       = has("--deps-info")
+deps_info       = has("--deps-info", "i")
 force_build     = has("--force-build")
 manual_compiler = has("--manual-compiler")
 
 desktop_build = True
 
 if ios:
-	desktop_build = False
+    desktop_build = False
 
 
 

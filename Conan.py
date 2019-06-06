@@ -83,8 +83,8 @@ def run(compiler = Compiler.get(), multi = Args.multi):
     if Args.ios:
         command += ['-sos=iOS']
         command += ['-sos.version=7.0']
-        command += ['-sarch=armv7']
-      #  command += ['-sarch=x86_64']
+      #  command += ['-sarch=armv7']
+        command += ['-sarch=x86_64']
 
     if multi:
         Shell.run(command + ['-s', 'build_type=Debug'])
