@@ -1,15 +1,18 @@
 import File
+import Paths
 import Shell
 import System
+
+toolchain_path = Paths.deps + "/toolchains/android/"
 
 _arch = 'arm'
 _api  = '21'
 _toolchain_name = _arch + '_' + _api + '_toolchain'
-_toolchain_path = File.config_path() + '/' + _toolchain_name
+_toolchain_path = toolchain_path + _toolchain_name
 
-__ndk_zip_path = File.config_path() + '/android_NDK.zip'
+__ndk_zip_path = toolchain_path + 'android_NDK.zip'
 
-ndk_path =  File.config_path() + '/android-ndk-r17b'
+ndk_path =  toolchain_path + 'android-ndk-r17b'
 
 def NDKLink():
     if System.is_windows:
@@ -23,13 +26,13 @@ def downloadNDK():
     if File.exists(__ndk_zip_path):
         print('NDK zip OK')
         return
-    File.download(NDKLink(), File.config_path() + '/android_NDK.zip')
+    File.download(NDKLink(), toolchain_path + 'android_NDK.zip')
 
 def unzipNDK():
     if File.exists(ndk_path):
         print('NDK OK')
         return
-    File.unzip(__ndk_zip_path, File.config_path())
+    File.unzip(__ndk_zip_path, toolchain_path)
 
 def make_toolchain(destination, arch = _arch, api = _api):
     Shell.run([

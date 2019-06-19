@@ -33,7 +33,7 @@ debug           = has(["--debug", "d"])
 device          = has(["--device", "dev"])
 release         = has(["--release", "r"])
 verilog         = has(["--verilog"])
-android         = has(["--android"])
+android         = has(["--android", "an", "a"])
 prepare         = has(["--prepare", "p"])
 rmbuild         = has(["--rmbuild"])
 simulate        = has(["--simulate"])
@@ -44,7 +44,7 @@ manual_compiler = has(["--manual-compiler"])
 
 desktop_build = True
 
-if ios:
+if ios or android:
     desktop_build = False
 
 

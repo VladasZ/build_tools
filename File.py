@@ -43,6 +43,9 @@ def get_files(path = '.'):
 def folder_name(path):
     return os.path.basename(full_path(path))
 
+def without_file_name(path):
+    return os.path.dirname(path)
+
 def file_name(name):
     return os.path.basename(name)
 
@@ -108,7 +111,8 @@ def reporthook(blocknum, blocksize, totalsize):
 
 def download(url, file_name):
     print('Downloading: ' + url)
-    urllib.request.urlretrieve(url, file_name, reporthook)
+    mkdir(without_file_name(file_name))
+    urllib.request.urlretrieve(url, file_name)
 
 def write(file_name, text):
     path = full_path(file_name)
