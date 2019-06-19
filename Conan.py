@@ -81,13 +81,19 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         command += ['-scompiler.libcxx='  + compiler.libcxx]
         
     if Args.ios:
+
         command += ['-sos=iOS']
         command += ['-sos.version=7.0']
 
         if Args.device:
-            command += ['-sarch=armv8']
+           command += ['-sarch=armv8']
         else:
-            command += ['-sarch=x86_64']
+           command += ['-sarch=x86_64']
+        
+        # if Args.device:
+        #     command += ['--profile', 'ios']
+        # else:
+        #     command += ['--profile', 'ios_simulator']
       
 
     if multi:
