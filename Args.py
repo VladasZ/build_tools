@@ -2,10 +2,11 @@ import sys
 
 all = sys.argv
 
-def has(flag_name, short_flag = "zzzzzzzzzz"):
+def has(flags):
     for arg in all:
-        if arg == flag_name or arg == short_flag:
-            return True
+        for flag in flags:
+            if arg == flag:
+                return True
     return False
 
 def get(index = 1):
@@ -17,29 +18,29 @@ def count():
 def dump():
     print(all)
 
-ios             = has("--ios", "ios")
-gcc             = has("--gcc")
-run             = has("--run")
-ide             = has("--ide", "id")
-make            = has("--make")
-test            = has("--test")
-multi           = has("--multi")
-flash           = has("--flash")
-build           = has("--build", "b")
-clang           = has("--clang")
-clean           = has("--clean", "c")
-debug           = has("--debug", "d")
-device          = has("--device", "dev")
-release         = has("--release", "r")
-verilog         = has("--verilog")
-android         = has("--android")
-prepare         = has("--prepare", "p")
-rmbuild         = has("--rmbuild")
-simulate        = has("--simulate")
-simulator       = has("--simulator", "sim")
-deps_info       = has("--deps-info", "i")
-force_build     = has("--force-build")
-manual_compiler = has("--manual-compiler")
+ios             = has(["--ios", "ios"])
+gcc             = has(["--gcc"])
+run             = has(["--run"])
+ide             = has(["--ide", "ide", "id"])
+make            = has(["--make"])
+test            = has(["--test"])
+multi           = has(["--multi"])
+flash           = has(["--flash"])
+build           = has(["--build", "b"])
+clang           = has(["--clang"])
+clean           = has(["--clean", "c"])
+debug           = has(["--debug", "d"])
+device          = has(["--device", "dev"])
+release         = has(["--release", "r"])
+verilog         = has(["--verilog"])
+android         = has(["--android"])
+prepare         = has(["--prepare", "p"])
+rmbuild         = has(["--rmbuild"])
+simulate        = has(["--simulate"])
+simulator       = has(["--simulator", "sim", "sm"])
+deps_info       = has(["--deps-info", "i"])
+force_build     = has(["--force-build"])
+manual_compiler = has(["--manual-compiler"])
 
 desktop_build = True
 

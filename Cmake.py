@@ -58,9 +58,10 @@ def run(generator = default_generator()):
     args = ["cmake", "..", "-G", generator, build_type]
 
     if Args.ios:
-        platform = "OS64"
-        #platform = "OS64COMBINED"
-        #platform = "SIMULATOR64"
+        platform = "SIMULATOR64"
+
+        if Args.device:
+            platform = "OS64"
         
         args += ["-DCMAKE_TOOLCHAIN_FILE=" + iOS.toolchain_file]
         args += ["-DPLATFORM=" + platform]

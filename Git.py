@@ -1,3 +1,4 @@
+import git
 import File
 import Debug
 import Shell
@@ -28,5 +29,14 @@ def clone(link, destination, delete_existing = False, recursive = False):
         
     Shell.run(command)
 
+def is_git_repo(path):
+    try:
+        _ = git.Repo(File.full_path(path)).git_dir
+        return True
+    except git.exc.InvalidGitRepositoryError:
+        return False
+    
 def has_changes(path):
+    if not is_git_repo(path):
+        return False
     return len(Shell.get(["git", "-C", File.full_path(path), "status", "-s"])) != 0
