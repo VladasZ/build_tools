@@ -28,6 +28,8 @@ def cpp():
             Arm.run()
         elif Args.build:
             Arm.build()
+        elif Args.flash:
+            Arm.flash()
         return
     
     if Args.clean:
