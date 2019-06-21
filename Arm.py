@@ -13,6 +13,7 @@ def flash():
     
 def run():
     build()
+    flash()
     
 def clean():
     File.rm("BUILD")
