@@ -30,6 +30,9 @@ def clone(link, destination, delete_existing = False, recursive = False):
 
 def is_git_repo(path):
     return File.exists(path + "/.git")
+
+def is_repo_string(path):
+    return "Is a git repository" if is_git_repo(path) else "Is not a git repository"
     
 def has_changes(path):
     if not is_git_repo(path):
