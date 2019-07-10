@@ -1,12 +1,12 @@
 import os
 import shutil
 import subprocess
-import Debug
 
 def run_string(string):
     print(string)
     if os.system(string):
-        Debug.throw("Shell script has failed")
+        print("Shell script has failed")
+        exit()
 
 def _execute(commands, silent):
     command_string = ""
