@@ -48,6 +48,9 @@ def prepare():
 
     Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)
     Cmake.add_bool("IOS_BUILD", Args.ios)
+
+    if Args.debug:
+        Cmake.add_definition("DEBUG")
         
     Conan.run()
 

@@ -50,12 +50,9 @@ def default_generator():
 
 def run(generator = default_generator()):
 
-    build_type = "-DCMAKE_BUILD_TYPE=Release"
-
-    if Args.debug:
-        build_type = "-DCMAKE_BUILD_TYPE=Debug"
-
-    args = ["cmake", "..", "-G", generator, build_type]
+    args = ["cmake", "..", "-G", generator]
+    
+    args += ["-DCMAKE_BUILD_TYPE=Debug" if Args.debug else "-DCMAKE_BUILD_TYPE=Release"]
 
     if Args.ios:
         platform = "SIMULATOR64"
@@ -98,4 +95,7 @@ def add_bool(name, value):
 
 def append_var(name, value):
     _append("set(" + name + " ${" + name + "} " + File.convert_path(value) + ")\n")
+
+def add_definition(definition):
+    _append("add_definitions(-D" + definition + ")\n") 
     
