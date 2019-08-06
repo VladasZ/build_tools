@@ -40,7 +40,7 @@ def is_root(path = '.'):
 def get_files(path = '.'):
     return os.listdir(full_path(path))
 
-def folder_name(path):
+def folder_name(path = "."):
     return os.path.basename(full_path(path))
 
 def without_file_name(path):
