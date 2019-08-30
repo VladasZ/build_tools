@@ -5,13 +5,7 @@ pods_dir = "./Pods/"
 
 has_pods = File.exists(pods_dir)
 
-my_pods = ["iOSTools", "SwiftyTools"]
-
-def is_safe_to_clone():
-    print("ko")
-
-
-
+my_pods = ["iOSTools", "SwiftyTools", "NetworkTools"]
 
 def clone():
     
