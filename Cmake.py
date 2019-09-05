@@ -70,6 +70,9 @@ def setup(compiler = Compiler.get()):
 
     if Args.ide and System.is_windows:
         return
+
+    if Args.ios:
+        return
     
     os.environ['CC']  = Shell.which(compiler.CC)
     os.environ['CXX'] = Shell.which(compiler.CXX)

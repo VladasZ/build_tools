@@ -20,13 +20,16 @@ def _execute(commands, silent):
 
     try:
         stdout = subprocess.PIPE
-        child = subprocess.Popen(commands, stdout = stdout, bufsize = 1, universal_newlines = True)
+        child = subprocess.Popen(commands,
+                                 stdout = stdout,
+                                 bufsize = 1,
+                                 universal_newlines = True)
         output = ""
         while child.poll() is None:
             output_line = child.stdout.readline()
             if (output_line):
                 if not silent:
-                    print(output_line)
+                    print(output_line, end =" ")
                 output += output_line
         code = child.returncode
         if (code and not silent):
