@@ -69,9 +69,14 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         build_info_script_name = "conanbuildinfo_multi.cmake"
 
     Cmake.add_var("BUILD_INFO", build_info_script_name)
-        
+    
     if Args.ios:
-        command += ['--profile', 'ios']
+        arch = 'armv8' if Args.device else 'x86_64'
+        command += [
+              '-sos=iOS'
+            , '-sos.version=9.0'
+            , '-sarch=' + arch
+        ]
     else:
         command += [
               '-scompiler='         + compiler.conan_name
