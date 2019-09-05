@@ -44,6 +44,10 @@ def prepare():
     File.cd('build')
 
     Cmake.reset_config()
+    
+    Cmake.add_var(project_name.replace("-", "_") + "_path",
+                  "\"" + File.full_path("..") + "\"")
+    
     Cmake.add_var("BUILD_SCRIPT_PATH", "~/.deps/build_tools/utils.cmake")
 
     Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)

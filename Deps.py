@@ -20,14 +20,12 @@ def _install(name, update = False):
 
 def install():
     deps = File.get_lines("../deps.txt")
-    project_name = File.folder_name(File.full_path(".."))
     print("Cloning git dependencies:")
     print(deps)
     for dep in deps:
         if Args.ios and dep == "soil":
             continue
         _install(dep)
-    Cmake.add_var(_clean_project_name(project_name) + "_path", "\"" + File.full_path("..") + "\"")
 
 def print_info():
     changes = False
