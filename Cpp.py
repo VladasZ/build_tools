@@ -37,7 +37,7 @@ def prepare():
     
     File.cd(root_dir)
 
-    Conan.setup()
+    Conan.setup()    
     Cmake.setup()
 
     File.mkdir('build')

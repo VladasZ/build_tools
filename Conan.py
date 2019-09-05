@@ -18,6 +18,9 @@ def root_dir(path = '.'):
 
 def setup():
 
+    if Args.no_conan:
+        return
+
     if System.conan:
         print('conan OK')
     else:
@@ -33,6 +36,12 @@ def setup():
         System.add_setup_conan_flag()
 
 def run(compiler = Compiler.get(), multi = Args.multi):
+
+    build_info_script_name = "conanbuildinfo.cmake"
+
+    if Args.no_conan:
+        Cmake.add_var("BUILD_INFO", build_info_script_name)
+        return
     
     print("Using: " + str(compiler))
 
@@ -53,8 +62,6 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         target_name = desktop_name if Args.desktop_build else mobile_name
         File.copy(target_name, "./" + conanfile_name)
         
-    build_info_script_name = "conanbuildinfo.cmake"
-
     command = ['conan', 'install', '..']
 
     if multi:
