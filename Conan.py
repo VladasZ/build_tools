@@ -75,7 +75,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         command += ['-g', 'cmake_multi']
         build_info_script_name = "conanbuildinfo_multi.cmake"
 
-    Cmake.add_var("BUILD_INFO", build_info_script_name)
+    Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
     
     if Args.ios:
         arch = 'armv8' if Args.device else 'x86_64'

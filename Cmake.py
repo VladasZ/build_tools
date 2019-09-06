@@ -11,7 +11,7 @@ import Compiler
 make = 'Unix Makefiles'
 
 cmake_file_name = "CMakeLists.txt"
-cmake_config_file_name = "build_info.cmake"
+cmake_config_file_name = "build_tools_generated.cmake"
 cmake_search_default_depth = 3
 
 def has_cmake_file(path = "."):

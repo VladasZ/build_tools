@@ -41,3 +41,4 @@ def print_info():
 def clean():
     for dep in File.get_files(Paths.deps):
         File.rm(Paths.deps + "/" + dep + "/dep_build")
+        File.rm(Paths.deps + "/" + dep + "/build")

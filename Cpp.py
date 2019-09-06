@@ -48,14 +48,12 @@ def prepare():
     Cmake.add_var(project_name.replace("-", "_") + "_path",
                   "\"" + File.full_path("..") + "\"")
     
-    Cmake.add_var("BUILD_SCRIPT_PATH", "~/.deps/build_tools/utils.cmake")
+    Cmake.add_var("CMAKE_UTILS_PATH", "~/.deps/build_tools/utils.cmake")
 
     Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)
     Cmake.add_bool("IOS_BUILD", Args.ios)
+    Cmake.add_bool("ANDROID_BUILD", Args.android)
     Cmake.add_bool("NEEDS_SIGNING", Args.device and Args.build)
-
-    if Args.debug:
-        Cmake.add_definition("DEBUG")
         
     Conan.run()
 

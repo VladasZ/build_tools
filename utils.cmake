@@ -88,3 +88,7 @@ function(link_project_at_path linked_project_name path)
   include_recursive(${path})
   target_link_libraries(${PROJECT_NAME} ${linked_project_name})
 endfunction(link_project_at_path)
+
+function(say_hello)
+  message(hellooo)
+endfunction()
