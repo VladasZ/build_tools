@@ -65,5 +65,11 @@ def verilog():
     
 if Args.verilog:
     verilog()
-else:
-    cpp()
+    exit()
+
+if Args.compilers_info:
+    Compiler.print_info()
+    exit()
+
+
+cpp()

@@ -35,6 +35,7 @@ def unzipNDK():
     File.unzip(__ndk_zip_path, toolchain_path)
 
 def make_toolchain(destination, arch = _arch, api = _api):
+    return
     Shell.run([
         System.python_cmd,
         ndk_path + '/build/tools/make_standalone_toolchain.py',
@@ -45,6 +46,7 @@ def make_toolchain(destination, arch = _arch, api = _api):
     ])
 
 def setup():
+    return
     if File.exists(_toolchain_path):
         print('android ndk and toolchain OK')
     else:

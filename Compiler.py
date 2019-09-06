@@ -17,6 +17,8 @@ def get_ide():
     return gcc
 
 def get():
+    if Args.android:
+        return clang
     if Args.ide:
         return get_ide()
     if Args.clang:
@@ -27,7 +29,6 @@ def get():
         return clang
     return gcc
 
-
-
-
-
+def print_info():
+    print(clang)
+    print(gcc)

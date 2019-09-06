@@ -8,13 +8,17 @@ import System
 
 from Compilers.CompilerBase import Compiler
 
-
 def get():
 
-    if not Shell.check(["clang", "-dumpversion"]) or not System.is_mac:
+    if not Shell.check(["clang", "-dumpversion"]):
         return Compiler("clang")
 
-    supported_versions = [9, 10]
+    supported_versions = []
+
+    if System.is_mac:
+        supported_versions = [9, 10]
+    else:
+        supported_versions = [6]
 
     version_output = Shell.get(["clang", "-v"])
     full_version  = Regex.version(version_output)
@@ -26,13 +30,22 @@ def get():
 
     conan_version = full_version[:3]
 
-    if major_version > 9:
+    if System.is_mac and major_version > 9:
         conan_version = full_version[:4]
+
+    name = "clang"
+
+    if System.is_mac:
+        name = "apple-clang"
+
+    print(full_version)
+    print(major_version)
+    print(conan_version)
     
     return Compiler(name          = "clang",
                     is_available  = True,
                     libcxx        = "libc++",
-                    conan_name    = "apple-clang",
+                    conan_name    = name,
                     full_version  = full_version,
                     major_version = major_version,
                     conan_version = conan_version,
