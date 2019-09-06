@@ -48,9 +48,10 @@ def run(compiler = Compiler.get(), multi = Args.multi):
     conanfile_name = "../conanfile.txt"
     mobile_name = "../conanfile_mobile.txt"
     desktop_name = "../conanfile_desktop.txt"
+    simulator_name = "../conanfile_simulator.txt"
 
     has_conanfile = File.exists(conanfile_name)
-    has_platforms = File.exists(mobile_name) or File.exists(desktop_name)
+    has_platforms = File.exists(mobile_name) or File.exists(desktop_name) or File.exists(simulator_name)
 
     needed = has_conanfile or has_platforms
 
@@ -59,7 +60,13 @@ def run(compiler = Compiler.get(), multi = Args.multi):
 
     if has_platforms:
         File.rm(conanfile_name)
-        target_name = desktop_name if Args.desktop_build else mobile_name
+        target_name = desktop_name
+
+        if Args.ios:
+            target_name = simulator_name
+            if Args.device:
+                target_name = mobile_name
+
         File.copy(target_name, "./" + conanfile_name)
         
     command = ['conan', 'install', '..']
