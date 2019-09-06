@@ -52,7 +52,7 @@ def prepare():
 
     Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)
     Cmake.add_bool("IOS_BUILD", Args.ios)
-    Cmake.add_bool("CONSOLE_BUILD", not Args.ide)
+    Cmake.add_bool("CONSOLE_BUILD", Args.build)
 
     if Args.debug:
         Cmake.add_definition("DEBUG")
