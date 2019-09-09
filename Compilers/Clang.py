@@ -1,6 +1,7 @@
 import sys
 sys.path.append("..")
 
+import Args
 import Shell
 import Regex
 import Debug
@@ -35,13 +36,9 @@ def get():
 
     name = "clang"
 
-    if System.is_mac:
+    if System.is_mac and not Args.android:
         name = "apple-clang"
-
-    print(full_version)
-    print(major_version)
-    print(conan_version)
-    
+        
     return Compiler(name          = "clang",
                     is_available  = True,
                     libcxx        = "libc++",

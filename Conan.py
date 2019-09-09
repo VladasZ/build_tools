@@ -47,6 +47,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
 
     conanfile_name = "../conanfile.txt"
     mobile_name = "../conanfile_mobile.txt"
+    android_name = "../conanfile_android.txt"
     desktop_name = "../conanfile_desktop.txt"
     simulator_name = "../conanfile_simulator.txt"
 
@@ -67,6 +68,9 @@ def run(compiler = Compiler.get(), multi = Args.multi):
             if Args.device:
                 target_name = mobile_name
 
+        if Args.android:
+            target_name = android_name
+
         File.copy(target_name, "./" + conanfile_name)
         
     command = ['conan', 'install', '..']
@@ -76,9 +80,6 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         build_info_script_name = "conanbuildinfo_multi.cmake"
 
     Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
-
-    print("greeeh")
-    print(compiler)
     
     if Args.ios:
         arch = 'armv8' if Args.device else 'x86_64'
@@ -87,10 +88,12 @@ def run(compiler = Compiler.get(), multi = Args.multi):
             , '-sos.version=9.0'
             , '-sarch=' + arch
         ]
-    if Args.android:
+    elif Args.android:
         command += [
               '-sos=Android'
-            , '-sos.api_level=16'
+            , '-sos.api_level=21'
+            , '-scompiler='         + compiler.conan_name
+            , '-scompiler.version=' + compiler.conan_version
         ]
     else:
         command += [
@@ -98,8 +101,8 @@ def run(compiler = Compiler.get(), multi = Args.multi):
             , '-scompiler.version=' + compiler.conan_version
         ]
         
-        if not (Args.ide and System.is_windows):
-            command += ['-scompiler.libcxx='  + compiler.libcxx]
+    if not (Args.ide and System.is_windows):
+        command += ['-scompiler.libcxx='  + compiler.libcxx]
 
     command += ['--build=missing']
 
