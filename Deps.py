@@ -23,8 +23,6 @@ def install():
     print("Cloning git dependencies:")
     print(deps)
     for dep in deps:
-        if Args.ios and dep == "soil":
-            continue
         _install(dep)
 
 def print_info():
