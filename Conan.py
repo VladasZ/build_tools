@@ -82,24 +82,22 @@ def run(compiler=Compiler.get(), multi=Args.multi):
 
     Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
 
+    command += [
+          '-scompiler='         + compiler.conan_name
+        , '-scompiler.version=' + compiler.conan_version
+    ]
+
     if Args.ios:
         arch = 'armv8' if Args.device else 'x86_64'
         command += [
-            '-sos=iOS'
+              '-sos=iOS'
             , '-sos.version=9.0'
             , '-sarch=' + arch
         ]
     elif Args.android:
         command += [
-            '-sos=Android'
+              '-sos=Android'
             , '-sos.api_level=21'
-            , '-scompiler=' + compiler.conan_name
-            , '-scompiler.version=' + compiler.conan_version
-        ]
-    else:
-        command += [
-            '-scompiler=' + compiler.conan_name
-            , '-scompiler.version=' + compiler.conan_version
         ]
 
     if not (Args.ide and System.is_windows):
