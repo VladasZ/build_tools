@@ -7,8 +7,8 @@ has_pods = File.exists(pods_dir)
 
 my_pods = ["iOSTools", "SwiftyTools", "NetworkTools"]
 
+
 def clone():
-    
     if not has_pods:
         print("Project directory doesn't contain cocoapods")
         return
@@ -29,7 +29,7 @@ def clone():
                     pods_with_changes += [pod]
 
     print("Installed:")
-                    
+
     for pod in pods:
         print(pod)
 
@@ -46,4 +46,3 @@ def clone():
             pod_path = pods_dir + pod
             File.rm(pod_path)
             Git.clone("https://github.com/vladasz/" + pod, pod_path)
-    

@@ -1,5 +1,3 @@
-import sys
-sys.path.append("~/.emacs.d/utils")
 import System
 import Compiler
 

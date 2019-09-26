@@ -1,6 +1,3 @@
-import sys
-sys.path.append("..")
-
 import System
 
 from Compilers.CompilerBase import Compiler

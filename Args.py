@@ -19,7 +19,7 @@ def dump():
     print(all)
 
 ios             = has(["--ios", "ios"])
-gcc             = has(["--gcc"])
+gcc             = has(["--gcc", "gcc"])
 run             = has(["--run"])
 ide             = has(["--ide", "ide", "id"])
 make            = has(["--make"])

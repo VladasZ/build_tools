@@ -18,7 +18,7 @@ def cpp():
 
     if Args.deps_info:
         Deps.print_info()
-        return
+        exit()
 
     if File.exists(Cpp.root_dir + "/Makefile"):
         if Args.clean:

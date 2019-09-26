@@ -1,9 +1,5 @@
-import sys
-sys.path.append("..")
-
 import Shell
 import Regex
-import Debug
 
 from Compilers.CompilerBase import Compiler
 
@@ -12,7 +8,7 @@ def get():
     if not Shell.check(["gcc", "-dumpversion"]):
         return Compiler("gcc")
     
-    supported_versions    = [7, 8]
+    supported_versions    = [7, 8, 9]
     default_version       = Shell.get(["gcc", "-dumpversion"])
     default_major_version = Regex.first_number(default_version)
 

@@ -1,13 +1,14 @@
 import Args
 import System
 
-import Compilers.GCC          
-import Compilers.Clang        
-import Compilers.VisualStudio 
+import Compilers.GCC
+import Compilers.Clang
+import Compilers.VisualStudio
 
 gcc           = Compilers.GCC.get()
 clang         = Compilers.Clang.get()
 visual_studio = Compilers.VisualStudio.get()
+
 
 def get_ide():
     if System.is_windows:
@@ -15,6 +16,7 @@ def get_ide():
     if System.is_mac:
         return clang
     return gcc
+
 
 def get():
     if Args.android:
@@ -28,6 +30,7 @@ def get():
     if System.is_mac:
         return clang
     return gcc
+
 
 def print_info():
     print(clang)

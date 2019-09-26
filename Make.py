@@ -1,4 +1,5 @@
 import Shell
 
-def run(path = '.'):
+
+def run(path='.'):
     Shell.run(['make', '-j8'])

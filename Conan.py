@@ -8,7 +8,8 @@ import System
 import Android
 import Compiler
 
-def root_dir(path = '.'):
+
+def root_dir(path='.'):
     _path = path
     while not File.is_root(_path):
         if File.exists(_path + '/conanfile.txt'):
@@ -16,8 +17,8 @@ def root_dir(path = '.'):
         _path = _path + "/.."
     Debug.throw("Conan root directory not found for path: " + File.full_path(path))
 
-def setup():
 
+def setup():
     if Args.no_conan:
         return
 
@@ -27,7 +28,7 @@ def setup():
         Shell.run([System.pip_cmd, 'install', 'conan'])
         System.add_conan_flag()
 
-    if System.conan_setup and False: #FIX THIS
+    if System.conan_setup and False:  # FIX THIS
         print('conan remotes OK')
     else:
         os.system('conan remote add bincraftes      https://api.bintray.com/conan/bincrafters/public-conan')
@@ -35,14 +36,14 @@ def setup():
         os.system('conan remote add conan-community https://api.bintray.com/conan/conan-community/conan')
         System.add_setup_conan_flag()
 
-def run(compiler = Compiler.get(), multi = Args.multi):
 
+def run(compiler=Compiler.get(), multi=Args.multi):
     build_info_script_name = "conanbuildinfo.cmake"
 
     if Args.no_conan:
         Cmake.add_var("BUILD_INFO", build_info_script_name)
         return
-    
+
     print("Using: " + str(compiler))
 
     conanfile_name = "../conanfile.txt"
@@ -72,7 +73,7 @@ def run(compiler = Compiler.get(), multi = Args.multi):
             target_name = android_name
 
         File.copy(target_name, "./" + conanfile_name)
-        
+
     command = ['conan', 'install', '..']
 
     if multi:
@@ -80,36 +81,36 @@ def run(compiler = Compiler.get(), multi = Args.multi):
         build_info_script_name = "conanbuildinfo_multi.cmake"
 
     Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
-    
+
     if Args.ios:
         arch = 'armv8' if Args.device else 'x86_64'
         command += [
-              '-sos=iOS'
+            '-sos=iOS'
             , '-sos.version=9.0'
             , '-sarch=' + arch
         ]
     elif Args.android:
         command += [
-              '-sos=Android'
+            '-sos=Android'
             , '-sos.api_level=21'
-            , '-scompiler='         + compiler.conan_name
+            , '-scompiler=' + compiler.conan_name
             , '-scompiler.version=' + compiler.conan_version
         ]
     else:
         command += [
-              '-scompiler='         + compiler.conan_name
+            '-scompiler=' + compiler.conan_name
             , '-scompiler.version=' + compiler.conan_version
         ]
-        
+
     if not (Args.ide and System.is_windows):
-        command += ['-scompiler.libcxx='  + compiler.libcxx]
+        command += ['-scompiler.libcxx=' + compiler.libcxx]
 
     command += ['--build=missing']
 
     if Args.ios:
         Shell.run(command)
         return
-            
+
     if multi:
         Shell.run(command + ['-s', 'build_type=Debug'])
         Shell.run(command + ['-s', 'build_type=Release'])

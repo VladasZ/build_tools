@@ -12,7 +12,8 @@ _toolchain_path = toolchain_path + _toolchain_name
 
 __ndk_zip_path = toolchain_path + 'android_NDK.zip'
 
-ndk_path =  toolchain_path + 'android-ndk-r17b'
+ndk_path = toolchain_path + 'android-ndk-r17b'
+
 
 def NDKLink():
     if System.is_windows:
@@ -22,11 +23,13 @@ def NDKLink():
     if System.is_linux:
         return 'https://dl.google.com/android/repository/android-ndk-r17b-linux-x86_64.zip'
 
+
 def downloadNDK():
     if File.exists(__ndk_zip_path):
         print('NDK zip OK')
         return
     File.download(NDKLink(), toolchain_path + 'android_NDK.zip')
+
 
 def unzipNDK():
     if File.exists(ndk_path):
@@ -34,7 +37,8 @@ def unzipNDK():
         return
     File.unzip(__ndk_zip_path, toolchain_path)
 
-def make_toolchain(destination, arch = _arch, api = _api):
+
+def make_toolchain(destination, arch=_arch, api=_api):
     return
     Shell.run([
         System.python_cmd,
@@ -44,6 +48,7 @@ def make_toolchain(destination, arch = _arch, api = _api):
         '--stl=libc++',
         '--install-dir=' + destination
     ])
+
 
 def setup():
     return

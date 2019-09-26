@@ -1,10 +1,6 @@
-import sys
-sys.path.append("..")
-
 import Args
 import Shell
 import Regex
-import Debug
 import System
 
 from Compilers.CompilerBase import Compiler
@@ -17,7 +13,7 @@ def get():
     supported_versions = []
 
     if System.is_mac:
-        supported_versions = [9, 10]
+        supported_versions = [9, 10, 11]
     else:
         supported_versions = [6]
 
@@ -25,6 +21,9 @@ def get():
     full_version  = Regex.version(version_output)
 
     major_version = Regex.first_number(full_version)
+
+    print(major_version)
+    print(supported_versions)
 
     if not major_version in supported_versions:
         return Compiler("clang")

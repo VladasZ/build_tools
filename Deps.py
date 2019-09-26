@@ -4,10 +4,12 @@ import File
 import Paths
 import Cmake
 
+
 def _clean_project_name(name):
     return name.replace("-", "_")
 
-def _install(name, update = False):
+
+def _install(name, update=False):
     path = Paths.deps + "/" + name
     Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
     Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
@@ -15,8 +17,8 @@ def _install(name, update = False):
         File.rm(path)
     elif File.exists(path):
         return
-    Git.clone("https://github.com/vladasz/" + name, path, recursive = True)
-    
+    Git.clone("https://github.com/vladasz/" + name, path, recursive=True)
+
 
 def install():
     deps = File.get_lines("../deps.txt")
@@ -24,6 +26,7 @@ def install():
     print(deps)
     for dep in deps:
         _install(dep)
+
 
 def print_info():
     changes = False
@@ -35,6 +38,7 @@ def print_info():
             print(dep + " - has changes")
     if not changes:
         print("no changes")
+
 
 def clean():
     for dep in File.get_files(Paths.deps):
