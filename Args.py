@@ -42,6 +42,7 @@ no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 simulate        = has(["--simulate"])
 simulator       = has(["--simulator", "sim", "sm"])
 deps_info       = has(["--deps-info", "i"])
+no_freetype     = has(["--no-freetyoe", "no-freetype", "noft", "nf"])
 force_build     = has(["--force-build"])
 compilers_info  = has(["--compilers-info", "ci"])
 manual_compiler = has(["--manual-compiler"])
@@ -49,9 +50,4 @@ manual_compiler = has(["--manual-compiler"])
 desktop_build = True
 
 if ios or android:
-    desktop_build = False
-
-
-
-
-    
+    desktop_build = False    

@@ -57,6 +57,12 @@ def prepare():
     Cmake.add_bool("ANDROID_BUILD", Args.android)
     Cmake.add_bool("NEEDS_SIGNING", Args.device and Args.build)
 
+    Cmake.add_bool("NO_FREETYPE", Args.no_freetype)
+
+    if Args.no_freetype:
+        Cmake.add_definition("NO_FREETYPE")
+
+
     Conan.run()
 
     if has_dependencies:

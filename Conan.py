@@ -51,6 +51,7 @@ def run(compiler=Compiler.get(), multi=Args.multi):
     android_name = "../conanfile_android.txt"
     desktop_name = "../conanfile_desktop.txt"
     simulator_name = "../conanfile_simulator.txt"
+    desktop_no_freetype = "../conanfile_desktop_no_freetype.txt"
 
     has_conanfile = File.exists(conanfile_name)
     has_platforms = File.exists(mobile_name) or File.exists(desktop_name) or File.exists(simulator_name)
@@ -71,6 +72,9 @@ def run(compiler=Compiler.get(), multi=Args.multi):
 
         if Args.android:
             target_name = android_name
+
+        if System.is_windows and Args.no_freetype:
+            target_name = desktop_no_freetype
 
         File.copy(target_name, "./" + conanfile_name)
 
