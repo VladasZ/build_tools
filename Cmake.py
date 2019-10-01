@@ -8,8 +8,6 @@ import Shell
 import System
 import Compiler
 
-make = 'Unix Makefiles'
-
 cmake_file_name = "CMakeLists.txt"
 cmake_config_file_name = "build_tools_generated.cmake"
 cmake_search_default_depth = 3
@@ -43,7 +41,9 @@ def default_generator():
     if Args.ios:
         return 'Xcode'
     if not Args.ide:
-        return make
+        if System.is_windows:
+            return 'MinGW Makefiles'
+        return 'Unix Makefiles'
     if System.is_windows:
         if Args.vs19:
             return 'Visual Studio 16 2019'
