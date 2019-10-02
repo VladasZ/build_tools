@@ -76,6 +76,10 @@ def setup(compiler=Compiler.get()):
     if Args.ide:
         return
 
+    Debug.info(compiler)
+
+    Debug.info(compiler.CXX)
+
     os.environ['CC'] = Shell.which(compiler.CC)
     os.environ['CXX'] = Shell.which(compiler.CXX)
 

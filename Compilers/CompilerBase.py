@@ -1,4 +1,6 @@
 
+import System
+
 class Compiler:
 
     def __init__(self,
@@ -16,6 +18,9 @@ class Compiler:
         self.name          = name
         self.is_available  = is_available
         self.libcxx        = libcxx
+
+        if System.is_linux:
+            self.libcxx = "libstdc++11"
 
         if conan_name:
             self.conan_name = conan_name
