@@ -4,8 +4,9 @@ import Paths
 import Cmake
 import Debug
 
+_ignore_build_tools = False
 
-_deps_file = "deps.txt"
+_deps_file = "../deps.txt"
 _project_name = File.folder_name()
 
 
@@ -16,6 +17,8 @@ def all_installed():
 def safe_to_delete():
     for dep in all_installed():
         if dep == _project_name:
+            continue
+        if _ignore_build_tools and dep == "build_tools":
             continue
         if Git.has_changes(Paths.deps + "/" + dep):
             Debug.info("Dep " + dep + " has changes.")
@@ -29,7 +32,8 @@ def install():
     print(deps)
     for dep in deps:
         _install(dep)
-    _install("build_tools")
+    if not _ignore_build_tools:
+        _install("build_tools")
 
 
 def print_info():

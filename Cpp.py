@@ -39,16 +39,16 @@ def prepare():
 
     File.cd(root_dir)
 
-    Cmake.reset_config()
-
-    if has_dependencies:
-        Deps.install()
-
     Conan.setup()
     Cmake.setup()
 
     File.mkdir('build')
     File.cd('build')
+
+    Cmake.reset_config()
+
+    if has_dependencies:
+        Deps.install()
 
     Cmake.add_var(project_name.replace("-", "_") + "_path",
                   "\"" + File.full_path("..") + "\"")
