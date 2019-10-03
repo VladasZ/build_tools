@@ -64,6 +64,7 @@ def _install(name, update=True):
     if update and safe_to_delete():
         Debug.throw("Commit deps changes before updating.")
     path = Paths.deps + "/" + name
-    Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
-    Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
+    if name != "build_tools":
+        Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
+        Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
     Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True)
