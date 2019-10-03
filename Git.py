@@ -15,7 +15,7 @@ def root_dir(path='.'):
     Debug.throw("Git root directory not found for path: " + File.full_path(path))
 
 
-def clone(link, destination, delete_existing=False, recursive=False):
+def clone(link, destination, delete_existing=False, recursive=False, ignore_existing=False):
 
     if delete_existing:
         if has_changes(destination):
@@ -24,6 +24,8 @@ def clone(link, destination, delete_existing=False, recursive=False):
             File.rm(destination)
 
     if len(destination) > 0 and File.exists(destination):
+        if ignore_existing:
+            return
         Debug.throw("Git repository: " + link + " already exists for path: " + File.full_path(destination))
 
     command = ["git", "clone", link, destination]

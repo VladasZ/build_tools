@@ -1,3 +1,4 @@
+import Args
 import Git
 import File
 import Paths
@@ -31,9 +32,9 @@ def install():
     print("Cloning git dependencies:")
     print(deps)
     for dep in deps:
-        _install(dep)
+        _install(dep, update=Args.update_deps)
     if not _ignore_build_tools:
-        _install("build_tools")
+        _install("build_tools", update=Args.update_deps)
 
 
 def print_info():
@@ -67,4 +68,4 @@ def _install(name, update=True):
     if name != "build_tools":
         Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
         Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
-    Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True)
+    Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True, ignore_existing=True)
