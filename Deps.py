@@ -62,7 +62,4 @@ def _install(name, update=True):
     path = Paths.deps + "/" + name
     Cmake.append_var("GIT_DEPENDENCIES", "\"" + path + "\"")
     Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
-    if update:
-        File.rm(path)
-    elif not File.exists(path):
-        Git.clone("https://github.com/vladasz/" + name, path, recursive=True)
+    Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True)

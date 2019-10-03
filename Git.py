@@ -16,8 +16,12 @@ def root_dir(path='.'):
 
 
 def clone(link, destination, delete_existing=False, recursive=False):
+
     if delete_existing:
-        File.rm(destination)
+        if has_changes(destination):
+            Debug.throw("Can not delete repository with changes at path: " + destination)
+        else:
+            File.rm(destination)
 
     if len(destination) > 0 and File.exists(destination):
         Debug.throw("Git repository: " + link + " already exists for path: " + File.full_path(destination))
