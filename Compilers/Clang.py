@@ -22,9 +22,6 @@ def get():
 
     major_version = Regex.first_number(full_version)
 
-    print(major_version)
-    print(supported_versions)
-
     if not major_version in supported_versions:
         return Compiler("clang")
 

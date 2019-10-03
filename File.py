@@ -15,7 +15,7 @@ def is_file(path):
 
 
 def rm(path):
-    Debug.info(path)
+    Debug.info("Deleting: " + path)
     if os.path.exists(path):
         if is_file(path):
             os.remove(path)
@@ -109,7 +109,7 @@ def parent_folder(path='.'):
 def get_project_name():
     path = full_path('.')
     while True:
-        if (is_root(path)):
+        if is_root(path):
             return ""
         if parent_folder(path) == "source":
             return os.path.basename(path)
@@ -138,16 +138,16 @@ def download(url, file_name):
     urllib.request.urlretrieve(url, file_name)
 
 
-def write(file_name, text):
-    path = full_path(file_name)
+def write(path, text):
+    path = full_path(path)
     rm(path)
     file = open(path, "w+")
     file.write(text)
     file.close()
 
 
-def append(file_name, text):
-    path = full_path(file_name)
+def append(path, text):
+    path = full_path(path)
     file = open(path, "a+")
     file.write(text)
     file.close()
