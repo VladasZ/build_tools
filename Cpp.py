@@ -65,6 +65,8 @@ def prepare():
     if Args.no_freetype:
         Cmake.add_definition("NO_FREETYPE")
 
+    if Args.debug:
+        Cmake.add_definition("DEBUG")
 
     Conan.run()
 
