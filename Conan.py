@@ -24,6 +24,8 @@ def _create_conanfile():
 
 
     versions = { 
+        "poco"     : "Poco/1.9.0@pocoproject/stable",
+        "sqlite"   : "sqlite3/3.29.0@bincrafters/stable",
         "glfw"     : "glfw/3.2.1.20180327@bincrafters/stable",
         "glew"     : "glew/2.1.0@bincrafters/stable",
         "freetype" : "freetype/2.10.0@bincrafters/stable",
