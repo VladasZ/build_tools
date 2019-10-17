@@ -37,7 +37,7 @@ def _create_conanfile():
     for lib in File.get_lines(_conan_deps):
         
         if Args.mobile:
-            if lib == glfw or lib == glew:
+            if lib == "glfw" or lib == "glew":
                 continue
 
         if Args.no_freetype and lib == "freetype":
