@@ -40,6 +40,7 @@ prepare         = has(["--prepare", "p"])
 rmbuild         = has(["--rmbuild"])
 no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 simulate        = has(["--simulate"])
+no_assimp       = has(["--no-assimp", "no-assimp", "noassimp", "na"])
 simulator       = has(["--simulator", "sim", "sm"])
 deps_info       = has(["--deps-info", "i"])
 update_deps     = has(["--update-deps", "update-deps", "ud"])
@@ -47,6 +48,8 @@ no_freetype     = has(["--no-freetyoe", "no-freetype", "noft", "nf"])
 force_build     = has(["--force-build"])
 compilers_info  = has(["--compilers-info", "ci"])
 manual_compiler = has(["--manual-compiler"])
+
+mobile = android or ios
 
 desktop_build = True
 

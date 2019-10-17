@@ -8,14 +8,54 @@ import System
 import Android
 import Compiler
 
+_conanfile  = "../conanfile.txt"
+_conan_deps = "../conan.txt"
 
-def root_dir(path='.'):
-    _path = path
-    while not File.is_root(_path):
-        if File.exists(_path + '/conanfile.txt'):
-            return File.full_path(_path)
-        _path = _path + "/.."
-    Debug.throw("Conan root directory not found for path: " + File.full_path(path))
+def _needs_conan():
+    return File.exists(_conan_deps)
+
+def _create_conanfile():
+
+    File.rm(_conanfile)
+
+    File.append(_conanfile, "# GENERATED FILE. DO NOT EDIT\n")
+    File.append(_conanfile, "# Edit conan.txt instead\n")
+    File.append(_conanfile, "\n[requires]\n")
+
+
+    versions = { 
+        "glfw"     : "glfw/3.2.1.20180327@bincrafters/stable",
+        "glew"     : "glew/2.1.0@bincrafters/stable",
+        "freetype" : "freetype/2.10.0@bincrafters/stable",
+        "assimp"   : "Assimp/4.1.0@jacmoe/stable",
+        "box2d"    : "box2d/2.3.1@conan/stable" 
+    }
+
+    darwin = "darwin-toolchain/1.0.4@theodelrieu/stable"
+    ndk = "android_ndk_installer/r20@bincrafters/stable"
+
+    for lib in File.get_lines(_conan_deps):
+        
+        if Args.mobile:
+            if lib == glfw or lib == glew:
+                continue
+
+        if Args.no_freetype and lib == "freetype":
+            continue
+
+        if Args.no_assimp and lib == "assimp":
+            continue
+
+        File.append(_conanfile, versions[lib] + "\n")
+
+    if Args.ios:
+        File.append(_conanfile, darwin + "\n")
+
+    if Args.android:
+        File.append(_conanfile, ndk + "\n")
+
+    File.append(_conanfile, "\n[generators]\n")
+    File.append(_conanfile, "cmake")
 
 
 def setup():
@@ -36,51 +76,25 @@ def setup():
         os.system('conan remote add conan-community https://api.bintray.com/conan/conan-community/conan')
         System.add_setup_conan_flag()
 
+def run(compiler=Compiler.get()):
 
-def run(compiler=Compiler.get(), multi=Args.multi):
     build_info_script_name = "conanbuildinfo.cmake"
 
     if Args.no_conan:
         Cmake.add_var("BUILD_INFO", build_info_script_name)
         return
 
-    print("Using: " + str(compiler))
-
-    conanfile_name = "../conanfile.txt"
-    mobile_name = "../conanfile_mobile.txt"
-    android_name = "../conanfile_android.txt"
-    desktop_name = "../conanfile_desktop.txt"
-    simulator_name = "../conanfile_simulator.txt"
-    desktop_no_freetype = "../conanfile_desktop_no_freetype.txt"
-
-    has_conanfile = File.exists(conanfile_name)
-    has_platforms = File.exists(mobile_name) or File.exists(desktop_name) or File.exists(simulator_name)
-
-    needed = has_conanfile or has_platforms
-
-    if not needed:
+    if not _needs_conan():
         return
 
-    if has_platforms:
-        File.rm(conanfile_name)
-        target_name = desktop_name
+    _create_conanfile()
 
-        if Args.ios:
-            target_name = simulator_name
-            if Args.device:
-                target_name = mobile_name
 
-        if Args.android:
-            target_name = android_name
 
-        if System.is_windows and Args.no_freetype:
-            target_name = desktop_no_freetype
-
-        File.copy(target_name, "./" + conanfile_name)
 
     command = ['conan', 'install', '..']
 
-    if multi:
+    if Args.multi:
         command += ['-g', 'cmake_multi']
         build_info_script_name = "conanbuildinfo_multi.cmake"
 
@@ -113,7 +127,7 @@ def run(compiler=Compiler.get(), multi=Args.multi):
         Shell.run(command)
         return
 
-    if multi:
+    if Args.multi:
         Shell.run(command + ['-s', 'build_type=Debug'])
         Shell.run(command + ['-s', 'build_type=Release'])
     elif Args.debug:
