@@ -12,6 +12,8 @@ _conanfile  = "../conanfile.txt"
 _conan_deps = "../conan.txt"
 
 def _needs_conan():
+    if Args.no_conan:
+        return False
     return File.exists(_conan_deps)
 
 def _create_conanfile():
@@ -95,11 +97,12 @@ def run(compiler=Compiler.get()):
         return
 
     if not _needs_conan():
+        Cmake.add_bool("NEEDS_CONAN", False)
         return
 
+    Cmake.add_bool("NEEDS_CONAN", True)
+
     _create_conanfile()
-
-
 
 
     command = ['conan', 'install', '..']
