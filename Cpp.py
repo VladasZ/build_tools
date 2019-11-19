@@ -68,6 +68,12 @@ def prepare():
     if Args.no_assimp:
         Cmake.add_definition("NO_ASSIMP")
 
+    if Args.no_box2d:
+        Cmake.add_definition("NO_BOX2D")
+
+    if Args.no_soil:
+        Cmake.add_definition("NO_SOIL")
+
     if Args.debug:
         Cmake.add_definition("DEBUG")
 

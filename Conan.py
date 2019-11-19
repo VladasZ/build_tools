@@ -50,6 +50,12 @@ def _create_conanfile():
         if Args.no_assimp and lib == "assimp":
             continue
 
+        if Args.no_box2d and lib == "box2d":
+            continue
+
+        if Args.no_soil and lib == "soil":
+            continue
+
         File.append(_conanfile, versions[lib] + "\n")
 
     if Args.ios:
