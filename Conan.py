@@ -31,7 +31,8 @@ def _create_conanfile():
         "freetype" : "freetype/2.10.0@bincrafters/stable",
         "assimp"   : "Assimp/4.1.0@jacmoe/stable",
         "box2d"    : "box2d/2.3.1@conan/stable",
-        "glm"      : "glm/0.9.9.5@g-truc/stable"
+        "glm"      : "glm/0.9.9.5@g-truc/stable",
+        "soil"     : "soil2/1.11@bincrafters/stable"
     }
 
     darwin = "darwin-toolchain/1.0.4@theodelrieu/stable"
