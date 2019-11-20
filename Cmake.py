@@ -114,3 +114,6 @@ def append_var(name, value):
 
 def add_definition(definition):
     _append("add_definitions(-D" + definition + ")\n")
+
+def add_line(line):
+    _append(line + "\n")

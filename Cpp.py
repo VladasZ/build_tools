@@ -77,6 +77,11 @@ def prepare():
 
     Conan.run()
 
+    Cmake.add_line("include(${CMAKE_UTILS_PATH})")
+    Cmake.add_line("if(${NEEDS_CONAN})")
+    Cmake.add_line("include(${CONAN_BUILD_INFO})")
+    Cmake.add_line("endif()")
+
     Cmake.run()
 
     print("Project prepare time: " + Time.duration())
