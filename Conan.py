@@ -92,18 +92,14 @@ def run(compiler=Compiler.get()):
 
     build_info_script_name = "conanbuildinfo.cmake"
 
-    if Args.no_conan:
-        Cmake.add_var("BUILD_INFO", build_info_script_name)
-        return
-
     if not _needs_conan():
+        Cmake.add_var("BUILD_INFO", build_info_script_name)
         Cmake.add_bool("NEEDS_CONAN", False)
         return
 
     Cmake.add_bool("NEEDS_CONAN", True)
 
     _create_conanfile()
-
 
     command = ['conan', 'install', '..']
 

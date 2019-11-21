@@ -19,6 +19,12 @@ if(${IOS_BUILD})
   add_definitions(-DIOS_BUILD)
 endif()
 
+if(${NEEDS_CONAN})
+  add_definitions(-DUSING_CONAN)
+else()
+  add_definitions(-DNO_CONAN)
+endif()
+
 function(get_subdirs out dir)
   file(GLOB children RELATIVE ${dir} ${dir}/*)
   foreach(child ${children})
