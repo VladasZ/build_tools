@@ -53,13 +53,13 @@ no_box2d        = has(["--no-box2d", "no-box2d", "nobox", "nb"])
 no_assimp       = has(["--no-assimp", "no-assimp", "noassimp", "na"])
 no_freetype     = has(["--no-freetyoe", "no-freetype", "noft", "nf"])
 
-if no_conan:
-	no_soil     = True
-	no_box2d    = True
-	no_assimp   = True
-	no_freetype = True
-
 mobile = android or ios
+
+if no_conan:
+    no_soil     = True
+    no_box2d    = True
+    no_assimp   = True
+    no_freetype = True
 
 desktop_build = True
 

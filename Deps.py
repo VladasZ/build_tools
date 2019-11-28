@@ -1,5 +1,5 @@
-import Args
 import Git
+import Args
 import File
 import Paths
 import Cmake
@@ -7,8 +7,14 @@ import Debug
 
 _ignore_build_tools = False
 
-_deps_file = "../deps.txt"
 _project_name = File.folder_name()
+
+
+def _deps_file():
+    file = "deps.txt"
+    if Args.android:
+        return file
+    return "../" + file
 
 
 def all_installed():
@@ -28,7 +34,7 @@ def safe_to_delete():
 
 
 def install():
-    deps = File.get_lines(_deps_file)
+    deps = File.get_lines(_deps_file())
     print("Cloning git dependencies:")
     print(deps)
     for dep in deps:

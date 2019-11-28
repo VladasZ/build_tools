@@ -8,21 +8,32 @@ import System
 import Android
 import Compiler
 
-_conanfile  = "../conanfile.txt"
-_conan_deps = "../conan.txt"
+def _conanfile():
+    file = "conanfile.txt"
+    if Args.android:
+        return file
+    return "../" + file
+
+
+def _conan_deps():
+    file = "conan.txt"
+    if Args.android:
+        return file
+    return "../" + file
+
 
 def _needs_conan():
     if Args.no_conan:
         return False
-    return File.exists(_conan_deps)
+    return File.exists(_conan_deps())
 
 def _create_conanfile():
 
-    File.rm(_conanfile)
+    File.rm(_conanfile())
 
-    File.append(_conanfile, "# GENERATED FILE. DO NOT EDIT\n")
-    File.append(_conanfile, "# Edit conan.txt instead\n")
-    File.append(_conanfile, "\n[requires]\n")
+    File.append(_conanfile(), "# GENERATED FILE. DO NOT EDIT\n")
+    File.append(_conanfile(), "# Edit conan.txt instead\n")
+    File.append(_conanfile(), "\n[requires]\n")
 
 
     versions = { 
@@ -40,7 +51,7 @@ def _create_conanfile():
     darwin = "darwin-toolchain/1.0.4@theodelrieu/stable"
     ndk = "android_ndk_installer/r20@bincrafters/stable"
 
-    for lib in File.get_lines(_conan_deps):
+    for lib in File.get_lines(_conan_deps()):
         
         if Args.mobile:
             if lib == "glfw" or lib == "glew":
@@ -58,16 +69,16 @@ def _create_conanfile():
         if Args.no_soil and lib == "soil":
             continue
 
-        File.append(_conanfile, versions[lib] + "\n")
+        File.append(_conanfile(), versions[lib] + "\n")
 
     if Args.ios:
-        File.append(_conanfile, darwin + "\n")
+        File.append(_conanfile(), darwin + "\n")
 
     if Args.android:
-        File.append(_conanfile, ndk + "\n")
+        File.append(_conanfile(), ndk + "\n")
 
-    File.append(_conanfile, "\n[generators]\n")
-    File.append(_conanfile, "cmake")
+    File.append(_conanfile(), "\n[generators]\n")
+    File.append(_conanfile(), "cmake")
 
 
 def setup():
@@ -108,6 +119,7 @@ def run(compiler=Compiler.get()):
         build_info_script_name = "conanbuildinfo_multi.cmake"
 
     Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
+    Cmake.add_line("include(${CONAN_BUILD_INFO})")
 
     command += [
           '-scompiler='         + compiler.conan_name

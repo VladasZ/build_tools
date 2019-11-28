@@ -1,5 +1,4 @@
 import os
-import platform
 import iOS
 import File
 import Args
@@ -9,8 +8,13 @@ import System
 import Compiler
 
 cmake_file_name = "CMakeLists.txt"
-cmake_config_file_name = "build_tools_generated.cmake"
 cmake_search_default_depth = 3
+
+def cmake_config_file_name():
+    name = "build_tools_generated.cmake"
+    if Args.android:
+        return "android/app/src/main/cpp/" + name
+    return name
 
 
 def has_cmake_file(path="."):
@@ -56,6 +60,10 @@ def default_generator():
 
 
 def run(generator=default_generator()):
+
+    if Args.android:
+        return
+
     args = ["cmake", "..", "-G", generator]
 
     args += ["-DCMAKE_BUILD_TYPE=Debug" if Args.debug else "-DCMAKE_BUILD_TYPE=Release"]
@@ -73,11 +81,11 @@ def run(generator=default_generator()):
 
 
 def setup(compiler=Compiler.get()):
-    if Args.ide:
+
+    if Args.ide or Args.android:
         return
 
     Debug.info(compiler)
-
     Debug.info(compiler.CXX)
 
     os.environ['CC'] = Shell.which(compiler.CC)
@@ -92,12 +100,12 @@ def build():
 
 
 def _append(value):
-    File.append(cmake_config_file_name, value)
+    File.append(cmake_config_file_name(), value)
 
 
 def reset_config():
-    File.rm(cmake_config_file_name)
-    File.append(cmake_config_file_name, "# GENERATED FILE. DO NOT EDIT\n")
+    File.rm(cmake_config_file_name())
+    File.append(cmake_config_file_name(), "# GENERATED FILE. DO NOT EDIT\n")
 
 
 def add_var(name, value):
@@ -117,3 +125,29 @@ def add_definition(definition):
 
 def add_line(line):
     _append(line + "\n")
+
+def setup_variables():
+
+    add_var("CMAKE_UTILS_PATH", "~/.deps/build_tools/utils.cmake")
+
+    add_bool("DESKTOP_BUILD", Args.desktop_build)
+    add_bool("IOS_BUILD", Args.ios)
+    add_bool("ANDROID_BUILD", Args.android)
+    add_bool("NEEDS_SIGNING", Args.device and Args.build)
+
+    if Args.no_freetype:
+        add_definition("NO_FREETYPE")
+
+    if Args.no_assimp:
+        add_definition("NO_ASSIMP")
+
+    if Args.no_box2d:
+        add_definition("NO_BOX2D")
+
+    if Args.no_soil:
+        add_definition("NO_SOIL")
+
+    if Args.debug:
+        add_definition("DEBUG")
+
+    add_line("include(${CMAKE_UTILS_PATH})")

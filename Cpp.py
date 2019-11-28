@@ -42,8 +42,9 @@ def prepare():
     Conan.setup()
     Cmake.setup()
 
-    File.mkdir('build')
-    File.cd('build')
+    if not Args.android:
+        File.mkdir('build')
+        File.cd('build')
 
     Cmake.reset_config()
 
@@ -53,34 +54,9 @@ def prepare():
     Cmake.add_var(project_name.replace("-", "_") + "_path",
                   "\"" + File.full_path("..") + "\"")
 
-    Cmake.add_var("CMAKE_UTILS_PATH", "~/.deps/build_tools/utils.cmake")
-
-    Cmake.add_bool("DESKTOP_BUILD", Args.desktop_build)
-    Cmake.add_bool("IOS_BUILD", Args.ios)
-    Cmake.add_bool("ANDROID_BUILD", Args.android)
-    Cmake.add_bool("NEEDS_SIGNING", Args.device and Args.build)
-
-    if Args.no_freetype:
-        Cmake.add_definition("NO_FREETYPE")
-
-    if Args.no_assimp:
-        Cmake.add_definition("NO_ASSIMP")
-
-    if Args.no_box2d:
-        Cmake.add_definition("NO_BOX2D")
-
-    if Args.no_soil:
-        Cmake.add_definition("NO_SOIL")
-
-    if Args.debug:
-        Cmake.add_definition("DEBUG")
+    Cmake.setup_variables()
 
     Conan.run()
-
-    Cmake.add_line("include(${CMAKE_UTILS_PATH})")
-    Cmake.add_line("if(${NEEDS_CONAN})")
-    Cmake.add_line("include(${CONAN_BUILD_INFO})")
-    Cmake.add_line("endif()")
 
     Cmake.run()
 
