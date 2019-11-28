@@ -52,7 +52,7 @@ def prepare():
         Deps.install()
 
     Cmake.add_var(project_name.replace("-", "_") + "_path",
-                  "\"" + File.full_path("..") + "\"")
+                  "\"" + File.full_path("." if Args.android else "..") + "\"")
 
     Cmake.setup_variables()
 

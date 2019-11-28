@@ -133,7 +133,7 @@ def setup_variables():
     add_bool("DESKTOP_BUILD", Args.desktop_build)
     add_bool("IOS_BUILD", Args.ios)
     add_bool("ANDROID_BUILD", Args.android)
-    add_bool("NEEDS_SIGNING", Args.device and Args.build)
+    add_bool("NEEDS_SIGNING", Args.needs_signing)
 
     if Args.no_freetype:
         add_definition("NO_FREETYPE")

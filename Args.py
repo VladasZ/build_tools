@@ -64,4 +64,6 @@ if no_conan:
 desktop_build = True
 
 if ios or android:
-    desktop_build = False    
+    desktop_build = False
+
+needs_signing = (device and build) or android
