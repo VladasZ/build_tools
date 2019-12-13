@@ -18,6 +18,7 @@ def count():
 def dump():
     print(all)
 
+x32             = has(["--x32", "x32", "32"])    
 ios             = has(["--ios", "ios"])
 gcc             = has(["--gcc", "gcc"])
 run             = has(["--run"])

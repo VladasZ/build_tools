@@ -48,13 +48,15 @@ def _create_conanfile():
         "soil"     : "soil2/1.11@bincrafters/stable"
     }
 
+    desktop_only = ["glfw", "glew"]
+
     darwin = "darwin-toolchain/1.0.4@theodelrieu/stable"
     ndk = "android_ndk_installer/r20@bincrafters/stable"
 
     for lib in File.get_lines(_conan_deps()):
         
         if Args.mobile:
-            if lib == "glfw" or lib == "glew":
+            if lib in desktop_only:
                 continue
 
         if Args.no_freetype and lib == "freetype":

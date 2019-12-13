@@ -72,7 +72,10 @@ def run(generator=default_generator()):
         platform = "SIMULATOR64"
 
         if Args.device:
-            platform = "OS64"
+            if Args.x32:
+                platform = "OS"
+            else:
+                platform = "OS64"
 
         args += ["-DCMAKE_TOOLCHAIN_FILE=" + iOS.toolchain_file]
         args += ["-DPLATFORM=" + platform]
