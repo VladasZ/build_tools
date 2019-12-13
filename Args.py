@@ -61,9 +61,6 @@ if no_conan:
     no_assimp   = True
     no_freetype = True
 
-desktop_build = True
-
-if ios or android:
-    desktop_build = False
+desktop_build = not (ios or android)
 
 needs_signing = (device and build) or android

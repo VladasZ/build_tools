@@ -123,6 +123,11 @@ def append_var(name, value):
 def add_definition(definition):
     _append("add_definitions(-D" + definition + ")\n")
 
+def add_def_and_bool(definition, value):
+    add_bool(definition, value)
+    if value:
+        add_definition(definition)
+
 def add_line(line):
     _append(line + "\n")
 
@@ -130,11 +135,16 @@ def setup_variables():
 
     add_var("CMAKE_UTILS_PATH", "~/.deps/build_tools/utils.cmake")
 
-    add_bool("DESKTOP_BUILD", Args.desktop_build)
-    add_bool("IOS_BUILD", Args.ios)
-    add_bool("ANDROID_BUILD", Args.android)
-    add_bool("NEEDS_SIGNING", Args.needs_signing)
+    add_def_and_bool("DESKTOP_BUILD", Args.desktop_build)
+    add_def_and_bool("IOS_BUILD",     Args.ios)
+    add_def_and_bool("ANDROID_BUILD", Args.android)
+    add_def_and_bool("NEEDS_SIGNING", Args.needs_signing)
 
+    if Args.desktop_build:
+        add_def_and_bool("MAC_BUILD",     System.is_mac)
+        add_def_and_bool("WINDOWS_BUILD", System.is_windows)
+        add_def_and_bool("LINUX_BUILD",   System.is_linux)
+            
     if Args.no_freetype:
         add_definition("NO_FREETYPE")
 
