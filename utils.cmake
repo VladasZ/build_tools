@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
-set(CMAKE_CXX_STANDARD 17)
-
 if(ANDROID_BUILD)
   add_definitions(-DANDROID_BUILD)
 elseif(WIN32 AND DESKTOP_BUILD)

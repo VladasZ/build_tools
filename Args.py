@@ -22,15 +22,17 @@ x32             = has(["--x32", "x32", "32"])
 ios             = has(["--ios", "ios"])
 gcc             = has(["--gcc", "gcc"])
 run             = has(["--run"])
-ide             = has(["--ide", "ide", "id"])
-vs19            = has(["--vs10", "vs19"])
+ide             = has(["--ide", "ide"])
+vs19            = has(["--vs19", "vs19"])
 make            = has(["--make"])
 hand            = has(["--hand"])
 test            = has(["--test"])
+cpp11           = has(["--cpp11", "cpp11", "11"])
+cpp14           = has(["--cpp14", "cpp14", "14"])
 multi           = has(["--multi"])
 flash           = has(["--flash"])
 build           = has(["--build", "b"])
-clang           = has(["--clang"])
+clang           = has(["--clang", "clang"])
 clean           = has(["--clean", "c"])
 debug           = has(["--debug", "d"])
 device          = has(["--device", "dev"])
@@ -54,14 +56,32 @@ no_box2d        = has(["--no-box2d", "no-box2d", "nobox", "nb"])
 no_assimp       = has(["--no-assimp", "no-assimp", "noassimp", "na"])
 no_freetype     = has(["--no-freetyoe", "no-freetype", "noft", "nf"])
 
+cpp_standart = 17
+cpp17 = True
+
+if cpp11:
+    cpp_standart = 11
+    cpp11 = True
+    cpp14 = False
+    cpp17 = False
+elif cpp14:
+    cpp_standart = 14
+    cpp11 = True
+    cpp14 = True
+    cpp17 = False
+else:
+    cpp_standart = 17
+    cpp11 = True
+    cpp14 = True
+    cpp17 = True
+
 mobile = android or ios
+desktop_build = not mobile
 
 if no_conan:
     no_soil     = True
     no_box2d    = True
     no_assimp   = True
     no_freetype = True
-
-desktop_build = not (ios or android)
 
 needs_signing = (device and build) or android
