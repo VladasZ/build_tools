@@ -79,6 +79,7 @@ def run(generator=default_generator()):
 
         args += ["-DCMAKE_TOOLCHAIN_FILE=" + iOS.toolchain_file]
         args += ["-DPLATFORM=" + platform]
+        args += ["-DDEPLOYMENT_TARGET=" + Args.ios_version] 
 
     Shell.run(args)
 
@@ -152,7 +153,10 @@ def setup_variables():
         add_def_and_bool("MAC_BUILD",     System.is_mac)
         add_def_and_bool("WINDOWS_BUILD", System.is_windows)
         add_def_and_bool("LINUX_BUILD",   System.is_linux)
-            
+    else:
+        add_def_and_bool("IPHONE_4S_BUILD",  Args._4s)
+        add_def_and_bool("IPHONE_3GS_BUILD", Args._3gs)
+
     if Args.no_freetype:
         add_definition("NO_FREETYPE")
 

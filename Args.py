@@ -18,11 +18,17 @@ def count():
 def dump():
     print(all)
 
+
+
 x32             = has(["--x32", "x32", "32"])    
 ios             = has(["--ios", "ios"])
 gcc             = has(["--gcc", "gcc"])
 run             = has(["--run"])
 ide             = has(["--ide", "ide"])
+ios6            = has(["--ios6", "ios6", "i6"])
+ios7            = has(["--ios7", "ios7", "i7"])
+ios8            = has(["--ios8", "ios8", "i8"])
+ios9            = has(["--ios9", "ios9", "i9"])
 vs19            = has(["--vs19", "vs19"])
 make            = has(["--make"])
 hand            = has(["--hand"])
@@ -55,6 +61,42 @@ no_soil         = has(["--no-soil", "nosoil", "ns"])
 no_box2d        = has(["--no-box2d", "no-box2d", "nobox", "nb"])
 no_assimp       = has(["--no-assimp", "no-assimp", "noassimp", "na"])
 no_freetype     = has(["--no-freetyoe", "no-freetype", "noft", "nf"])
+
+_3gs = has(["--3gs", "3gs"])
+_4s  = has(["--4s", "4s"])
+
+if _3gs:
+    clean    = True
+    prepare  = True
+    debug    = True
+    ide      = True
+    ios      = True
+    device   = True
+    no_conan = True
+    ios6     = True
+    x32      = True
+
+if _4s:
+    clean    = True
+    prepare  = True
+    debug    = True
+    ide      = True
+    ios      = True
+    device   = True
+    no_conan = True
+    ios7     = True
+    x32      = True
+
+ios_version = "9.0"
+
+if ios6:
+    ios_version = "6.0"
+
+if ios7:
+    ios_version = "7.0"
+
+if ios8:
+    ios_version = "8.0"
 
 cpp_standart = 17
 cpp17 = True
