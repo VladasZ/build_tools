@@ -8,6 +8,7 @@ import System
 import Android
 import Compiler
 
+
 def _conanfile():
     file = "conanfile.txt"
     if Args.android:
@@ -26,6 +27,7 @@ def _needs_conan():
     if Args.no_conan:
         return False
     return File.exists(_conan_deps())
+
 
 def _create_conanfile():
 
@@ -50,7 +52,7 @@ def _create_conanfile():
 
     desktop_only = ["glfw", "glew"]
 
-    darwin = "darwin-toolchain/1.0.4@theodelrieu/stable"
+    darwin = "darwin-toolchain/1.0.5@theodelrieu/stable"
     ndk = "android_ndk_installer/r20@bincrafters/stable"
 
     for lib in File.get_lines(_conan_deps()):
@@ -101,6 +103,7 @@ def setup():
         os.system('conan remote add conan-community https://api.bintray.com/conan/conan-community/conan')
         System.add_setup_conan_flag()
 
+
 def run(compiler=Compiler.get()):
 
     build_info_script_name = "conanbuildinfo.cmake"
@@ -132,8 +135,9 @@ def run(compiler=Compiler.get()):
         arch = 'armv8' if Args.device else 'x86_64'
         command += [
               '-sos=iOS'
-            , '-sos.version=9.0'
+            , '-sos.version=' + Args.ios_version
             , '-sarch=' + arch
+            , '-o', 'darwin-toolchain:bitcode=False'
         ]
     elif Args.android:
         command += [

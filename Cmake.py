@@ -69,17 +69,12 @@ def run(generator=default_generator()):
     args += ["-DCMAKE_BUILD_TYPE=Debug" if Args.debug else "-DCMAKE_BUILD_TYPE=Release"]
 
     if Args.ios:
-        platform = "SIMULATOR64"
-
-        if Args.device:
-            if Args.x32:
-                platform = "OS"
-            else:
-                platform = "OS64"
+        platform = "OS64COMBINED"
 
         args += ["-DCMAKE_TOOLCHAIN_FILE=" + iOS.toolchain_file]
         args += ["-DPLATFORM=" + platform]
-        args += ["-DDEPLOYMENT_TARGET=" + Args.ios_version] 
+        args += ["-DDEPLOYMENT_TARGET=" + Args.ios_version]
+        args += ["-DENABLE_BITCODE=FALSE"]
 
     Shell.run(args)
 
