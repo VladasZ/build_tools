@@ -82,7 +82,7 @@ def run(generator=default_generator()):
 
 def setup(compiler=Compiler.get()):
 
-    if Args.ide or Args.android:
+    if Args.ide:
         return
 
     Debug.info(compiler)

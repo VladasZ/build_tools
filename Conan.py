@@ -11,15 +11,11 @@ import Compiler
 
 def _conanfile():
     file = "conanfile.txt"
-    if Args.android:
-        return file
     return "../" + file
 
 
 def _conan_deps():
     file = "conan.txt"
-    if Args.android:
-        return file
     return "../" + file
 
 
@@ -30,8 +26,6 @@ def _needs_conan():
 
 
 def _create_conanfile():
-
-    print("HELLOOOO")
 
     File.rm(_conanfile())
 
@@ -87,6 +81,7 @@ def _create_conanfile():
 
 
 def setup():
+
     if Args.no_conan:
         return
 
@@ -129,7 +124,7 @@ def run(compiler=Compiler.get()):
 
     command += [
           '-scompiler='         + compiler.conan_name
-        , '-scompiler.version=' + compiler.conan_version
+        , '-scompiler.version=' + "8" if Args.android else compiler.conan_version
     ]
 
     if Args.ios:
