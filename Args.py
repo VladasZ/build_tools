@@ -126,4 +126,4 @@ if no_conan:
     no_assimp   = True
     no_freetype = True
 
-needs_signing = (device and build) or android
+needs_signing = mobile
