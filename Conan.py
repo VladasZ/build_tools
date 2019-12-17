@@ -124,7 +124,7 @@ def run(compiler=Compiler.get()):
 
     command += [
           '-scompiler='         + compiler.conan_name
-        , '-scompiler.version=' + "8" if Args.android else compiler.conan_version
+        , '-scompiler.version=' + ("8" if Args.android else compiler.conan_version)
     ]
 
     if Args.ios:
