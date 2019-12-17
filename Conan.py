@@ -31,14 +31,15 @@ def _needs_conan():
 
 def _create_conanfile():
 
+    print("HELLOOOO")
+
     File.rm(_conanfile())
 
     File.append(_conanfile(), "# GENERATED FILE. DO NOT EDIT\n")
     File.append(_conanfile(), "# Edit conan.txt instead\n")
     File.append(_conanfile(), "\n[requires]\n")
 
-
-    versions = { 
+    versions = {
         "poco"     : "Poco/1.9.0@pocoproject/stable",
         "sqlite"   : "sqlite3/3.29.0@bincrafters/stable",
         "glfw"     : "glfw/3.2.1.20180327@bincrafters/stable",

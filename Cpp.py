@@ -42,9 +42,8 @@ def prepare():
     Conan.setup()
     Cmake.setup()
 
-    if not Args.android:
-        File.mkdir('build')
-        File.cd('build')
+    File.mkdir('build')
+    File.cd('build')
 
     Cmake.reset_config()
 
@@ -52,7 +51,7 @@ def prepare():
         Deps.install()
 
     Cmake.add_var(project_name.replace("-", "_") + "_path",
-                  "\"" + File.full_path("." if Args.android else "..") + "\"")
+                  "\"" + File.full_path("..") + "\"")
 
     Cmake.setup_variables()
 

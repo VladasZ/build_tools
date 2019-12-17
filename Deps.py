@@ -12,8 +12,6 @@ _project_name = File.folder_name()
 
 def _deps_file():
     file = "deps.txt"
-    if Args.android:
-        return file
     return "../" + file
 
 

@@ -68,22 +68,18 @@ _4s  = has(["--4s", "4s"])
 if _3gs:
     clean    = True
     prepare  = True
-    debug    = True
     ide      = True
     ios      = True
     device   = True
-    no_conan = True
     ios6     = True
     x32      = True
 
 if _4s:
     clean    = True
     prepare  = True
-    debug    = True
     ide      = True
     ios      = True
     device   = True
-    no_conan = True
     ios7     = True
     x32      = True
 
@@ -126,4 +122,4 @@ if no_conan:
     no_assimp   = True
     no_freetype = True
 
-needs_signing = mobile
+needs_signing = mobile and not ide

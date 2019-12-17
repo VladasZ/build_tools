@@ -10,10 +10,11 @@ import Compiler
 cmake_file_name = "CMakeLists.txt"
 cmake_search_default_depth = 3
 
+
 def cmake_config_file_name():
     name = "build_tools_generated.cmake"
     if Args.android:
-        return "android/app/src/main/cpp/" + name
+        return "../android/app/src/main/cpp/" + name
     return name
 
 
@@ -122,13 +123,16 @@ def append_var(name, value):
 def add_definition(definition):
     _append("add_definitions(-D" + definition + ")\n")
 
+
 def add_def_and_bool(definition, value):
     add_bool(definition, value)
     if value:
         add_definition(definition)
 
+
 def add_line(line):
     _append(line + "\n")
+
 
 def setup_variables():
 
