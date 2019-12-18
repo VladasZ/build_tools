@@ -48,7 +48,9 @@ def _create_conanfile():
     desktop_only = ["glfw", "glew"]
 
     darwin = "darwin-toolchain/1.0.5@theodelrieu/stable"
+
     ndk = "android_ndk_installer/r20@bincrafters/stable"
+    #ndk = "android_ndk_installer/r16b@bincrafters/stable"
 
     for lib in File.get_lines(_conan_deps()):
         
@@ -137,9 +139,16 @@ def run(compiler=Compiler.get()):
         ]
     elif Args.android:
         command += [
-              '-sos=Android'
-            , '-sos.api_level=21'
+              '-sarch=armv7'
+            , '-sos=Android'
+            , '-sos.api_level=17'
         ]
+
+        command += [
+            "-e",
+            "CONAN_CMAKE_PROGRAM=/Users/vladas/Library/Android/sdk/cmake/3.6.4111459/bin/cmake"
+        ]
+
 
     if not (Args.ide and System.is_windows):
         command += ['-scompiler.libcxx=' + compiler.libcxx]
