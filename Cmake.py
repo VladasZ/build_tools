@@ -160,19 +160,10 @@ def setup_variables():
         add_def_and_bool("IPHONE_4S_BUILD",  Args._4s)
         add_def_and_bool("IPHONE_3GS_BUILD", Args._3gs)
 
-    if Args.no_freetype:
-        add_definition("NO_FREETYPE")
-
-    if Args.no_assimp:
-        add_definition("NO_ASSIMP")
-
-    if Args.no_box2d:
-        add_definition("NO_BOX2D")
-
-    if Args.no_soil:
-        add_definition("NO_SOIL")
-
-    if Args.debug:
-        add_definition("DEBUG")
+    add_def_and_bool("NO_FREETYPE", Args.no_freetype)
+    add_def_and_bool("NO_ASSIMP",   Args.no_assimp)
+    add_def_and_bool("NO_BOX2D",    Args.no_box2d)
+    add_def_and_bool("NO_SOIL",     Args.no_soil)
+    add_def_and_bool("DEBUG",       Args.debug)
 
     add_line("include(${CMAKE_UTILS_PATH})")
