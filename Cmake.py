@@ -144,6 +144,7 @@ def setup_variables():
 
     add_var("CMAKE_CXX_STANDARD", str(Args.cpp_standart))
 
+    add_def_and_bool("UNITY_BUILD",   Args.unity)
     add_def_and_bool("DESKTOP_BUILD", Args.desktop_build)
     add_def_and_bool("IOS_BUILD",     Args.ios)
     add_def_and_bool("ANDROID_BUILD", Args.android)
