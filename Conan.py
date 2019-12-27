@@ -22,6 +22,10 @@ def _conan_deps():
 def _needs_conan():
     if Args.no_conan:
         return False
+    return File.exists(_conan_deps()) or File.exists(_conanfile())
+
+
+def _simple_conanfile():
     return File.exists(_conan_deps())
 
 
@@ -42,7 +46,8 @@ def _create_conanfile():
         "assimp"   : "Assimp/4.1.0@jacmoe/stable",
         "box2d"    : "box2d/2.3.1@conan/stable",
         "glm"      : "glm/0.9.9.5@g-truc/stable",
-        "soil"     : "soil2/1.11@bincrafters/stable"
+        "soil"     : "soil2/1.11@bincrafters/stable",
+        "boost"    : "boost/1.71.0@conan/stable"
     }
 
     desktop_only = ["glfw", "glew"]
@@ -50,7 +55,7 @@ def _create_conanfile():
     darwin = "darwin-toolchain/1.0.5@theodelrieu/stable"
 
     ndk = "android_ndk_installer/r20@bincrafters/stable"
-    #ndk = "android_ndk_installer/r16b@bincrafters/stable"
+    # ndk = "android_ndk_installer/r16b@bincrafters/stable"
 
     for lib in File.get_lines(_conan_deps()):
         
@@ -113,7 +118,8 @@ def run(compiler=Compiler.get()):
 
     Cmake.add_bool("NEEDS_CONAN", True)
 
-    _create_conanfile()
+    if _simple_conanfile():
+        _create_conanfile()
 
     command = ['conan', 'install', '..']
 
