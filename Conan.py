@@ -58,7 +58,9 @@ def _create_conanfile():
     ndk = "android_ndk_installer/r20@bincrafters/stable"
     # ndk = "android_ndk_installer/r16b@bincrafters/stable"
 
-    for lib in File.get_lines(_conan_deps()):
+    deps = File.get_lines(_conan_deps())
+
+    for lib in deps:
         
         if Args.mobile:
             if lib in desktop_only:
@@ -88,7 +90,11 @@ def _create_conanfile():
         File.append(_conanfile(), pi + "\n")
 
     File.append(_conanfile(), "\n[generators]\n")
-    File.append(_conanfile(), "cmake")
+    File.append(_conanfile(), "cmake\n")
+
+    if "boost" in deps:
+        File.append(_conanfile(), "\n[options]\n")
+        File.append(_conanfile(), "boost:without_python=False")
 
 
 def setup():

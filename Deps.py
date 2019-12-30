@@ -66,6 +66,10 @@ def _clean_project_name(name):
 def _install(name, update=True):
     if name == _project_name:
         return
+
+    if name == "soil":
+        Debug.throw("Soil dep is no logner supported. Use conan package.")
+
     if update and safe_to_delete():
         Debug.throw("Commit deps changes before updating.")
     path = Paths.deps + "/" + name
