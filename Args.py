@@ -20,7 +20,8 @@ def dump():
 
 
 
-x32             = has(["--x32", "x32", "32"])    
+pi              = has(["--pi", "pi"])
+x32             = has(["--x32", "x32", "32"])
 ios             = has(["--ios", "ios"])
 gcc             = has(["--gcc", "gcc"])
 run             = has(["--run"])

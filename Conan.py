@@ -53,6 +53,7 @@ def _create_conanfile():
     desktop_only = ["glfw", "glew"]
 
     darwin = "darwin-toolchain/1.0.5@theodelrieu/stable"
+    pi = "wiringpi/2.50@conan/stable"
 
     ndk = "android_ndk_installer/r20@bincrafters/stable"
     # ndk = "android_ndk_installer/r16b@bincrafters/stable"
@@ -82,6 +83,9 @@ def _create_conanfile():
 
     if Args.android:
         File.append(_conanfile(), ndk + "\n")
+
+    if Args.pi:
+        File.append(_conanfile(), pi + "\n")
 
     File.append(_conanfile(), "\n[generators]\n")
     File.append(_conanfile(), "cmake")
@@ -153,6 +157,11 @@ def run(compiler=Compiler.get()):
         command += [
             "-e",
             "CONAN_CMAKE_PROGRAM=/Users/vladas/Library/Android/sdk/cmake/3.6.4111459/bin/cmake"
+        ]
+    elif Args.pi:
+        command += [
+              '-sos=Linux'
+            , '-sarch=armv7'
         ]
 
 

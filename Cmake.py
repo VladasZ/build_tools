@@ -144,14 +144,15 @@ def setup_variables():
 
     add_var("CMAKE_CXX_STANDARD", str(Args.cpp_standart))
 
-    add_def_and_bool("UNITY_BUILD",   Args.unity)
-    add_def_and_bool("DESKTOP_BUILD", Args.desktop_build)
-    add_def_and_bool("IOS_BUILD",     Args.ios)
-    add_def_and_bool("ANDROID_BUILD", Args.android)
-    add_def_and_bool("NEEDS_SIGNING", Args.needs_signing)
-    add_def_and_bool("CPP11_BUILD",   Args.cpp11)
-    add_def_and_bool("CPP14_BUILD",   Args.cpp14)
-    add_def_and_bool("CPP17_BUILD",   Args.cpp17)
+    add_def_and_bool("RASPBERRY_BUILD", Args.pi)
+    add_def_and_bool("UNITY_BUILD",     Args.unity)
+    add_def_and_bool("DESKTOP_BUILD",   Args.desktop_build)
+    add_def_and_bool("IOS_BUILD",       Args.ios)
+    add_def_and_bool("ANDROID_BUILD",   Args.android)
+    add_def_and_bool("NEEDS_SIGNING",   Args.needs_signing)
+    add_def_and_bool("CPP11_BUILD",     Args.cpp11)
+    add_def_and_bool("CPP14_BUILD",     Args.cpp14)
+    add_def_and_bool("CPP17_BUILD",     Args.cpp17)
 
     if Args.desktop_build:
         add_def_and_bool("MAC_BUILD",     System.is_mac)
