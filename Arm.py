@@ -18,8 +18,8 @@ def flash():
 
     board_name = "NODE_F446RE"
 
-    if not Args.hand:
-        board_name += " 1"
+#    if not Args.hand:
+#        board_name += " 1"
 
     path_prefix = "/Volumes/" if System.is_mac else "/media/vladas/"
     File.copy("BUILD/Nucleo_blink_led.bin", path_prefix + board_name + "/Nucleo_blink_led.bin")
