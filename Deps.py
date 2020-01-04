@@ -5,15 +5,11 @@ import Paths
 import Cmake
 import Debug
 
+_processed_deps = []
+
 _ignore_build_tools = False
 
 _project_name = File.folder_name()
-
-
-def _deps_file():
-    file = "deps.txt"
-    return "../" + file
-
 
 def all_installed():
     return File.get_files(Paths.deps)
@@ -31,8 +27,8 @@ def safe_to_delete():
     return False
 
 
-def install():
-    deps = File.get_lines(_deps_file())
+def install(deps_file):
+    deps = File.get_lines(deps_file)
     print("Cloning git dependencies:")
     print(deps)
     for dep in deps:
@@ -64,6 +60,14 @@ def _clean_project_name(name):
 
 
 def _install(name, update=True):
+
+    global _processed_deps
+
+    if name in _processed_deps:
+        return
+
+    _processed_deps += [name]
+
     if name == _project_name:
         return
 
@@ -78,3 +82,7 @@ def _install(name, update=True):
         Cmake.append_var("GIT_DEPENDENCIES", _clean_project_name(name))
         Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
     Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True, ignore_existing=True)
+
+    if File.exists(path + "/deps.txt"):
+        install(path + "/deps.txt")
+

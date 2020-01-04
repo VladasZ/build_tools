@@ -24,7 +24,8 @@ def _root_dir(path='.'):
 
 root_dir = _root_dir()
 project_name = File.folder_name(root_dir)
-has_dependencies = File.exists(root_dir + "/deps.txt")
+deps_file = root_dir + "/deps.txt"
+has_dependencies = File.exists(deps_file)
 build_dir = root_dir + "/build"
 
 stamp = Time.stamp()
@@ -48,7 +49,7 @@ def prepare():
     Cmake.reset_config()
 
     if has_dependencies:
-        Deps.install()
+        Deps.install(deps_file)
 
     Cmake.add_var(project_name.replace("-", "_") + "_path",
                   "\"" + File.full_path("..") + "\"")
