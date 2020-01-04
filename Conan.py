@@ -5,9 +5,9 @@ import Cmake
 import Shell
 import Debug
 import System
-import Android
 import Compiler
 
+requires = []
 
 def _conanfile():
     file = "conanfile.txt"
@@ -22,6 +22,8 @@ def _conan_deps():
 def _needs_conan():
     if Args.no_conan:
         return False
+    if requires:
+        return True
     return File.exists(_conan_deps()) or File.exists(_conanfile())
 
 
@@ -58,9 +60,21 @@ def _create_conanfile():
     ndk = "android_ndk_installer/r20@bincrafters/stable"
     # ndk = "android_ndk_installer/r16b@bincrafters/stable"
 
-    deps = File.get_lines(_conan_deps())
+    deps = []
+
+    if File.exists(_conan_deps()):
+        deps += File.get_lines(_conan_deps())
+
+    deps += requires
+
+    processed = []
 
     for lib in deps:
+
+        if lib in processed:
+            continue
+
+        processed += [lib]
         
         if Args.mobile:
             if lib in desktop_only:
@@ -97,6 +111,13 @@ def _create_conanfile():
         File.append(_conanfile(), "boost:without_python=False")
 
 
+def add_requires(file_path):
+    global requires
+    deps = File.get_lines(file_path)
+    requires += deps
+    Debug.info(requires)
+
+
 def setup():
 
     if Args.no_conan:
@@ -128,7 +149,7 @@ def run(compiler=Compiler.get()):
 
     Cmake.add_bool("NEEDS_CONAN", True)
 
-    if _simple_conanfile():
+    if _simple_conanfile() or requires:
         _create_conanfile()
 
     command = ['conan', 'install', '..']

@@ -4,6 +4,7 @@ import File
 import Paths
 import Cmake
 import Debug
+import Conan
 
 _processed_deps = []
 
@@ -29,8 +30,6 @@ def safe_to_delete():
 
 def install(deps_file):
     deps = File.get_lines(deps_file)
-    print("Cloning git dependencies:")
-    print(deps)
     for dep in deps:
         _install(dep, update=Args.update_deps)
     if not _ignore_build_tools:
@@ -83,6 +82,11 @@ def _install(name, update=True):
         Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
     Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True, ignore_existing=True)
 
-    if File.exists(path + "/deps.txt"):
-        install(path + "/deps.txt")
+    deps_file = path + "/deps.txt"
+    simple_conan_file = path + "/conan.txt"
 
+    if File.exists(deps_file):
+        install(deps_file)
+
+    if File.exists(simple_conan_file):
+        Conan.add_requires(simple_conan_file)
