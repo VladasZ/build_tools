@@ -115,7 +115,6 @@ def add_requires(file_path):
     global requires
     deps = File.get_lines(file_path)
     requires += deps
-    Debug.info(requires)
 
 
 def setup():
