@@ -50,6 +50,7 @@ rmbuild         = has(["--rmbuild"])
 simulate        = has(["--simulate"])
 simulator       = has(["--simulator", "sim", "sm"])
 deps_info       = has(["--deps-info", "i"])
+no_ios_exe      = has(["--no-ios-exe", "no-ios-exe", "nie"])
 update_deps     = has(["--update-deps", "update-deps", "ud"])
 force_build     = has(["--force-build"])
 compilers_info  = has(["--compilers-info", "ci"])
@@ -102,5 +103,3 @@ if no_conan:
     no_box2d    = True
     no_assimp   = True
     no_freetype = True
-
-needs_signing = mobile and not ide

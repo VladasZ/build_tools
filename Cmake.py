@@ -139,6 +139,8 @@ def add_definition(definition):
 
 
 def add_def_and_bool(definition, value):
+    # caller = getframeinfo(stack()[1][0])
+    # _append("#[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
     add_bool(definition, value)
     if value:
         add_definition(definition)
@@ -152,12 +154,13 @@ def add_line(line):
 
 def setup_variables():
 
-    add_def_and_bool("RASPBERRY_BUILD", Args.pi)
-    add_def_and_bool("UNITY_BUILD",     Args.unity)
-    add_def_and_bool("DESKTOP_BUILD",   Args.desktop_build)
-    add_def_and_bool("IOS_BUILD",       Args.ios)
-    add_def_and_bool("ANDROID_BUILD",   Args.android)
-    add_def_and_bool("NEEDS_SIGNING",   Args.needs_signing)
+    add_def_and_bool("RASPBERRY_BUILD",   Args.pi)
+    add_def_and_bool("UNITY_BUILD",       Args.unity)
+    add_def_and_bool("DESKTOP_BUILD",     Args.desktop_build)
+    add_def_and_bool("IOS_BUILD",         Args.ios)
+    add_def_and_bool("ANDROID_BUILD",     Args.android)
+    add_def_and_bool("NO_IOS_EXE",        Args.no_ios_exe)
+    add_def_and_bool("NEEDS_IOS_EXE", not Args.no_ios_exe)
 
     if Args.desktop_build:
         add_def_and_bool("MAC_BUILD",     System.is_mac)
