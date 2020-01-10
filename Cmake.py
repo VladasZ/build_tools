@@ -6,6 +6,8 @@ import Debug
 import Shell
 import System
 import Compiler
+from inspect import getframeinfo, stack
+from pprint import pprint
 
 cmake_file_name = "CMakeLists.txt"
 cmake_search_default_depth = 3
@@ -109,23 +111,31 @@ def _append(value):
 
 def reset_config():
     File.rm(cmake_config_file_name())
-    File.append(cmake_config_file_name(), "# GENERATED FILE. DO NOT EDIT\n")
+    File.append(cmake_config_file_name(), "# GENERATED FILE.\n# DO NOT EDIT\n")
 
 
 def add_var(name, value):
-    _append("set(" + name + " " + File.convert_path(value) + ")\n")
+    caller = getframeinfo(stack()[1][0])
+    _append("set(" + name + " " + File.convert_path(value) + ")" +
+            " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
 
 
 def add_bool(name, value):
-    _append("set(" + name + " " + ("YES" if value else "NO") + ")\n")
+    caller = getframeinfo(stack()[1][0])
+    _append("set(" + name + " " + ("YES" if value else "NO") + ")" +
+            " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
 
 
 def append_var(name, value):
-    _append("set(" + name + " ${" + name + "} " + File.convert_path(value) + ")\n")
+    caller = getframeinfo(stack()[1][0])
+    _append("set(" + name + " ${" + name + "} " + File.convert_path(value) + ")" +
+            " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
 
 
 def add_definition(definition):
-    _append("add_definitions(-D" + definition + ")\n")
+    caller = getframeinfo(stack()[1][0])
+    _append("add_definitions(-D" + definition + ")" +
+            " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
 
 
 def add_def_and_bool(definition, value):
@@ -135,14 +145,12 @@ def add_def_and_bool(definition, value):
 
 
 def add_line(line):
-    _append(line + "\n")
+    caller = getframeinfo(stack()[1][0])
+    _append(line + "" +
+        " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
 
 
 def setup_variables():
-
-    add_var("CMAKE_UTILS_PATH", "~/.deps/build_tools/utils.cmake")
-
-    add_var("CMAKE_CXX_STANDARD", str(Args.cpp_standart))
 
     add_def_and_bool("RASPBERRY_BUILD", Args.pi)
     add_def_and_bool("UNITY_BUILD",     Args.unity)
@@ -150,9 +158,6 @@ def setup_variables():
     add_def_and_bool("IOS_BUILD",       Args.ios)
     add_def_and_bool("ANDROID_BUILD",   Args.android)
     add_def_and_bool("NEEDS_SIGNING",   Args.needs_signing)
-    add_def_and_bool("CPP11_BUILD",     Args.cpp11)
-    add_def_and_bool("CPP14_BUILD",     Args.cpp14)
-    add_def_and_bool("CPP17_BUILD",     Args.cpp17)
 
     if Args.desktop_build:
         add_def_and_bool("MAC_BUILD",     System.is_mac)
@@ -168,4 +173,4 @@ def setup_variables():
     add_def_and_bool("NO_SOIL",     Args.no_soil)
     add_def_and_bool("DEBUG",       Args.debug)
 
-    add_line("include(${CMAKE_UTILS_PATH})")
+    add_line("include(~/.deps/build_tools/utils.cmake)")

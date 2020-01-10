@@ -12,6 +12,7 @@ _ignore_build_tools = False
 
 _project_name = File.folder_name()
 
+
 def all_installed():
     return File.get_files(Paths.deps)
 
@@ -67,19 +68,19 @@ def _install(name, update=True):
 
     _processed_deps += [name]
 
-    if name == _project_name:
-        return
-
     if name == "soil":
         Debug.throw("Soil dep is no logner supported. Use conan package.")
 
     if update and safe_to_delete():
         Debug.throw("Commit deps changes before updating.")
+
     path = Paths.deps + "/" + name
+
     if name != "build_tools":
         Cmake.append_var("GIT_DEPENDENCIES_PATHS", "\"" + path + "\"")
         Cmake.append_var("GIT_DEPENDENCIES", _clean_project_name(name))
         Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
+
     Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True, ignore_existing=True)
 
     deps_file = path + "/deps.txt"

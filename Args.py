@@ -34,8 +34,6 @@ vs19            = has(["--vs19", "vs19"])
 make            = has(["--make"])
 hand            = has(["--hand"])
 test            = has(["--test"])
-cpp11           = has(["--cpp11", "cpp11", "11"])
-cpp14           = has(["--cpp14", "cpp14", "14"])
 multi           = has(["--multi"])
 flash           = has(["--flash"])
 build           = has(["--build", "b"])
@@ -95,25 +93,6 @@ if ios7:
 
 if ios8:
     ios_version = "8.0"
-
-cpp_standart = 17
-cpp17 = True
-
-if cpp11:
-    cpp_standart = 11
-    cpp11 = True
-    cpp14 = False
-    cpp17 = False
-elif cpp14:
-    cpp_standart = 14
-    cpp11 = True
-    cpp14 = True
-    cpp17 = False
-else:
-    cpp_standart = 17
-    cpp11 = True
-    cpp14 = True
-    cpp17 = True
 
 mobile = android or ios
 desktop_build = not mobile

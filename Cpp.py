@@ -51,9 +51,6 @@ def prepare():
     if has_dependencies:
         Deps.install(deps_file)
 
-    Cmake.add_var(project_name.replace("-", "_") + "_path",
-                  "\"" + File.full_path("..") + "\"")
-
     Cmake.setup_variables()
 
     Conan.run()
