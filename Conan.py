@@ -49,7 +49,8 @@ def _create_conanfile():
         "box2d"    : "box2d/2.3.1@conan/stable",
         "glm"      : "glm/0.9.9.5@g-truc/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
-        "boost"    : "boost/1.71.0@conan/stable"
+        "boost"    : "boost/1.71.0@conan/stable",
+        "bullet"   : "bullet3/2.88@bincrafters/stable"
     }
 
     desktop_only = ["glfw", "glew"]
