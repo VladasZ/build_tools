@@ -2,6 +2,7 @@ import sys
 
 all = sys.argv
 
+
 def has(flags):
     for arg in all:
         for flag in flags:
@@ -9,15 +10,17 @@ def has(flags):
                 return True
     return False
 
+
 def get(index = 1):
     return all[index]
+
 
 def count():
     return len(all)
 
+
 def dump():
     print(all)
-
 
 
 pi              = has(["--pi", "pi"])
