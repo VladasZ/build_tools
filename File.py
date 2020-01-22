@@ -48,6 +48,10 @@ def get_files(path='.'):
     return os.listdir(full_path(path))
 
 
+def extension(path):
+    return os.path.splitext(path)[1]
+
+
 def folder_name(path="."):
     return os.path.basename(full_path(path))
 
