@@ -40,22 +40,22 @@ def _create_conanfile():
     File.append(_conanfile(), "\n[requires]\n")
 
     versions = {
-        "poco"     : "Poco/1.9.4@pocoproject/stable",
-        "sqlite"   : "sqlite3/3.31.0",
-        "glfw"     : "glfw/3.3@bincrafters/stable",
-        "glew"     : "glew/2.1.0@bincrafters/stable",
-        "freetype" : "freetype/2.10.1",
-        "assimp"   : "assimp/5.0.1",
-        "box2d"    : "box2d/2.3.1@conan/stable",
         "glm"      : "glm/0.9.9.5@g-truc/stable",
+        "glew"     : "glew/2.1.0@bincrafters/stable",
+        "glfw"     : "glfw/3.3@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
-        "boost"    : "boost/1.71.0@conan/stable",
-        "bullet"   : "bullet3/2.89"
+        "poco"     : "poco/1.10.0",
+        "boost"    : "boost/1.72.0",
+        "bullet"   : "bullet3/2.89",
+        "box2d"    : "box2d/2.3.2.ef96a4f@conan/stable",
+        "assimp"   : "assimp/5.0.1",
+        "sqlite"   : "sqlite3/3.31.0",
+        "freetype" : "freetype/2.10.1",
     }
 
     desktop_only = ["glfw", "glew"]
 
-    darwin = "darwin-toolchain/1.0.5@theodelrieu/stable"
+    darwin = "darwin-toolchain/1.0.6@theodelrieu/stable"
     pi = "wiringpi/2.50@conan/stable"
 
     ndk = "android_ndk_installer/r20@bincrafters/stable"
@@ -76,7 +76,7 @@ def _create_conanfile():
             continue
 
         processed += [lib]
-        
+
         if Args.mobile:
             if lib in desktop_only:
                 continue
@@ -162,21 +162,21 @@ def run(compiler=Compiler.get()):
     Cmake.add_line("include(${CONAN_BUILD_INFO})")
 
     command += [
-          '-scompiler='         + compiler.conan_name
+        '-scompiler='         + compiler.conan_name
         , '-scompiler.version=' + ("8" if Args.android else compiler.conan_version)
     ]
 
     if Args.ios:
         arch = 'armv8' if Args.device else 'x86_64'
         command += [
-              '-sos=iOS'
+            '-sos=iOS'
             , '-sos.version=' + Args.ios_version
             , '-sarch=' + arch
             , '-o', 'darwin-toolchain:bitcode=False'
         ]
     elif Args.android:
         command += [
-              '-sarch=armv7'
+            '-sarch=armv7'
             , '-sos=Android'
             , '-sos.api_level=17'
         ]
@@ -187,7 +187,7 @@ def run(compiler=Compiler.get()):
         ]
     elif Args.pi:
         command += [
-              '-sos=Linux'
+            '-sos=Linux'
             , '-sarch=armv7'
         ]
 
