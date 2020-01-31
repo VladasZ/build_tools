@@ -40,17 +40,17 @@ def _create_conanfile():
     File.append(_conanfile(), "\n[requires]\n")
 
     versions = {
-        "poco"     : "Poco/1.9.0@pocoproject/stable",
-        "sqlite"   : "sqlite3/3.29.0@bincrafters/stable",
-        "glfw"     : "glfw/3.2.1.20180327@bincrafters/stable",
+        "poco"     : "Poco/1.9.4@pocoproject/stable",
+        "sqlite"   : "sqlite3/3.31.0",
+        "glfw"     : "glfw/3.3@bincrafters/stable",
         "glew"     : "glew/2.1.0@bincrafters/stable",
-        "freetype" : "freetype/2.10.0@bincrafters/stable",
-        "assimp"   : "Assimp/4.1.0@jacmoe/stable",
+        "freetype" : "freetype/2.10.1",
+        "assimp"   : "assimp/5.0.1",
         "box2d"    : "box2d/2.3.1@conan/stable",
         "glm"      : "glm/0.9.9.5@g-truc/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
         "boost"    : "boost/1.71.0@conan/stable",
-        "bullet"   : "bullet3/2.88@bincrafters/stable"
+        "bullet"   : "bullet3/2.89"
     }
 
     desktop_only = ["glfw", "glew"]
