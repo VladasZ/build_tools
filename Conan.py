@@ -93,6 +93,9 @@ def _create_conanfile():
         if Args.no_soil and lib == "soil":
             continue
 
+        if Args.no_bull3 and lib == "bullet":
+            continue
+
         File.append(_conanfile(), versions[lib] + "\n")
 
     if Args.ios:
