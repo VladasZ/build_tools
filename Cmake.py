@@ -174,10 +174,12 @@ def setup_variables():
         add_def_and_bool("IPHONE_4S_BUILD",  Args._4s)
         add_def_and_bool("IPHONE_3GS_BUILD", Args._3gs)
 
-    add_def_and_bool("NO_FREETYPE", Args.no_freetype)
-    add_def_and_bool("NO_ASSIMP",   Args.no_assimp)
-    add_def_and_bool("NO_BOX2D",    Args.no_box2d)
-    add_def_and_bool("NO_SOIL",     Args.no_soil)
-    add_def_and_bool("DEBUG",       Args.debug)
+    add_def_and_bool("USING_FREETYPE", not Args.no_freetype)
+    add_def_and_bool("USING_ASSIMP",   not Args.no_assimp)
+    add_def_and_bool("USING_BOX2D",    not Args.no_box2d)
+    add_def_and_bool("USING_BULLET3D", not Args.no_bull3)
+    add_def_and_bool("USING_SOIL",     not Args.no_soil)
+
+    add_def_and_bool("DEBUG", Args.debug)
 
     add_line("include(~/.deps/build_tools/utils.cmake)")

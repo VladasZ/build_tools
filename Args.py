@@ -105,5 +105,6 @@ desktop_build = not mobile
 if no_conan:
     no_soil     = True
     no_box2d    = True
+    no_bull3    = True
     no_assimp   = True
     no_freetype = True
