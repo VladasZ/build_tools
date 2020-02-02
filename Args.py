@@ -61,6 +61,7 @@ manual_compiler = has(["--manual-compiler"])
 
 no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 
+no_glm          = has(["--no-glm", "noglm", "ng"])
 no_soil         = has(["--no-soil", "nosoil", "ns"])
 no_box2d        = has(["--no-box2d", "no-box2d", "nobox", "nb2"])
 no_bull3        = has(["--no-bullet3", "no-bullet3", "nobullet", "nb3"])
@@ -103,6 +104,7 @@ mobile = android or ios
 desktop_build = not mobile
 
 if no_conan:
+    no_glm      = True
     no_soil     = True
     no_box2d    = True
     no_bull3    = True
