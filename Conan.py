@@ -40,7 +40,7 @@ def _create_conanfile():
     File.append(_conanfile(), "\n[requires]\n")
 
     versions = {
-        "glm"      : "glm/0.9.9.5@g-truc/stable",
+        "glm"      : "glm/0.9.9.7",
         "glew"     : "glew/2.1.0@bincrafters/stable",
         "glfw"     : "glfw/3.3@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
