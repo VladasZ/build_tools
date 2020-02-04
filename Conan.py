@@ -49,7 +49,7 @@ def _create_conanfile():
         "bullet"   : "bullet3/2.89",
         "box2d"    : "box2d/2.3.2.ef96a4f@conan/stable",
         "assimp"   : "assimp/5.0.1",
-        "sqlite"   : "sqlite3/3.31.0",
+        "sqlite"   : "sqlitecpp/2.5.0",
         "freetype" : "freetype/2.10.1",
     }
 
