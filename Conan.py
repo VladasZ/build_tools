@@ -46,10 +46,10 @@ def _create_conanfile():
         "soil"     : "soil2/1.11@bincrafters/stable",
         "poco"     : "poco/1.10.0",
         "boost"    : "boost/1.72.0",
+        "sqlite"   : "sqlitecpp/2.5.0",
         "bullet"   : "bullet3/2.89",
         "box2d"    : "box2d/2.3.2.ef96a4f@conan/stable",
         "assimp"   : "assimp/5.0.1",
-        "sqlite"   : "sqlitecpp/2.5.0",
         "freetype" : "freetype/2.10.1",
     }
 
@@ -110,9 +110,16 @@ def _create_conanfile():
     File.append(_conanfile(), "\n[generators]\n")
     File.append(_conanfile(), "cmake\n")
 
+    File.append(_conanfile(), "\n[options]\n")
+
     if "boost" in deps:
-        File.append(_conanfile(), "\n[options]\n")
-        File.append(_conanfile(), "boost:without_python=False")
+        File.append(_conanfile(), "boost:without_python=False\n\n")
+
+    if "poco" in deps:
+        File.append(_conanfile(), "poco:enable_data_sqlite=False\n")
+        File.append(_conanfile(), "poco:enable_json=False\n")
+        File.append(_conanfile(), "poco:enable_mongodb=False\n")
+        File.append(_conanfile(), "poco:enable_xml=False\n\n")
 
 
 def add_requires(file_path):
