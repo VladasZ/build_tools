@@ -117,9 +117,7 @@ def _create_conanfile():
 
     if "poco" in deps:
         File.append(_conanfile(), "poco:enable_data_sqlite=False\n")
-        File.append(_conanfile(), "poco:enable_json=False\n")
         File.append(_conanfile(), "poco:enable_mongodb=False\n")
-        File.append(_conanfile(), "poco:enable_xml=False\n\n")
 
 
 def add_requires(file_path):
