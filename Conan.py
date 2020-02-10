@@ -175,13 +175,18 @@ def run(compiler=Compiler.get()):
     ]
 
     if Args.ios:
+
         arch = 'armv8' if Args.device else 'x86_64'
+
         command += [
-            '-sos=iOS'
+              '-sos=iOS'
             , '-sos.version=' + Args.ios_version
             , '-sarch=' + arch
-            , '-o', 'darwin-toolchain:bitcode=False'
         ]
+
+        if Args.no_bitcode:
+            command += ['-o', 'darwin-toolchain:bitcode=False']
+
     elif Args.android:
         command += [
             '-sarch=armv7'
