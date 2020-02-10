@@ -166,11 +166,11 @@ def setup_variables():
     add_def_and_bool("NO_IOS_EXE",        Args.no_ios_exe)
     add_def_and_bool("NEEDS_IOS_EXE", not Args.no_ios_exe)
 
-    if Args.desktop_build:
-        add_def_and_bool("MAC_BUILD",     System.is_mac)
-        add_def_and_bool("WINDOWS_BUILD", System.is_windows)
-        add_def_and_bool("LINUX_BUILD",   System.is_linux)
-    else:
+    add_def_and_bool("MAC_BUILD",     System.is_mac     and Args.desktop_build)
+    add_def_and_bool("WINDOWS_BUILD", System.is_windows and Args.desktop_build)
+    add_def_and_bool("LINUX_BUILD",   System.is_linux   and Args.desktop_build)
+
+    if not Args.mobile:
         add_def_and_bool("IPHONE_4S_BUILD",  Args._4s)
         add_def_and_bool("IPHONE_3GS_BUILD", Args._3gs)
 
