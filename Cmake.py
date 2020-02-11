@@ -72,7 +72,7 @@ def run(generator=default_generator()):
     args += ["-DCMAKE_BUILD_TYPE=Debug" if Args.debug else "-DCMAKE_BUILD_TYPE=Release"]
 
     if Args.ios:
-        platform = "SIMULATOR64"
+        platform = "OS64COMBINED"
 
         if Args.device:
             platform = "OS64"
