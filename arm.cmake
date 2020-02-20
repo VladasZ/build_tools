@@ -2,17 +2,7 @@ cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
 macro(_setup_arm_lib lib)
 
-  set(MBED_PATH ${CMAKE_SOURCE_DIR}/mbed-os)
-  set(MBED_CMAKE_DATA ${MBED_PATH}/source.cmake)
-
   project(${lib} C CXX ASM)
-
-  include(${MBED_CMAKE_DATA})
-
-  set(FIRMWARE_FILE ${PROJECT_NAME}.bin)
-
-  set(BOARD_NAME NODE_F446RE)
-  set(BOARD_PATH /Volumes/${BOARD_NAME}/${FIRMWARE_FILE})
 
   add_definitions(
           -DMICROCONTROLLER_BUILD
