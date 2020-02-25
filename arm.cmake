@@ -38,6 +38,7 @@ macro(setup_mbed)
   set(${SOURCE} ${SOURCE} ${MBED_CONFIG_FILE})
   add_definitions(
           -DMICROCONTROLLER_BUILD
+          -DMBED_BUILD
           ${DEFINITIONS})
 endmacro()
 
