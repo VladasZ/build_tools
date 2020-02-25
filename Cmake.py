@@ -161,7 +161,7 @@ def setup_variables():
 
     project_name = File.folder_name("..")
 
-    add_var(project_name+ "_path", File.full_path(".."))
+    add_var(project_name+ "_PATH", File.full_path(".."))
 
     add_def_and_bool("RASPBERRY_BUILD",   Args.pi)
     add_def_and_bool("UNITY_BUILD",       Args.unity)

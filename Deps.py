@@ -79,7 +79,7 @@ def _install(name, update=True):
     if name != "build_tools":
         Cmake.append_var("GIT_DEPENDENCIES_PATHS", "\"" + path + "\"")
         Cmake.append_var("GIT_DEPENDENCIES", _clean_project_name(name))
-        Cmake.add_var(_clean_project_name(name) + "_path", "\"" + path + "\"")
+        Cmake.add_var(_clean_project_name(name) + "_PATH", "\"" + path + "\"")
 
     Git.clone("https://github.com/vladasz/" + name, path, delete_existing=update, recursive=True, ignore_existing=True)
 
