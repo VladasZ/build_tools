@@ -208,3 +208,7 @@ macro(setup_exe exe)
   endif()
   link_project(${exe})
 endmacro()
+
+macro(exclude list regex)
+  list(FILTER ${list} EXCLUDE REGEX ${regex})
+endmacro()
