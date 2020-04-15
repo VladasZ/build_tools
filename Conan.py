@@ -40,9 +40,10 @@ def _create_conanfile():
     File.append(_conanfile(), "\n[requires]\n")
 
     versions = {
+        "qt"       : "qt/5.14.2@bincrafters/stable",
         "glm"      : "glm/0.9.9.7",
         "glew"     : "glew/2.1.0@bincrafters/stable",
-        "glfw"     : "glfw/3.3@bincrafters/stable",
+        "glfw"     : "glfw/3.2.1@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
         "poco"     : "poco/1.10.0",
         "boost"    : "boost/1.72.0",
@@ -71,6 +72,9 @@ def _create_conanfile():
     processed = []
 
     for lib in deps:
+
+        if not lib in versions:
+            Debug.throw("Conan library named: \"" + lib + "\" not found.")
 
         if lib in processed:
             continue
@@ -117,7 +121,19 @@ def _create_conanfile():
 
     if "poco" in deps:
         File.append(_conanfile(), "poco:enable_data_sqlite=False\n")
-        File.append(_conanfile(), "poco:enable_mongodb=False\n")
+        File.append(_conanfile(), "poco:enable_mongodb=False\n\\n")
+
+    if "qt" in deps:
+
+        File.append(_conanfile(), "qt:with_sqlite3=False\n")
+        File.append(_conanfile(), "qt:with_mysql=False\n")
+        File.append(_conanfile(), "qt:shared=False\n\n")
+
+        File.append(_conanfile(), "qt:qtsensors=True\n")
+        File.append(_conanfile(), "qt:qtserialbus=True\n")
+        File.append(_conanfile(), "qt:qtserialport=True\n\n")
+
+        File.append(_conanfile(), "qt:qtconnectivity=True\n\n")
 
 
 def add_requires(file_path):
