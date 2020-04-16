@@ -23,6 +23,10 @@ def dump():
     print(all)
 
 
+def empty():
+    return count() == 1
+
+
 pi              = has(["--pi", "pi"])
 x32             = has(["--x32", "x32", "32"])
 ios             = has(["--ios", "ios"])

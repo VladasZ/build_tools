@@ -16,6 +16,11 @@ import Compiler
 
 def cpp():
 
+    if Args.empty():
+        Args.prepare = True
+        Args.debug = True
+        Args.clean = True
+
     if Args.deps_info:
         Deps.print_info()
         exit()
@@ -42,9 +47,8 @@ def cpp():
         Cpp.build()
     elif Args.run or Args.test:
         Cpp.run()
-    elif not Args.clean:
-        print("No argument provided to build script")
-        
+
+
 def verilog():
     File.cd(Git.root_dir())
     Time.stamp()
