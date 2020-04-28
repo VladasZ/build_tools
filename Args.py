@@ -42,6 +42,7 @@ make            = has(["--make"])
 hand            = has(["--hand"])
 test            = has(["--test"])
 multi           = has(["--multi"])
+mingw           = has(["--mingw", "mingw", "mgw"])
 flash           = has(["--flash"])
 build           = has(["--build", "b"])
 unity           = has(["--unity", "unity", "un", "u"])
@@ -115,5 +116,3 @@ if no_conan:
     no_bull3    = True
     no_assimp   = True
     no_freetype = True
-
-mingw = not (ide and (platform.system() == 'Windows'))

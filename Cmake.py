@@ -98,12 +98,12 @@ def setup(compiler=Compiler.get()):
     if Args.android:
         os.environ['CC']  = "/Users/vladas/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
         os.environ['CXX'] = "/Users/vladas/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
-    # elif not Args.mingw:
-    #     os.environ['CC']  = Shell.which(compiler.CC)
-    #     os.environ['CXX'] = Shell.which(compiler.CXX)
+    else:
+        os.environ['CC']  = Shell.which(compiler.CC)
+        os.environ['CXX'] = Shell.which(compiler.CXX)
 
-   # Debug.info('CC = ' + os.environ['CC'])
-  #  Debug.info('CXX = ' + os.environ['CXX'])
+    Debug.info('CC = ' + os.environ['CC'])
+    Debug.info('CXX = ' + os.environ['CXX'])
 
 
 def build():

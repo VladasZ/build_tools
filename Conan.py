@@ -220,8 +220,7 @@ def run(compiler=Compiler.get()):
             , '-sarch=armv7'
         ]
 
-
-    if not (Args.ide and System.is_windows):
+    if Args.mingw:
         command += ['-scompiler.libcxx=' + compiler.libcxx]
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/mingw']
 
