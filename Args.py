@@ -72,7 +72,7 @@ no_soil         = has(["--no-soil", "nosoil", "ns"])
 no_box2d        = has(["--no-box2d", "no-box2d", "nobox", "nb2"])
 no_bull3        = has(["--no-bullet3", "no-bullet3", "nobullet", "nb3"])
 no_assimp       = has(["--no-assimp", "no-assimp", "noassimp", "na"])
-no_freetype     = has(["--no-freetyoe", "no-freetype", "noft", "nf"])
+no_freetype     = has(["--no-freetype", "no-freetype", "noft", "nf"])
 
 _3gs = has(["--3gs", "3gs"])
 _4s  = has(["--4s", "4s"])
