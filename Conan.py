@@ -10,6 +10,7 @@ import Compiler
 
 requires = []
 
+
 def _conanfile():
     file = "conanfile.txt"
     return "../" + file
@@ -57,11 +58,6 @@ def _create_conanfile():
 
     desktop_only = ["glfw", "glew"]
 
-    # darwin = "darwin-toolchain/1.0.6@theodelrieu/stable"
-    # pi = "wiringpi/2.50@conan/stable"
-
-    # ndk = "android_ndk_installer/r20@bincrafters/stable"
-
     deps = []
 
     if File.exists(_conan_deps()):
@@ -101,15 +97,6 @@ def _create_conanfile():
             continue
 
         File.append(_conanfile(), versions[lib] + "\n")
-
-  #  if Args.ios:
-  #      File.append(_conanfile(), darwin + "\n")
-
-  #  if Args.android:
-  #      File.append(_conanfile(), ndk + "\n")
-
-  #  if Args.pi:
-  #      File.append(_conanfile(), pi + "\n")
 
     File.append(_conanfile(), "\n[generators]\n")
     File.append(_conanfile(), "cmake\n")
@@ -223,6 +210,9 @@ def run(compiler=Compiler.get()):
     if Args.mingw:
         command += ['-scompiler.libcxx=' + compiler.libcxx]
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/mingw']
+
+    if Args.ios:
+        command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios']
 
     command += ['--build=missing']
 
