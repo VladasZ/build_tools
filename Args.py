@@ -1,7 +1,7 @@
 import sys
+import platform
 
 all = sys.argv
-
 
 def has(flags):
     for arg in all:
@@ -115,3 +115,5 @@ if no_conan:
     no_bull3    = True
     no_assimp   = True
     no_freetype = True
+
+mingw = ide and (platform.system() == 'Windows')
