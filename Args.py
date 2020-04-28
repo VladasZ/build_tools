@@ -116,4 +116,4 @@ if no_conan:
     no_assimp   = True
     no_freetype = True
 
-mingw = ide and (platform.system() == 'Windows')
+mingw = not (ide and (platform.system() == 'Windows'))
