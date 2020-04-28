@@ -1,0 +1,12 @@
+[settings]
+arch=x86_64
+arch_build=x86_64
+compiler=gcc
+compiler.version=8
+compiler.exception=seh
+compiler.libcxx=libstdc++11
+compiler.threads=posix
+os=Windows
+os_build=Windows
+[build_requires]
+*: msys2/20190524, mingw_installer/1.0@conan/stable
