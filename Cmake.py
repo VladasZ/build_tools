@@ -102,8 +102,8 @@ def setup(compiler=Compiler.get()):
     #     os.environ['CC']  = Shell.which(compiler.CC)
     #     os.environ['CXX'] = Shell.which(compiler.CXX)
 
-    Debug.info('CC = ' + os.environ['CC'])
-    Debug.info('CXX = ' + os.environ['CXX'])
+   # Debug.info('CC = ' + os.environ['CC'])
+  #  Debug.info('CXX = ' + os.environ['CXX'])
 
 
 def build():
