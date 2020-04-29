@@ -10,7 +10,6 @@ import Shell
 import Debug
 import Conan
 import Cmake
-import Android
 
 
 def _root_dir(path='.'):
@@ -34,9 +33,6 @@ stamp = Time.stamp()
 def prepare():
     if Args.ios:
         iOS.setup()
-
-    if Args.android:
-        Android.setup()
 
     File.cd(root_dir)
 

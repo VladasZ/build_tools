@@ -215,6 +215,9 @@ def run(compiler=Compiler.get()):
     if Args.ios:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios']
 
+    if Args.android:
+        command += ['--profile', Paths.deps + '/build_tools/conan_profiles/android']
+
     command += ['--build=missing']
 
     if Args.ios:
