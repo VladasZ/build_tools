@@ -172,10 +172,11 @@ def run(compiler=Compiler.get()):
     Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
     Cmake.add_line("include(${CONAN_BUILD_INFO})")
 
-    command += [
-        '-scompiler='         + compiler.conan_name
-        , '-scompiler.version=' + ("8" if Args.android else compiler.conan_version)
-    ]
+    if not System.is_windows:
+        command += [
+            '-scompiler='         + compiler.conan_name
+            , '-scompiler.version=' + ("8" if Args.android else compiler.conan_version)
+        ]
 
     if Args.ios:
 
