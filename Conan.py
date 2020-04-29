@@ -191,17 +191,6 @@ def run(compiler=Compiler.get()):
         if Args.no_bitcode:
             command += ['-o', 'darwin-toolchain:bitcode=False']
 
-    elif Args.android:
-        command += [
-            '-sarch=armv7'
-            , '-sos=Android'
-            , '-sos.api_level=17'
-        ]
-
-        command += [
-            "-e",
-            "CONAN_CMAKE_PROGRAM=/Users/vladas/Library/Android/sdk/cmake/3.6.4111459/bin/cmake"
-        ]
     elif Args.pi:
         command += [
             '-sos=Linux'
@@ -217,6 +206,9 @@ def run(compiler=Compiler.get()):
 
     if Args.android:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/android']
+
+    if System.is_mac:
+        command += ['-scompiler.libcxx=' + compiler.libcxx]
 
     command += ['--build=missing']
 
