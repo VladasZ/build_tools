@@ -67,6 +67,9 @@ def _create_conanfile():
 
     processed = []
 
+    if System.is_mac:
+        File.append(_conanfile(), "libiconv/1.16\n")
+
     for lib in deps:
 
         if not lib in versions:
