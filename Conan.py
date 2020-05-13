@@ -48,7 +48,7 @@ def _create_conanfile():
         "glfw"     : "glfw/3.3.2@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
         "poco"     : "poco/1.10.0",
-        "boost"    : "boost/1.72.0",
+        "boost"    : "boost/1.73.0",
         "sqlite"   : "sqlitecpp/2.5.0",
         "bullet"   : "bullet3/2.89",
         "box2d"    : "box2d/2.3.2.ef96a4f@conan/stable",
