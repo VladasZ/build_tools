@@ -47,7 +47,7 @@ def _create_conanfile():
         "glew"     : "glew/2.1.0@bincrafters/stable",
         "glfw"     : "glfw/3.3.2@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
-        "poco"     : "poco/1.10.0",
+        "poco"     : "poco/1.10.1",
         "boost"    : "boost/1.73.0",
         "sqlite"   : "sqlitecpp/2.5.0",
         "bullet"   : "bullet3/2.89",
