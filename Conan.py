@@ -112,6 +112,7 @@ def _create_conanfile():
 
     if "poco" in deps:
         File.append(_conanfile(), "poco:enable_data_sqlite=False\n")
+        File.append(_conanfile(), "poco:cxx_14=True\n")
         File.append(_conanfile(), "poco:enable_mongodb=False\n\n")
 
     if "qt" in deps:
@@ -202,7 +203,6 @@ def run(compiler=Compiler.get()):
         ]
 
     if Args.mingw:
-        command += ['-scompiler.libcxx=' + compiler.libcxx]
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/mingw']
 
     if Args.ios:
