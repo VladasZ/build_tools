@@ -177,26 +177,14 @@ def run(compiler=Compiler.get()):
     Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
     Cmake.add_line("include(${CONAN_BUILD_INFO})")
 
-    if not System.is_windows:
+    if not Args.mobile and not System.is_windows:
         command += [
             '-scompiler='         + compiler.conan_name
             , '-scompiler.version=' + ("8" if Args.android else compiler.conan_version)
         ]
 
-    if Args.ios:
 
-        arch = 'armv8' if Args.device else 'x86_64'
-
-        command += [
-              '-sos=iOS'
-            , '-sos.version=' + Args.ios_version
-            , '-sarch=' + arch
-        ]
-
-        if Args.no_bitcode:
-            command += ['-o', 'darwin-toolchain:bitcode=False']
-
-    elif Args.pi:
+    if Args.pi:
         command += [
             '-sos=Linux'
             , '-sarch=armv7'
@@ -211,10 +199,13 @@ def run(compiler=Compiler.get()):
     if Args.android:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/android']
 
-    if System.is_mac:
+    if System.is_mac and not Args.mobile:
         command += ['-scompiler.libcxx=' + compiler.libcxx]
 
-    command += ['--build=missing']
+    if Args.force_build:
+        command += ['--build']
+    else:
+        command += ['--build=missing']
 
     if Args.ios:
         Shell.run(command)

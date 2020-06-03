@@ -1,5 +1,6 @@
 import sys
 import platform
+import Debug
 
 all = sys.argv
 
@@ -7,6 +8,7 @@ def has(flags):
     for arg in all:
         for flag in flags:
             if arg == flag:
+                all.remove(arg)
                 return True
     return False
 
@@ -61,7 +63,7 @@ deps_info       = has(["--deps-info", "i"])
 no_bitcode      = has(["--no-bitcode", "no-bitcode", "no-bit"])
 no_ios_exe      = has(["--no-ios-exe", "no-ios-exe", "nie"])
 update_deps     = has(["--update-deps", "update-deps", "ud"])
-force_build     = has(["--force-build"])
+force_build     = has(["--force-build", "force-build", "fb"])
 compilers_info  = has(["--compilers-info", "ci"])
 manual_compiler = has(["--manual-compiler"])
 
@@ -116,3 +118,9 @@ if no_conan:
     no_bull3    = True
     no_assimp   = True
     no_freetype = True
+
+
+if len(all) != 1:
+    Debug.info("Unknown parameter:")
+    Debug.info(all[1:])
+    Debug.throw()

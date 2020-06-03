@@ -12,9 +12,9 @@ def obj_info(obj):
     pprint(vars(obj))
 
 
-def throw(error=''):
+def throw(error=""):
     raise Exception(error)
 
 
 def not_implemented():
-    throw('Not implemented for this platform')
+    throw("Not implemented for this platform")
