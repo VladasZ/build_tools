@@ -214,9 +214,9 @@ def run(compiler=Compiler.get()):
     if Args.multi:
         Shell.run(command + ['-s', 'build_type=Debug'])
         Shell.run(command + ['-s', 'build_type=Release'])
-    elif Args.debug:
-        Shell.run(command + ['-s', 'build_type=Debug'])
     elif Args.release:
         Shell.run(command + ['-s', 'build_type=Release'])
+    elif Args.debug:
+        Shell.run(command + ['-s', 'build_type=Debug'])
     else:
         Shell.run(command)

@@ -69,7 +69,7 @@ def run(generator=default_generator()):
 
     args = ["cmake", "..", "-G", generator]
 
-    args += ["-DCMAKE_BUILD_TYPE=Debug" if Args.debug else "-DCMAKE_BUILD_TYPE=Release"]
+    args += ["-DCMAKE_BUILD_TYPE=Release" if Args.release else "-DCMAKE_BUILD_TYPE=Debug"]
 
     if Args.ios:
         platform = "OS64COMBINED"
