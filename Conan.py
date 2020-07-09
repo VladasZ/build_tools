@@ -43,18 +43,18 @@ def _create_conanfile():
 
     versions = {
         "qt"       : "qt/5.14.2@bincrafters/stable",
-        "glm"      : "glm/0.9.9.7",
+        "glm"      : "glm/0.9.9.8",
         "glew"     : "glew/2.1.0@bincrafters/stable",
         "glfw"     : "glfw/3.3.2@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
-        "json"     : "nlohmann_json/3.7.3",
+        "json"     : "nlohmann_json/3.8.0",
         "poco"     : "poco/1.10.1",
         "boost"    : "boost/1.73.0",
         "sqlite"   : "sqlitecpp/2.5.0",
         "bullet"   : "bullet3/2.89",
-        "box2d"    : "box2d/2.3.2.ef96a4f@conan/stable",
+        "box2d"    : "box2d/2.3.1",
         "assimp"   : "assimp/5.0.1",
-        "freetype" : "freetype/2.10.1",
+        "freetype" : "freetype/2.10.2",
     }
 
     desktop_only = ["glfw", "glew"]
@@ -119,6 +119,11 @@ def _create_conanfile():
 
         File.append(_conanfile(), "qt:with_sqlite3=False\n")
         File.append(_conanfile(), "qt:with_mysql=False\n")
+        File.append(_conanfile(), "qt:with_glib=False\n")
+        File.append(_conanfile(), "qt:with_freetype=False\n")
+        File.append(_conanfile(), "qt:with_fontconfig=False\n")
+        File.append(_conanfile(), "qt:with_harfbuzz=False\n")
+        File.append(_conanfile(), "qt:opengl=no\n")
         File.append(_conanfile(), "qt:shared=False\n\n")
 
         File.append(_conanfile(), "qt:qtsensors=True\n")
