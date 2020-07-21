@@ -44,6 +44,7 @@ def _create_conanfile():
     versions = {
         "qt"       : "qt/5.14.2@bincrafters/stable",
         "glm"      : "glm/0.9.9.8",
+        "date"     : "date/2.4.1",
         "glew"     : "glew/2.1.0@bincrafters/stable",
         "glfw"     : "glfw/3.3.2@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
