@@ -72,6 +72,10 @@ def _create_conanfile():
     if System.is_mac:
         File.append(_conanfile(), "libiconv/1.16\n")
 
+    if "glew" in deps:
+        File.append(_conanfile(), "opengl/system\n")
+
+
     for lib in deps:
 
         if not lib in versions:
@@ -79,6 +83,7 @@ def _create_conanfile():
 
         if lib in processed:
             continue
+
 
         processed += [lib]
 
