@@ -42,9 +42,11 @@ def _create_conanfile():
     File.append(_conanfile(), "\n[requires]\n")
 
     versions = {
+        "gl"       : "opengl/system",
         "qt"       : "qt/5.14.2@bincrafters/stable",
         "glm"      : "glm/0.9.9.8",
         "date"     : "date/2.4.1",
+        "mesa"     : "mesa/20.0.1@bincrafters/stable",
         "glew"     : "glew/2.1.0@bincrafters/stable",
         "glfw"     : "glfw/3.3.2@bincrafters/stable",
         "soil"     : "soil2/1.11@bincrafters/stable",
@@ -72,9 +74,9 @@ def _create_conanfile():
     if System.is_mac:
         File.append(_conanfile(), "libiconv/1.16\n")
 
-    if "glew" in deps:
-        File.append(_conanfile(), "opengl/system\n")
-
+    if System.is_linux and "glew" in deps:
+        deps += ["gl"]
+        deps += ["mesa"]
 
     for lib in deps:
 
@@ -83,7 +85,6 @@ def _create_conanfile():
 
         if lib in processed:
             continue
-
 
         processed += [lib]
 
@@ -112,6 +113,9 @@ def _create_conanfile():
     File.append(_conanfile(), "cmake\n")
 
     File.append(_conanfile(), "\n[options]\n")
+
+    if "mesa" in deps:
+        File.append(_conanfile(), "mesa:dri_search_path=/usr/lib/x86_64-linux-gnu/dri\n\n")
 
     if "boost" in deps:
         File.append(_conanfile(), "boost:without_python=False\n\n")
