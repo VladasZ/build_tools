@@ -107,6 +107,9 @@ def _create_conanfile():
         if Args.no_bull3 and lib == "bullet":
             continue
 
+        if Args.no_qt and lib == "qt":
+            continue
+
         File.append(_conanfile(), versions[lib] + "\n")
 
     File.append(_conanfile(), "\n[generators]\n")

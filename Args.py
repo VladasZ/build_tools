@@ -69,6 +69,7 @@ manual_compiler = has(["--manual-compiler"])
 
 no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 
+no_qt           = has(["--no-qt", "noqt", "nqt"])
 no_glm          = has(["--no-glm", "noglm", "ng"])
 no_soil         = has(["--no-soil", "nosoil", "ns"])
 no_box2d        = has(["--no-box2d", "no-box2d", "nobox", "nb2"])

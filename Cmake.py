@@ -185,6 +185,7 @@ def setup_variables():
     add_def_and_bool("USING_BULLET3D", not Args.no_bull3)
     add_def_and_bool("USING_SOIL",     not Args.no_soil)
     add_def_and_bool("USING_GLM",      not Args.no_glm)
+    add_def_and_bool("USING_QT",       not Args.no_qt)
 
     add_def_and_bool("DEBUG", Args.debug)
 
