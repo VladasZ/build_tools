@@ -36,15 +36,15 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
     Shell.run(command)
 
 
-def is_git_repo(path):
+def is_git_repo(path) -> bool:
     return File.exists(path + "/.git")
 
 
-def is_repo_string(path):
+def is_repo_string(path) -> str:
     return "Is a git repository" if is_git_repo(path) else "Is not a git repository"
 
 
-def has_changes(path):
+def has_changes(path) -> bool:
     if not is_git_repo(path):
         return False
     return len(Shell.get(["git", "-C", File.full_path(path), "status", "-s"])) != 0

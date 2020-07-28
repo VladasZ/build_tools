@@ -90,7 +90,7 @@ def make(path):
     open(path, 'w+')
 
 
-def exists(path):
+def exists(path) -> bool:
     return os.path.exists(full_path(path))
 
 

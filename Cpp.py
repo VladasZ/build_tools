@@ -42,10 +42,7 @@ def prepare():
 
     Cmake.reset_config()
 
-    Deps.make_map(project_name)
-    Debug.info(Deps._deps)
-    Debug.info(Deps._deps_map)
-    Deps.set_cmake_vars()
+    Deps.string_to_dep(project_name).add_to_cmake()
 
     Cmake.setup_variables()
 
