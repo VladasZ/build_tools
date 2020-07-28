@@ -43,10 +43,11 @@ def cpp():
         
     if Args.prepare or Args.ide:
         Cpp.prepare()
-    elif Args.build:
-        Cpp.build()
     elif Args.run or Args.test:
         Cpp.run()
+
+    if Args.build:
+        Cpp.build()
 
 
 def verilog():

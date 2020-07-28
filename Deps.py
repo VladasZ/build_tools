@@ -12,7 +12,8 @@ import Debug
 
 _ignore_build_tools = False
 
-_deps: Set[Dep] = set()
+_ready: Set[Dep] = set()
+_addedSubdirs: Set[Dep] = set()
 
 
 def string_to_dep(string: str) -> Dep:
@@ -22,6 +23,7 @@ def string_to_dep(string: str) -> Dep:
 class Dep:
     def __init__(self, name: str):
         self.name: str = name
+        self.needs_linking = False
 
     def __eq__(self, other: Dep):
         return self.name == other.name
@@ -47,16 +49,20 @@ class Dep:
     def simple_conan_file(self) -> str:
         return self.path() + "/conan.txt"
 
-    def subdeps(self) -> Set[Dep]:
+    def deps(self) -> Set[Dep]:
         if not self.needs_deps():
             return set()
-        my_supdeps: Set[Dep] = set(map(string_to_dep, File.get_lines(self.deps_file_path())))
-        subsubdeps: List[Set[Dep]] = list()
-        for subdep in my_supdeps:
-            subsubdeps += [subdep.subdeps()]
-        for sub in subsubdeps:
-            my_supdeps |= sub
-        return my_supdeps
+        return set(map(string_to_dep, File.get_lines(self.deps_file_path())))
+
+    def subdeps(self) -> Set[Dep]:
+        result: Set[Dep] = set()
+        for sub in self.deps():
+            result |= sub.deps()
+            result |= sub.subdeps()
+        return result
+
+    def all_deps(self) -> Set[Dep]:
+        return self.deps().union(self.subdeps())
 
     def has_changes(self) -> bool:
         return Git.has_changes(self.path())
@@ -68,17 +74,40 @@ class Dep:
         Git.clone(self.remote_link(), self.path(), recursive=True, ignore_existing=True)
 
     def add_to_cmake(self):
-        if self not in _deps:
-            Cmake.add_var(self.name + "_PATH", "\"" + self.path() + "\"")
-            _deps.add(self)
 
-        for sub in self.subdeps():
-            self.add_sub_dep_to_cmake(sub)
-            sub.add_to_cmake()
+        global _ready
 
-    def add_sub_dep_to_cmake(self, sub_dep):
-        Cmake.append_var(self.name + "_PATHS_TO_INCLUDE", "\"" + sub_dep.path() + "\"")
-        Cmake.append_var(self.name + "_LIBS_TO_LINK",     "\"" + sub_dep.name  + "\"")
+        if self in _ready:
+            return
+
+        _ready.add(self)
+
+        Cmake.add_var(self.name + "_PATH", self.path())
+
+        for dep in self.deps():
+            self.include_in_cmake(dep)
+            self.link_in_cmake(dep)
+
+        for dep in self.subdeps():
+            self.include_in_cmake(dep)
+
+        for dep in self.all_deps():
+            dep.add_to_cmake()
+
+    def include_in_cmake(self, dep: Dep):
+        Cmake.append_var(self.name + "_PATHS_TO_INCLUDE", "\"" + dep.path() + "\"")
+
+    def link_in_cmake(self, dep: Dep):
+        Cmake.append_var(self.name + "_LIBS_TO_LINK", "\"" + dep.name  + "\"")
+
+        global _addedSubdirs
+
+        if dep in _addedSubdirs:
+            return
+
+        _addedSubdirs.add(dep)
+
+        Cmake.append_var(self.name + "_PROJECTS_TO_ADD", "\"" + dep.path()  + "\"")
 
 
 def all_installed():
