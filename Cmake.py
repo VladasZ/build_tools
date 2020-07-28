@@ -183,6 +183,7 @@ def setup_variables():
     add_def_and_bool("USING_ASSIMP",   not Args.no_assimp)
     add_def_and_bool("USING_BOX2D",    not Args.no_box2d)
     add_def_and_bool("USING_BULLET3D", not Args.no_bull3)
+    add_def_and_bool("USING_BOOST",    not Args.no_boost)
     add_def_and_bool("USING_SOIL",     not Args.no_soil)
     add_def_and_bool("USING_GLM",      not Args.no_glm)
     add_def_and_bool("USING_QT",       not Args.no_qt)

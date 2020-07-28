@@ -45,7 +45,7 @@ def prepare():
     Cmake.reset_config()
 
     if has_dependencies:
-        Deps.install(deps_file)
+        Deps.install(project_name, deps_file)
 
     Cmake.setup_variables()
 

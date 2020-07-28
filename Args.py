@@ -69,13 +69,14 @@ manual_compiler = has(["--manual-compiler"])
 
 no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 
-no_qt           = has(["--no-qt", "noqt", "nqt"])
-no_glm          = has(["--no-glm", "noglm", "ng"])
-no_soil         = has(["--no-soil", "nosoil", "ns"])
-no_box2d        = has(["--no-box2d", "no-box2d", "nobox", "nb2"])
-no_bull3        = has(["--no-bullet3", "no-bullet3", "nobullet", "nb3"])
-no_assimp       = has(["--no-assimp", "no-assimp", "noassimp", "na"])
-no_freetype     = has(["--no-freetype", "no-freetype", "noft", "nf"])
+no_qt           = has(["--no-qt",       "noqt",       "nqt",      "nq"])
+no_glm          = has(["--no-glm",      "noglm",                  "ng"])
+no_soil         = has(["--no-soil",     "nosoil",                 "ns"])
+no_boost        = has(["--no-boost",    "noboost",    "nbo",      "nb"])
+no_box2d        = has(["--no-box2d",    "nobox2d",    "nobox",    "nb2"])
+no_bull3        = has(["--no-bullet3",  "nobullet3",  "nobullet", "nb3"])
+no_assimp       = has(["--no-assimp",   "noassimp",   "noassimp", "na"])
+no_freetype     = has(["--no-freetype", "nofreetype", "noft",     "nf"])
 
 _3gs = has(["--3gs", "3gs"])
 _4s  = has(["--4s", "4s"])
@@ -113,9 +114,11 @@ mobile = android or ios
 desktop_build = not mobile
 
 if no_conan:
+    no_qt       = True
     no_glm      = True
     no_soil     = True
     no_box2d    = True
+    no_boost    = True
     no_bull3    = True
     no_assimp   = True
     no_freetype = True
