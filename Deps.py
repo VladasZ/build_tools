@@ -4,19 +4,18 @@ import File
 import Paths
 import Cmake
 import Debug
-import Conan
 
 _ignore_build_tools = False
 
-_installed_deps = []
-_known_path = []
+_deps = set()
+_deps_map = {}
 
 
 def all_installed():
     return File.get_files(Paths.deps)
 
 
-def safe_to_delete():
+def _safe_to_delete():
     for dep in all_installed():
         if dep == File.folder_name():
             continue
@@ -24,27 +23,8 @@ def safe_to_delete():
             continue
         if Git.has_changes(Paths.deps + "/" + dep):
             Debug.info("Dep " + dep + " has changes.")
-            return True
-    return False
-
-
-def install(project_name, deps_file):
-
-    global _installed_deps
-
-    if project_name in _installed_deps:
-        return
-
-    _installed_deps += [project_name]
-
-    deps = File.get_lines(deps_file)
-    Debug.info("=========================================")
-    Debug.info(_clean_project_name(project_name))
-    Debug.info(deps)
-    for dep in deps:
-        _install(project_name, dep)
-    if not _ignore_build_tools:
-        _install(project_name, "build_tools")
+            return False
+    return True
 
 
 def print_info():
@@ -52,7 +32,7 @@ def print_info():
     for dep in all_installed():
         if dep == ".DS_Store":
             continue
-        if Git.has_changes(Paths.deps + "/" + dep):
+        if _has_changes(dep):
             changes = True
             print(dep + " - has changes")
     if not changes:
@@ -61,38 +41,76 @@ def print_info():
 
 def clean():
     for dep in File.get_files(Paths.deps):
-        File.rm(Paths.deps + "/" + dep + "/dep_build")
-        File.rm(Paths.deps + "/" + dep + "/build")
+        File.rm(_path_for(dep) + "/dep_build")
+        File.rm(_path_for(dep) + "/build")
 
 
-def _clean_project_name(name):
-    return name.replace("-", "_")
+def make_map(dep):
+
+    _clone(dep)
+    _deps.add(dep)
+
+    if not _needs_deps(dep):
+        return
+
+    for subdep in _supdeps_for(dep):
+        make_map(subdep)
+        _add_subdep(dep, subdep)
 
 
-def _install(project_name, dep_name):
+def set_cmake_vars():
+    for dep in _deps:
+        _add_to_cmake(dep)
+        if dep in _deps_map.keys():
+            for sub_dep in _deps_map[dep]:
+                _add_sub_dep_to_cmake(dep, sub_dep)
 
-    if dep_name == "soil":
-        Debug.throw("Soil dep is no logner supported. Use conan package.")
 
-    path = Paths.deps + "/" + dep_name
+def _path_for(dep):
+    return Paths.deps + "/" + dep
 
-    global _known_path
 
-    if dep_name not in _known_path:
-        _known_path += [dep_name]
-        Cmake.add_var(_clean_project_name(dep_name) + "_PATH", "\"" + Paths.deps + "/" + dep_name + "\"")
+def _deps_file_path_for(dep):
+    return _path_for(dep) + "/deps.txt"
 
-    if dep_name != "build_tools":
-        Cmake.append_var(_clean_project_name(project_name) + "_GIT_DEPENDENCIES_PATHS", "\"" + path + "\"")
-        Cmake.append_var(_clean_project_name(project_name) + "_GIT_DEPENDENCIES", _clean_project_name(dep_name))
 
-    Git.clone("https://github.com/vladasz/" + dep_name, path, recursive=True, ignore_existing=True)
+def _needs_deps(dep):
+    return File.exists(_deps_file_path_for(dep))
 
-    deps_file = path + "/deps.txt"
-    simple_conan_file = path + "/conan.txt"
 
-    if File.exists(deps_file):
-        install(dep_name, deps_file)
+def _simple_conan_file_for(dep):
+    return _path_for(dep) + "/conan.txt"
 
-    if File.exists(simple_conan_file):
-        Conan.add_requires(simple_conan_file)
+
+def _supdeps_for(dep):
+    return File.get_lines(_deps_file_path_for(dep))
+
+
+def _add_subdep(dep, sub_dep):
+    if dep not in _deps_map.keys():
+        _deps_map[dep] = set()
+    _deps_map[dep].add(sub_dep)
+    if _needs_deps(sub_dep):
+        for sub_sub_dep in _supdeps_for(sub_dep):
+            _add_subdep(dep, sub_sub_dep)
+
+
+def _has_changes(dep):
+    return Git.has_changes(_path_for(dep))
+
+
+def _remote_link(dep):
+    return "https://github.com/vladasz/" + dep
+
+
+def _clone(dep):
+    Git.clone(_remote_link(dep), _path_for(dep), recursive=True, ignore_existing=True)
+
+
+def _add_to_cmake(dep):
+    Cmake.add_var(dep + "_PATH", "\"" + _path_for(dep) + "\"")
+
+
+def _add_sub_dep_to_cmake(dep, sub_dep):
+    Cmake.append_var(dep + "_GIT_DEP_PATHS", "\"" + _path_for(sub_dep) + "\"")
+    Cmake.append_var(dep + "_GIT_DEPS",      "\"" +           sub_dep  + "\"")
