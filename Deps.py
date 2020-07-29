@@ -88,6 +88,8 @@ class Dep:
 
     def add_to_cmake(self):
 
+        Debug.info(self.name)
+
         global _ready
 
         if self in _ready:
