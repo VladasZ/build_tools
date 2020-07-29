@@ -162,3 +162,7 @@ def get_lines(path):
         lines = file.readlines()
     lines = [line.strip() for line in lines]
     return lines
+
+
+def cat(path):
+    print(open(path).read())

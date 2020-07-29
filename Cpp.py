@@ -52,6 +52,8 @@ def prepare():
 
     print("Project prepare time: " + Time.duration())
 
+    File.cat("./build_tools_generated.cmake")
+
 
 def build():
     if not File.exists(build_dir):
