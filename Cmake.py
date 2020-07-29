@@ -54,8 +54,11 @@ def default_generator():
     if System.is_windows:
         if Args.vs19:
             return 'Visual Studio 16 2019'
-        else:    
+        if Args.vs17:
             return 'Visual Studio 15 2017 Win64'
+        if Args.vs15:
+            return "Visual Studio 14 2015 Win64"
+        return 'Visual Studio 16 2019'
     if System.is_mac:
         return 'Xcode'
     if System.is_linux:

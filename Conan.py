@@ -206,6 +206,9 @@ def run(compiler=Compiler.get()):
             , '-scompiler.version=' + ("8" if Args.android else compiler.conan_version)
         ]
 
+    if System.is_windows:
+        if Args.vs15:
+            command += ["-scompiler.version=14"]
 
     if Args.pi:
         command += [
