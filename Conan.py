@@ -8,7 +8,7 @@ import Paths
 import System
 import Compiler
 
-requires = []
+subdeps = []
 
 
 def _conanfile():
@@ -24,7 +24,7 @@ def _conan_deps():
 def _needs_conan():
     if Args.no_conan:
         return False
-    if requires:
+    if subdeps:
         return True
     return File.exists(_conan_deps()) or File.exists(_conanfile())
 
@@ -67,7 +67,7 @@ def _create_conanfile():
     if File.exists(_conan_deps()):
         deps += File.get_lines(_conan_deps())
 
-    deps += requires
+    deps += subdeps
 
     processed = []
 
@@ -150,9 +150,11 @@ def _create_conanfile():
 
 
 def add_requires(file_path):
-    global requires
+    global subdeps
     deps = File.get_lines(file_path)
-    requires += deps
+    for dep in deps:
+        if not dep in subdeps:
+            subdeps += [dep]
 
 
 def setup():
@@ -186,7 +188,7 @@ def run(compiler=Compiler.get()):
 
     Cmake.add_bool("NEEDS_CONAN", True)
 
-    if _simple_conanfile() or requires:
+    if _simple_conanfile() or subdeps:
         _create_conanfile()
 
     command = ['conan', 'install', '..']

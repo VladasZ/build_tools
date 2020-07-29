@@ -9,6 +9,7 @@ import File
 import Paths
 import Cmake
 import Debug
+import Conan
 
 _ignore_build_tools = False
 
@@ -49,6 +50,10 @@ class Dep:
     def simple_conan_file(self) -> str:
         return self.path() + "/conan.txt"
 
+    def setup_conan(self):
+        if File.exists(self.simple_conan_file()):
+            Conan.add_requires(self.simple_conan_file())
+
     def deps(self) -> Set[Dep]:
         if not self.needs_deps():
             return set()
@@ -88,6 +93,7 @@ class Dep:
         if self in _ready:
             return
 
+        self.setup_conan()
         _ready.add(self)
 
         Cmake.add_var(self.name + "_PATH", self.path())
@@ -117,6 +123,10 @@ class Dep:
 
         Cmake.append_var(self.name + "_PROJECTS_TO_ADD", "\"" + dep.path()  + "\"")
 
+    def clean(self):
+        File.rm(self.path() + "/dep_build")
+        File.rm(self.path() + "/build")
+
 
 def all_installed():
     return File.get_files(Paths.deps)
@@ -135,10 +145,8 @@ def _safe_to_delete():
 
 
 def clean():
-    return
-    # for dep in File.get_files(Paths.deps):
-    #     File.rm(_path_for(dep) + "/dep_build")
-    #     File.rm(_path_for(dep) + "/build")
+    for dep in File.get_files(Paths.deps):
+        Dep(dep).clean()
 
 
 def print_info():
