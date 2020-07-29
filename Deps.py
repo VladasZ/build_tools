@@ -23,7 +23,7 @@ def string_to_dep(string: str) -> Dep:
 
 class Dep:
     def __init__(self, name: str):
-        self.name: str = name
+        self.name: str = name.replace("-", "_")
         self.needs_linking = False
 
     def __eq__(self, other: Dep):
