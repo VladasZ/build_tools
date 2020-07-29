@@ -23,8 +23,9 @@ def string_to_dep(string: str) -> Dep:
 
 class Dep:
     def __init__(self, name: str):
-        self.name: str = name.replace("-", "_")
-        self.needs_linking = False
+        self.name: str = name
+        self.needs_linking: bool = False
+        self.custom_path: str = ""
 
     def __eq__(self, other: Dep):
         return self.name == other.name
@@ -38,8 +39,14 @@ class Dep:
     def __hash__(self):
         return hash(self.name)
 
+    def root_path(self) -> str:
+        if not self.custom_path:
+            return Paths.deps + "/"
+        return self.custom_path + "/"
+
     def path(self) -> str:
-        return Paths.deps + "/" + self.name
+      #  Debug.info(self.root_path() + self.name)
+        return self.root_path() + self.name
 
     def deps_file_path(self) -> str:
         return self.path() + "/deps.txt"
@@ -100,6 +107,9 @@ class Dep:
 
         Cmake.add_var(self.name + "_PATH", self.path())
 
+        if not self.needs_deps():
+            Debug.info(self.name + " no deps")
+
         for dep in self.deps():
             self.include_in_cmake(dep)
             self.link_in_cmake(dep)
@@ -111,10 +121,10 @@ class Dep:
             dep.add_to_cmake()
 
     def include_in_cmake(self, dep: Dep):
-        Cmake.append_var(self.name + "_PATHS_TO_INCLUDE", "\"" + dep.path() + "\"")
+        Cmake.append_var(self.clean_name() + "_PATHS_TO_INCLUDE", "\"" + dep.path() + "\"")
 
     def link_in_cmake(self, dep: Dep):
-        Cmake.append_var(self.name + "_LIBS_TO_LINK", "\"" + dep.name  + "\"")
+        Cmake.append_var(self.clean_name() + "_LIBS_TO_LINK", "\"" + dep.name  + "\"")
 
         global _addedSubdirs
 
@@ -123,11 +133,14 @@ class Dep:
 
         _addedSubdirs.add(dep)
 
-        Cmake.append_var(self.name + "_PROJECTS_TO_ADD", "\"" + dep.path()  + "\"")
+        Cmake.append_var(self.clean_name() + "_PROJECTS_TO_ADD", "\"" + dep.path()  + "\"")
 
     def clean(self):
         File.rm(self.path() + "/dep_build")
         File.rm(self.path() + "/build")
+
+    def clean_name(self):
+        return self.name.replace("-", "_")
 
 
 def all_installed():

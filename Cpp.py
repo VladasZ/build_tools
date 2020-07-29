@@ -42,7 +42,9 @@ def prepare():
 
     Cmake.reset_config()
 
-    Deps.string_to_dep(project_name).add_to_cmake()
+    root_project = Deps.string_to_dep(project_name)
+    root_project.custom_path = root_dir + "/.."
+    root_project.add_to_cmake()
 
     Cmake.setup_variables()
 
