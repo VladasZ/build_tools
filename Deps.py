@@ -1,4 +1,4 @@
-from __future__ import annotations
+#from __future__ import annotations
 from typing import Set
 from typing import List
 from typing import Dict
@@ -13,11 +13,11 @@ import Conan
 
 _ignore_build_tools = False
 
-_ready: Set[Dep] = set()
-_addedSubdirs: Set[Dep] = set()
+_ready = set()
+_addedSubdirs = set()
 
 
-def string_to_dep(string: str) -> Dep:
+def string_to_dep(string: str):
     return Dep(string)
 
 
@@ -27,7 +27,7 @@ class Dep:
         self.needs_linking: bool = False
         self.custom_path: str = ""
 
-    def __eq__(self, other: Dep):
+    def __eq__(self, other):
         return self.name == other.name
 
     def __repr__(self):
@@ -61,7 +61,7 @@ class Dep:
         if File.exists(self.simple_conan_file()):
             Conan.add_requires(self.simple_conan_file())
 
-    def deps(self) -> Set[Dep]:
+    def deps(self) -> set:
         if not self.needs_deps():
             return set()
         result = set(map(string_to_dep, File.get_lines(self.deps_file_path())))
@@ -69,14 +69,14 @@ class Dep:
             dep.clone()
         return result
 
-    def subdeps(self) -> Set[Dep]:
-        result: Set[Dep] = set()
+    def subdeps(self) -> set:
+        result = set()
         for sub in self.deps():
             result |= sub.deps()
             result |= sub.subdeps()
         return result
 
-    def all_deps(self) -> Set[Dep]:
+    def all_deps(self) -> set:
         return self.deps().union(self.subdeps())
 
     def has_changes(self) -> bool:
@@ -120,10 +120,10 @@ class Dep:
         for dep in self.all_deps():
             dep.add_to_cmake()
 
-    def include_in_cmake(self, dep: Dep):
+    def include_in_cmake(self, dep):
         Cmake.append_var(self.clean_name() + "_PATHS_TO_INCLUDE", "\"" + dep.path() + "\"")
 
-    def link_in_cmake(self, dep: Dep):
+    def link_in_cmake(self, dep):
         Cmake.append_var(self.clean_name() + "_LIBS_TO_LINK", "\"" + dep.name  + "\"")
 
         global _addedSubdirs
