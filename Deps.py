@@ -52,7 +52,10 @@ class Dep:
     def deps(self) -> Set[Dep]:
         if not self.needs_deps():
             return set()
-        return set(map(string_to_dep, File.get_lines(self.deps_file_path())))
+        result = set(map(string_to_dep, File.get_lines(self.deps_file_path())))
+        for dep in result:
+            dep.clone()
+        return result
 
     def subdeps(self) -> Set[Dep]:
         result: Set[Dep] = set()
@@ -71,7 +74,12 @@ class Dep:
         return "https://github.com/vladasz/" + self.name
 
     def clone(self):
+        if self.is_cloned():
+            return
         Git.clone(self.remote_link(), self.path(), recursive=True, ignore_existing=True)
+
+    def is_cloned(self):
+        return File.exists(self.path())
 
     def add_to_cmake(self):
 
