@@ -124,6 +124,7 @@ def _append(value):
 
 
 def reset_config():
+    Debug.info("RESET")
     File.rm(cmake_config_file_name())
     File.append(cmake_config_file_name(), "# GENERATED FILE.\n# DO NOT EDIT\n")
 
@@ -147,6 +148,7 @@ def append_var(name, value):
 
 
 def add_definition(definition):
+    Debug.info(definition)
     caller = getframeinfo(stack()[1][0])
     _append("add_definitions(-D" + definition + ")" +
             " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
