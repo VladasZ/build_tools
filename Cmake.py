@@ -98,11 +98,6 @@ def setup(compiler=Compiler.get()):
     Debug.info(compiler)
     Debug.info(compiler.CXX)
 
-    Debug.info(compiler.supports_optional())
-
-    if not compiler.supports_optional():
-        add_definition("EXPERIMENTAL_OPTIONAL")
-
     #
     # if Args.android:
     #     os.environ['CC']  = "/Users/vladas/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
@@ -168,9 +163,14 @@ def add_line(line):
         " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
 
 
-def setup_variables():
+def setup_variables(compiler=Compiler.get()):
 
     project_name = File.folder_name("..")
+
+    Debug.info(compiler.supports_optional())
+
+    if not compiler.supports_optional():
+        add_definition("EXPERIMENTAL_OPTIONAL")
 
     add_def_and_bool("RASPBERRY_BUILD",   Args.pi)
     add_def_and_bool("UNITY_BUILD",       Args.unity)
