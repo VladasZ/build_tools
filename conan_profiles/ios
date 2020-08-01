@@ -6,6 +6,6 @@ os_build=Macos
 arch_build=x86_64
 compiler=apple-clang
 compiler.version=11.0
-compiler.libcxx=libstdc++
+compiler.libcxx=libc++
 [build_requires]
-darwin-toolchain/1.0.6@theodelrieu/stable
+darwin-toolchain/1.0.8@theodelrieu/stable

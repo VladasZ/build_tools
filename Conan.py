@@ -44,7 +44,7 @@ def _create_conanfile():
     versions = {
         "gl"       : "opengl/system",
         "qt"       : "qt/5.14.2@bincrafters/stable",
-        "glm"      : "glm/0.9.9.8",
+        "glm"      : "glm/0.9.8.5@bincrafters/stable",#"glm/0.9.9.8",
         "date"     : "date/2.4.1",
         "mesa"     : "mesa/20.0.1@bincrafters/stable",
         "glew"     : "glew/2.1.0@bincrafters/stable",
