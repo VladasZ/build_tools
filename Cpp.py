@@ -34,13 +34,13 @@ def prepare():
 
     File.cd(root_dir)
 
+    Cmake.reset_config()
+
     Conan.setup()
     Cmake.setup()
 
     File.mkdir('build')
     File.cd('build')
-
-    Cmake.reset_config()
 
     root_project = Deps.string_to_dep(project_name)
     root_project.custom_path = root_dir + "/.."
