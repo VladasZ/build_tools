@@ -190,8 +190,14 @@ macro(setup_lib lib)
   _setup_lib(${lib})
 endmacro()
 
+include("~/.deps/build_tools/ios.cmake")
+
 macro(setup_exe exe)
-  _setup_exe(${exe})
+  if(IOS_BUILD)
+    _setup_ios_exe(${exe})
+  else()
+    _setup_exe(${exe})
+  endif()
   link_project(${exe})
 endmacro()
 

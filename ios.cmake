@@ -2,15 +2,13 @@ cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
 macro(_setup_ios_exe exe)
 
-    project(${exe})
+    project(${exe}_test)
     add_catalog_recursive(${PROJECT_SOURCE_DIR} / SOURCE)
     file(GLOB ASSETS ${ASSETS_DIRECTORY})
     add_executable(${PROJECT_NAME} ${SOURCE} ${ASSETS})
 
-    link_conan_if_needed()
-    link_deps()
-
- #   link_project_at_path(test_engine ${test_engine_path})
+    include_deps(${exe})
+    target_link_libraries(${PROJECT_NAME} ${exe})
 
     find_library(UIKIT UIKit)
     find_library(GLKIT GLKit)
