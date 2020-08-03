@@ -5,6 +5,7 @@ import System
 
 from Compilers.CompilerBase import Compiler
 
+
 def get():
 
     if not Shell.check(["clang", "-dumpversion"]):

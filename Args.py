@@ -2,27 +2,36 @@ import sys
 import platform
 import Debug
 
-all = sys.argv
+
+all_in_flags = sys.argv
+
+all_known = []
+
 
 def has(flags):
-    for arg in all:
+    for flag in flags:
+        global all_known
+        if flag in all_known:
+            Debug.info("Dupicated flag: " + flag)
+            Debug.throw()
+    for arg in all_in_flags:
         for flag in flags:
             if arg == flag:
-                all.remove(arg)
+                all_in_flags.remove(arg)
                 return True
     return False
 
 
 def get(index = 1):
-    return all[index]
+    return all_in_flags[index]
 
 
 def count():
-    return len(all)
+    return len(all_in_flags)
 
 
 def dump():
-    print(all)
+    print(all_in_flags)
 
 
 def empty():
@@ -43,6 +52,7 @@ vs15            = has(["--vs15", "vs15"])
 vs17            = has(["--vs17", "vs17"])
 vs19            = has(["--vs19", "vs19"])
 make            = has(["--make"])
+msvc            = has(["--msvc", "msvc"])
 hand            = has(["--hand"])
 test            = has(["--test"])
 multi           = has(["--multi"])
@@ -126,7 +136,7 @@ if no_conan:
     no_freetype = True
 
 
-if len(all) != 1:
+if len(all_in_flags) != 1:
     Debug.info("Unknown parameter:")
-    Debug.info(all[1:])
+    Debug.info(all_in_flags[1:])
     Debug.throw()

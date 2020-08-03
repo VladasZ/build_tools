@@ -219,6 +219,9 @@ def run(compiler=Compiler.get()):
     if Args.mingw:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/mingw']
 
+    if Args.msvc:
+        command += ['--profile', Paths.deps + '/build_tools/conan_profiles/msvc']
+
     if Args.ios:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios']
 
