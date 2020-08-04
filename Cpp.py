@@ -51,7 +51,8 @@ def prepare():
 
     Conan.run()
 
-    Cmake.run()
+    if Args.build or Args.ide:
+        Cmake.run()
 
     print("Project prepare time: " + Time.duration())
 

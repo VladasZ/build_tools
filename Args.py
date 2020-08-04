@@ -126,6 +126,12 @@ if ios8:
 mobile = android or ios
 desktop_build = not mobile
 
+if ios:
+    ide = True
+
+if vs15 or vs17 or vs19:
+    ide = True
+
 if no_conan:
     no_qt       = True
     no_glm      = True
