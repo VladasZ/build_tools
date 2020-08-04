@@ -83,6 +83,7 @@ no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 
 no_qt           = has(["--no-qt",       "noqt",       "nqt",      "nq"])
 no_glm          = has(["--no-glm",      "noglm",                  "ng"])
+no_date         = has(["--no-date",     "nodate",                 "nd"])
 no_soil         = has(["--no-soil",     "nosoil",                 "ns"])
 no_boost        = has(["--no-boost",    "noboost",    "nbo",      "nb"])
 no_box2d        = has(["--no-box2d",    "nobox2d",    "nobox",    "nb2"])

@@ -1,5 +1,6 @@
 import os
 import iOS
+import Cpp
 import File
 import Args
 import Debug
@@ -16,7 +17,7 @@ cmake_search_default_depth = 3
 def cmake_config_file_name():
     name = "build_tools_generated.cmake"
     if Args.android:
-        return "../android/app/src/main/cpp/" + name
+        return Cpp.root_dir + "/android/app/src/main/cpp/" + name
     return name
 
 

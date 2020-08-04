@@ -113,6 +113,9 @@ def _create_conanfile():
         if Args.no_boost and lib == "boost":
             continue
 
+        if Args.no_date and lib == "date":
+            continue
+
         File.append(_conanfile(), versions[lib] + "\n")
 
     File.append(_conanfile(), "\n[generators]\n")

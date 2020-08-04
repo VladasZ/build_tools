@@ -29,6 +29,7 @@ stamp = Time.stamp()
 
 
 def prepare():
+
     if Args.ios:
         iOS.setup()
 
@@ -54,7 +55,8 @@ def prepare():
 
     print("Project prepare time: " + Time.duration())
 
-    File.cat("./build_tools_generated.cmake")
+    if not Args.android:
+        File.cat("./build_tools_generated.cmake")
 
 
 def build():
