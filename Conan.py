@@ -78,9 +78,33 @@ def _create_conanfile():
         deps += ["gl"]
         deps += ["mesa"]
 
+    if Args.no_freetype:
+        deps.remove("freetype")
+
+    if Args.no_assimp:
+        deps.remove("assimp")
+
+    if Args.no_box2d:
+        deps.remove("box2d")
+
+    if Args.no_soil:
+        deps.remove("soil")
+
+    if Args.no_bull3:
+        deps.remove("bullet")
+
+    if Args.no_qt:
+        deps.remove("qt")
+
+    if Args.no_boost:
+        deps.remove("boost")
+
+    if Args.no_date:
+        deps.remove("date")
+
     for lib in deps:
 
-        if not lib in versions:
+        if lib not in versions:
             Debug.throw("Conan library named: \"" + lib + "\" not found.")
 
         if lib in processed:
@@ -91,30 +115,6 @@ def _create_conanfile():
         if Args.mobile:
             if lib in desktop_only:
                 continue
-
-        if Args.no_freetype and lib == "freetype":
-            continue
-
-        if Args.no_assimp and lib == "assimp":
-            continue
-
-        if Args.no_box2d and lib == "box2d":
-            continue
-
-        if Args.no_soil and lib == "soil":
-            continue
-
-        if Args.no_bull3 and lib == "bullet":
-            continue
-
-        if Args.no_qt and lib == "qt":
-            continue
-
-        if Args.no_boost and lib == "boost":
-            continue
-
-        if Args.no_date and lib == "date":
-            continue
 
         File.append(_conanfile(), versions[lib] + "\n")
 
@@ -150,6 +150,15 @@ def _create_conanfile():
         File.append(_conanfile(), "qt:qtserialport=True\n\n")
 
         File.append(_conanfile(), "qt:qtconnectivity=True\n\n")
+
+    Cmake.add_def_and_bool("USING_FREETYPE", "freetype" in deps)
+    Cmake.add_def_and_bool("USING_ASSIMP",   "assimp"   in deps)
+    Cmake.add_def_and_bool("USING_BOX2D",    "box2d"    in deps)
+    Cmake.add_def_and_bool("USING_BULLET3D", "bullet"   in deps)
+    Cmake.add_def_and_bool("USING_BOOST",    "boost"    in deps)
+    Cmake.add_def_and_bool("USING_SOIL",     "soil"     in deps)
+    Cmake.add_def_and_bool("USING_GLM",      "glm"      in deps)
+    Cmake.add_def_and_bool("USING_QT",       "qt"       in deps)
 
 
 def add_requires(file_path):
