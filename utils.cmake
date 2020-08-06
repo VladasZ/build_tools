@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS TRUE)
+
 if(ANDROID_BUILD)
   add_definitions(-DANDROID_BUILD)
 elseif(WIN32 AND DESKTOP_BUILD)
@@ -119,12 +121,17 @@ if(NEEDS_CONAN)
 endif()
 endmacro()
 
-macro(_setup_lib lib)
+macro(set_folder folder)
+  set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "${folder}")
+endmacro()
+
+  macro(_setup_lib lib)
 project(${lib})
 add_catalog_recursive(${PROJECT_SOURCE_DIR} /source setup_lib_SOURCE)
 add_library(${PROJECT_NAME} ${setup_lib_SOURCE})
 link_conan_if_needed()
 link_and_include_deps(${lib})
+set_folder(libs)
 endmacro()
 
 macro(setup_shared_lib lib)
@@ -133,6 +140,7 @@ macro(setup_shared_lib lib)
   add_library(${PROJECT_NAME} SHARED ${SOURCE})
   link_conan_if_needed()
   link_and_include_deps(${lib})
+  set_folder(libs)
 endmacro()
 
 macro(link_from project)
@@ -145,6 +153,7 @@ macro(_setup_exe exe)
   add_catalog_recursive(${PROJECT_SOURCE_DIR} /source setup_exe_SOURCE)
   add_executable(${PROJECT_NAME} ${setup_exe_SOURCE})
   include_deps(${exe})
+  set_folder(tests)
 endmacro()
 
 macro(add_deps project)
