@@ -30,6 +30,7 @@ def convert_path(path):
 
 
 def copy(src, dst):
+    Debug.info("Copying:\n" + src + " to:\n" + dst)
     if is_file(src):
         shutil.copyfile(src, dst)
     else:
