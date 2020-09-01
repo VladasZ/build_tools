@@ -131,7 +131,6 @@ def _create_conanfile():
 
     if "poco" in deps:
         File.append(_conanfile(), "poco:enable_data_sqlite=False\n")
-        File.append(_conanfile(), "poco:cxx_14=True\n")
         File.append(_conanfile(), "poco:enable_mongodb=False\n\n")
 
     if "qt" in deps:
