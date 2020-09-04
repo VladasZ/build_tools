@@ -125,7 +125,7 @@ macro(set_folder folder)
   set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "${folder}")
 endmacro()
 
-  macro(_setup_lib lib)
+macro(_setup_lib lib)
 project(${lib})
 add_catalog_recursive(${PROJECT_SOURCE_DIR} /source setup_lib_SOURCE)
 add_library(${PROJECT_NAME} ${setup_lib_SOURCE})
