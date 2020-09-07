@@ -16,11 +16,6 @@ import Compiler
 
 def cpp():
 
-    if Args.empty():
-        Args.prepare = True
-        Args.debug = True
-        Args.clean = True
-
     if Args.deps_info:
         Deps.print_info()
         exit()
@@ -36,7 +31,7 @@ def cpp():
         elif Args.flash:
             Arm.flash()
         return
-    
+
     if Args.clean:
         Cpp.clean()
         print("Clean successful")
