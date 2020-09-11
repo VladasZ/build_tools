@@ -4,31 +4,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS TRUE)
 
-if(ANDROID_BUILD)
-  add_definitions(-DANDROID_BUILD)
-elseif(WIN32 AND DESKTOP_BUILD)
-  add_definitions(-DWINDOWS)
-  add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
-elseif(APPLE)
-  add_definitions(-DAPPLE)
-else()
-  add_definitions(-DLINUX)
-endif()
-
-if(${DESKTOP_BUILD})
-  add_definitions(-DDESKTOP_BUILD)
-endif()
-
-if(${IOS_BUILD})
-  add_definitions(-DIOS_BUILD)
-endif()
-
-if(${NEEDS_CONAN})
-  add_definitions(-DUSING_CONAN)
-else()
-  add_definitions(-DNO_CONAN)
-endif()
-
 function(prepend var prefix)
   set(listVar "")
   foreach(f ${ARGN})

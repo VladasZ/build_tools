@@ -152,15 +152,6 @@ def _create_conanfile():
 
         File.append(_conanfile(), "qt:qtconnectivity=True\n\n")
 
-    Cmake.add_def_and_bool("USING_FREETYPE", "freetype" in deps)
-    Cmake.add_def_and_bool("USING_ASSIMP",   "assimp"   in deps)
-    Cmake.add_def_and_bool("USING_BOX2D",    "box2d"    in deps)
-    Cmake.add_def_and_bool("USING_BULLET3D", "bullet"   in deps)
-    Cmake.add_def_and_bool("USING_BOOST",    "boost"    in deps)
-    Cmake.add_def_and_bool("USING_SOIL",     "soil"     in deps)
-    Cmake.add_def_and_bool("USING_GLM",      "glm"      in deps)
-    Cmake.add_def_and_bool("USING_QT",       "qt"       in deps)
-
 
 def add_requires(file_path):
     global subdeps
