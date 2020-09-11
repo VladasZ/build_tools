@@ -79,6 +79,12 @@ force_build     = has(["--force-build", "force-build", "fb"])
 compilers_info  = has(["--compilers-info", "ci"])
 manual_compiler = has(["--manual-compiler"])
 
+register   = has(["--register",     "register",   "reg"])
+unregister = has(["--unregister", "unregister", "unreg"])
+
+start = has(["--start", "start", "star", "sta"])
+stop  = has(["--stop",  "stop",  "sto", "stp"])
+
 no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 
 no_qt           = has(["--no-qt",       "noqt",       "nqt",      "nq"])

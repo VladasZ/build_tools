@@ -128,8 +128,8 @@ def _create_conanfile():
     if "mesa" in deps:
         File.append(_conanfile(), "mesa:dri_search_path=/usr/lib/x86_64-linux-gnu/dri\n\n")
 
-    # if "boost" in deps:
-    #     File.append(_conanfile(), "boost:without_python=False\n\n")
+    if "boost" in deps and not Args.mingw:
+        File.append(_conanfile(), "boost:without_python=False\n\n")
 
     if "poco" in deps:
         File.append(_conanfile(), "poco:enable_data_sqlite=False\n")
