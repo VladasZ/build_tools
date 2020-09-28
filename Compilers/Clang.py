@@ -14,7 +14,7 @@ def get():
     supported_versions = []
 
     if System.is_mac:
-        supported_versions = [9, 10, 11]
+        supported_versions = [9, 10, 11, 12]
     else:
         supported_versions = [6]
 
