@@ -52,7 +52,7 @@ def _create_conanfile():
         "soil"       : "soil2/1.11@bincrafters/stable",
         "json"       : "nlohmann_json/3.8.0",
         "poco"       : "poco/1.10.1",
-        "boost"      : "boost/1.73.0",
+        "boost"      : "boost/1.74.0",
         "openvr"     : "openvr/1.12.5",
         "sqlite"     : "sqlitecpp/2.5.0",
         "bullet"     : "bullet3/2.89",
