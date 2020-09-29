@@ -44,19 +44,19 @@ def _create_conanfile():
     versions = {
         "gl"         : "opengl/system",
         "qt"         : "qt/5.14.2@bincrafters/stable",
-        "glm"        : "glm/0.9.8.5@bincrafters/stable",#"glm/0.9.9.8",
+        "glm"        : "glm/0.9.9.8",
         "date"       : "date/2.4.1",
         "mesa"       : "mesa/20.0.1@bincrafters/stable",
-        "glew"       : "glew/2.1.0@bincrafters/stable",
-        "glfw"       : "glfw/3.3.2@bincrafters/stable",
+        "glew"       : "glew/2.1.0",
+        "glfw"       : "glfw/3.3.2",
         "soil"       : "soil2/1.11@bincrafters/stable",
-        "json"       : "nlohmann_json/3.8.0",
+        "json"       : "nlohmann_json/3.9.1",
         "poco"       : "poco/1.10.1",
         "boost"      : "boost/1.74.0",
         "openvr"     : "openvr/1.12.5",
         "sqlite"     : "sqlitecpp/2.5.0",
         "bullet"     : "bullet3/2.89",
-        "box2d"      : "box2d/2.3.1",
+        "box2d"      : "box2d/2.4.0",
         "assimp"     : "assimp/5.0.1",
         "freetype"   : "freetype/2.10.2",
         "magic_enum" : "magic_enum/0.6.6"
@@ -128,7 +128,7 @@ def _create_conanfile():
     if "mesa" in deps:
         File.append(_conanfile(), "mesa:dri_search_path=/usr/lib/x86_64-linux-gnu/dri\n\n")
 
-    if "boost" in deps and not Args.mingw:
+    if "boost" in deps and not Args.mingw and not Args.mobile:
         File.append(_conanfile(), "boost:without_python=False\n\n")
 
     if "poco" in deps:
