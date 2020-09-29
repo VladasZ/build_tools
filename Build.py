@@ -1,15 +1,9 @@
-import Arm
 import Cpp
 import Git
-import File
 import Args
-import Make
 import Time
 import File
 import Deps
-import Cmake
-import Conan
-import Debug
 import Verilog
 import Compiler
 
@@ -19,18 +13,6 @@ def cpp():
     if Args.deps_info:
         Deps.print_info()
         exit()
-
-    if File.exists(Cpp.root_dir + "/Makefile"):
-        if Args.clean:
-            Arm.clean()
-            print("Clean successful")
-        if Args.run:
-            Arm.run()
-        elif Args.build:
-            Arm.build()
-        elif Args.flash:
-            Arm.flash()
-        return
 
     if Args.clean:
         Cpp.clean()
