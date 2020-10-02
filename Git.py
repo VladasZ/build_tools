@@ -37,8 +37,7 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
 
 
 def pull(path):
-    Shell.run_string("cd " + path)
-    Shell.run_string("git pull")
+    Shell.run_string("git -C " + path + " pull")
 
 
 def is_git_repo(path) -> bool:
@@ -71,4 +70,3 @@ def pull_folder(path):
         if has_changes(full_path):
           Debug.throw(repo + " - has changes")
         pull(full_path)
-        
