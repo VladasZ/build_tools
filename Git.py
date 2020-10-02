@@ -48,3 +48,11 @@ def has_changes(path) -> bool:
     if not is_git_repo(path):
         return False
     return len(Shell.get(["git", "-C", File.full_path(path), "status", "-s"])) != 0
+
+
+def pring_folder_changes(path):
+    for repo in File.get_files(path):
+        if repo == ".DS_Store":
+            continue
+        if has_changes(path + "/" + repo):
+            print(repo + " - has changes")

@@ -7,6 +7,7 @@ import Make
 import Time
 import File
 import Deps
+import Paths
 import Cmake
 import Conan
 import Debug
@@ -17,7 +18,10 @@ import Compiler
 def cpp():
 
     if Args.deps_info:
-        Deps.print_info()
+        Git.pring_folder_changes(Paths.deps)
+        Git.pring_folder_changes(Paths.tes)
+        Git.pring_folder_changes(Paths.glove)
+        Git.pring_folder_changes(Paths.atom)
         exit()
 
     if File.exists(Cpp.root_dir + "/Makefile"):
