@@ -37,6 +37,9 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
 
 
 def pull(path):
+    if not is_git_repo(path):
+        Debug.info(path + " :not a git repo. Skipping.")
+        return
     Shell.run_string("git -C " + path + " pull")
 
 
