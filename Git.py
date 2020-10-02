@@ -36,6 +36,11 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
     Shell.run(command)
 
 
+def pull(path):
+    Shell.run_string("cd " + path)
+    Shell.run_string("git pull")
+
+
 def is_git_repo(path) -> bool:
     return File.exists(path + "/.git")
 
@@ -56,3 +61,14 @@ def pring_folder_changes(path):
             continue
         if has_changes(path + "/" + repo):
             print(repo + " - has changes")
+
+
+def pull_folder(path):
+    for repo in File.get_files(path):
+        if repo == ".DS_Store":
+            continue
+        full_path = path + "/" + repo
+        if has_changes(full_path):
+          Debug.throw(repo + " - has changes")
+        pull(full_path)
+        

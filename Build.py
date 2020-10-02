@@ -18,6 +18,12 @@ def cpp():
         Git.pring_folder_changes(Paths.atom)
         exit()
 
+    if Args.pullall:
+        Git.pull_folder(Paths.deps)
+        Git.pull_folder(Paths.tes)
+        Git.pull_folder(Paths.glove)
+        Git.pull_folder(Paths.atom)
+
     if File.exists(Cpp.root_dir + "/Makefile"):
         if Args.clean:
             Arm.clean()
