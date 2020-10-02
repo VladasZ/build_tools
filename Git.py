@@ -68,6 +68,8 @@ def pring_folder_changes(path):
 
 
 def pull_folder(path):
+    if not File.exists(path):
+        return
     for repo in File.get_files(path):
         if repo == ".DS_Store":
             continue
