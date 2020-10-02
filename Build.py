@@ -11,18 +11,23 @@ import Compiler
 
 def cpp():
 
+    work_dirs = [
+        Paths.home,
+        Paths.deps,
+        Paths.tes,
+        Paths.glove,
+        Paths.atom
+    ]
+
     if Args.deps_info:
-        Git.pring_folder_changes(Paths.deps)
-        Git.pring_folder_changes(Paths.tes)
-        Git.pring_folder_changes(Paths.glove)
-        Git.pring_folder_changes(Paths.atom)
+        for dir in work_dirs:
+            Git.pring_folder_changes(dir)
         exit()
 
     if Args.pullall:
-        Git.pull_folder(Paths.deps)
-        Git.pull_folder(Paths.tes)
-        Git.pull_folder(Paths.glove)
-        Git.pull_folder(Paths.atom)
+        for dir in work_dirs:
+            Git.pull_folder(dir)
+        exit()
 
     if File.exists(Cpp.root_dir + "/Makefile"):
         if Args.clean:
