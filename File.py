@@ -167,3 +167,7 @@ def get_lines(path):
 
 def cat(path):
     print(open(path).read())
+
+
+def fold_user(path):
+    return path.replace(os.path.expanduser('~'), '~', 1)

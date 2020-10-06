@@ -1,4 +1,5 @@
 import File
+import Paths
 import Debug
 import Shell
 
@@ -25,6 +26,7 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
 
     if len(destination) > 0 and File.exists(destination):
         if ignore_existing:
+            Debug.info(destination + " exists")
             return
         Debug.throw("Git repository: " + link + " already exists for path: " + File.full_path(destination))
 
@@ -67,6 +69,18 @@ def pring_folder_changes(path):
             print(repo + " - has changes")
 
 
+def list_repos(path):
+    if not File.exists(path):
+        return []
+
+    result = []
+    for repo in File.get_files(path):
+        repo_path = path + "/" + repo
+        if is_git_repo(repo_path):
+            result += [File.fold_user(repo_path)]
+    return result
+
+
 def pull_folder(path):
     if not File.exists(path):
         return
@@ -77,3 +91,14 @@ def pull_folder(path):
         if has_changes(full_path):
           Debug.throw(repo + " - has changes")
         pull(full_path)
+
+
+def remote(path):
+    if not File.exists(path):
+        return "No folder"
+    return Shell.get(["git", "-C", File.full_path(path), "config", "--get", "remote.origin.url"])
+
+
+def clone_all_projects():
+    for path, remote in Paths.projects.items():
+        clone(remote, path, delete_existing=False, recursive=True, ignore_existing=True)

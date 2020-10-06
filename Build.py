@@ -5,20 +5,31 @@ import Args
 import Time
 import File
 import Paths
+import Debug
 import Verilog
 import Compiler
 
 
+work_dirs = [
+    Paths.home,
+    Paths.deps,
+    Paths.tes,
+    Paths.glove,
+    Paths.atom,
+    Paths.my
+]
+
+def all_repos():
+    result = []
+    for dir in work_dirs:
+        result += Git.list_repos(dir)
+    return result
+
 def cpp():
 
-    work_dirs = [
-        Paths.home,
-        Paths.deps,
-        Paths.tes,
-        Paths.glove,
-        Paths.atom,
-        Paths.my
-    ]
+    if Args.clone_all:
+        Git.clone_all_projects()
+        exit()
 
     if Args.deps_info:
         for dir in work_dirs:
@@ -28,6 +39,13 @@ def cpp():
     if Args.pullall:
         for dir in work_dirs:
             Git.pull_folder(dir)
+        exit()
+
+    if Args.list:
+        repos_dict = {}
+        for repo in all_repos():
+            repos_dict[repo] = Git.remote(repo)
+        print(repos_dict);
         exit()
 
     if File.exists(Cpp.root_dir + "/Makefile"):
