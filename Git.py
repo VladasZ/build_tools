@@ -24,7 +24,7 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
         else:
             File.rm(destination)
 
-    if len(destination) > 0 and File.exists(destination):
+    if File.exists(destination):
         if ignore_existing:
             Debug.info(destination + " exists")
             return
