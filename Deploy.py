@@ -13,6 +13,8 @@ choco_map = {
 
 win_only = [
     "putty",
+    "winrar",
+    "lockhunter",
     "dependencywalker"
 ]
 
