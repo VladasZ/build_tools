@@ -128,7 +128,7 @@ def _create_conanfile():
     if "mesa" in deps:
         File.append(_conanfile(), "mesa:dri_search_path=/usr/lib/x86_64-linux-gnu/dri\n\n")
 
-    if "boost" in deps and not Args.mingw and not Args.mobile:
+    if Args.boost_python:
         File.append(_conanfile(), "boost:without_python=False\n\n")
 
     if "poco" in deps:

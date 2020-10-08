@@ -79,6 +79,7 @@ no_bitcode      = has(["--no-bitcode", "no-bitcode", "no-bit"])
 no_ios_exe      = has(["--no-ios-exe", "no-ios-exe", "nie"])
 update_deps     = has(["--update-deps", "update-deps", "ud"])
 force_build     = has(["--force-build", "force-build", "fb"])
+boost_python    = has(["--boost-python", "bp"])
 compilers_info  = has(["--compilers-info", "ci"])
 manual_compiler = has(["--manual-compiler"])
 
