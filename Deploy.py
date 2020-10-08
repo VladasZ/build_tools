@@ -11,9 +11,17 @@ choco_map = {
     "vk"      : "vkmessenger"
 }
 
+mac_only = [
+    "postman",
+    "daisydisk"
+]
+
 win_only = [
     "putty",
     "winrar",
+    "scanner",
+    "procexp",
+    "autohotkey",
     "lockhunter",
     "dependencywalker"
 ]
@@ -23,11 +31,11 @@ apps = [
     "wireshark",
     "gitkraken"
     "telegram",
-    "postman",
     "toolbox",
     "skype",
     "slack",
-    "teams"
-    "steam"
+    "deezer",
+    "teams",
+    "steam",
     "vk"
 ]
