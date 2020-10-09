@@ -25,6 +25,7 @@ win_only = [
     "scanner",
     "winpcap",
     "procexp",
+    "lightshot",
     "autohotkey",
     "lockhunter",
     "dependencywalker"
