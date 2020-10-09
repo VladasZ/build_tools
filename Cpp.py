@@ -17,8 +17,9 @@ def _root_dir(path='.'):
     while not File.is_root(_path):
         if File.exists(_path + '/.projectile'):
             return File.full_path(_path)
+        else:
+            return ""
         _path = _path + "/.."
-    Debug.throw("C++ project root directory not found for path: " + File.full_path(path))
 
 
 root_dir = _root_dir()

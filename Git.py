@@ -13,7 +13,7 @@ def root_dir(path='.'):
                 return super_project
             return File.full_path(_path)
         _path = _path + "/.."
-    Debug.throw("Git root directory not found for path: " + File.full_path(path))
+    return ""
 
 
 def clone(link, destination, delete_existing=False, recursive=False, ignore_existing=False):

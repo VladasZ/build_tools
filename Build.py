@@ -5,7 +5,7 @@ import Args
 import Time
 import File
 import Paths
-import Debug
+import Deploy
 import Verilog
 import Compiler
 
@@ -15,7 +15,7 @@ work_dirs = [
     Paths.deps,
     Paths.tes,
     Paths.glove,
-    Paths.atom,
+    #Paths.atom,
     Paths.my
 ]
 
@@ -26,6 +26,10 @@ def all_repos():
     return result
 
 def cpp():
+
+    if Args.deploy:
+        Deploy.install_all()
+        exit()
 
     if Args.clone_all:
         Git.clone_all_projects()
