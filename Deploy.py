@@ -1,6 +1,6 @@
-
 import Shell
 import System
+
 
 cask_map = {
     "toolbox" : "jetbrains-toolbox",
@@ -20,6 +20,7 @@ mac_only = [
 ]
 
 win_only = [
+    "make",
     "putty",
     "winrar",
     "scanner",
@@ -46,25 +47,31 @@ apps = [
 ]
 
 
+def installer():
+    return "choco" if System.is_windows else "brew"
+
+
+def platform_map():
+    return choco_map if System.is_windows else cask_map
+
+
+def platform_apps():
+    return win_only if System.is_windows else mac_only
+
+
 def unwrap(app):
-    map = choco_map if System.is_windows else cask_map
-    if app in map:
+    map = platform_map()
+    if app in platform_map():
         return map[app]
     return app
 
 
 def install(app):
-    installer = "choco" if System.is_windows else "brew"
-    Shell.run([installer, "install", unwrap(app)])
+    Shell.run([installer(), "install", unwrap(app)])
 
 
 def all_apps():
-    all = apps
-    if System.is_windows:
-        all += win_only
-    else:
-        all += mac_only
-    return all
+    return apps + platform_apps()
 
 
 def install_all():
