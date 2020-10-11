@@ -5,7 +5,7 @@ os_build=Windows
 os=Android
 os.api_level=21
 compiler=clang
-compiler.version=8
+compiler.version=9
 compiler.libcxx=libc++
 [build_requires]
-android_ndk_installer/r20@bincrafters/stable
+android_ndk_installer/r21d@bincrafters/stable
