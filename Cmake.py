@@ -76,7 +76,7 @@ def run(generator=default_generator()):
     args += ["-DCMAKE_BUILD_TYPE=Release" if Args.release else "-DCMAKE_BUILD_TYPE=Debug"]
 
     if Args.ios:
-        platform = "OS64COMBINED"
+        platform = "SIMULATOR64"
 
         if Args.device:
             platform = "OS64"
@@ -84,6 +84,11 @@ def run(generator=default_generator()):
         args += ["-DCMAKE_TOOLCHAIN_FILE=" + iOS.toolchain_file]
         args += ["-DPLATFORM=" + platform]
         args += ["-DDEPLOYMENT_TARGET=" + Args.ios_version]
+
+        if Args.device:
+            args += ["-DARCHS=arm64"]
+        else:
+            args += ["-DARCHS=x86_64"]
 
         if Args.no_bitcode:
             args += ["-DENABLE_BITCODE=FALSE"]
@@ -168,11 +173,6 @@ def setup_variables(compiler=Compiler.get()):
 
     project_name = File.folder_name("..")
 
-    Debug.info(compiler.supports_optional())
-
-    if not compiler.supports_optional():
-        add_definition("EXPERIMENTAL_OPTIONAL")
-
     add_def_and_bool("RASPBERRY_BUILD",   Args.pi)
     add_def_and_bool("UNITY_BUILD",       Args.unity)
     add_def_and_bool("DESKTOP_BUILD",     Args.desktop_build)
@@ -184,10 +184,6 @@ def setup_variables(compiler=Compiler.get()):
     add_def_and_bool("MAC_BUILD",     System.is_mac     and Args.desktop_build)
     add_def_and_bool("WINDOWS_BUILD", System.is_windows and Args.desktop_build)
     add_def_and_bool("LINUX_BUILD",   System.is_linux   and Args.desktop_build)
-
-    if not Args.mobile:
-        add_def_and_bool("IPHONE_4S_BUILD",  Args._4s)
-        add_def_and_bool("IPHONE_3GS_BUILD", Args._3gs)
 
     add_def_and_bool("DEBUG", Args.debug)
 

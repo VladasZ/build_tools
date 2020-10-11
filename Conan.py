@@ -73,8 +73,8 @@ def _create_conanfile():
 
     processed = []
 
-    if System.is_mac:
-        File.append(_conanfile(), "libiconv/1.16\n")
+    # if System.is_mac:
+    #     File.append(_conanfile(), "libiconv/1.16\n")
 
     if System.is_linux and "glew" in deps:
         deps += ["gl"]
@@ -89,20 +89,23 @@ def _create_conanfile():
     if Args.no_box2d:
         deps.remove("box2d")
 
-    if Args.no_soil:
-        deps.remove("soil")
-
     if Args.no_bull3:
         deps.remove("bullet")
-
-    if Args.no_qt:
-        deps.remove("qt")
 
     if Args.no_boost:
         deps.remove("boost")
 
     if Args.no_date:
         deps.remove("date")
+
+    if Args.no_soil:
+        deps.remove("soil")
+
+    if Args.no_glm:
+        deps.remove("glm")
+
+    if Args.no_qt:
+        deps.remove("qt")
 
     for lib in deps:
 
@@ -124,6 +127,9 @@ def _create_conanfile():
     File.append(_conanfile(), "cmake\n")
 
     File.append(_conanfile(), "\n[options]\n")
+
+    if "freetype" in deps:
+        File.append(_conanfile(), "freetype:with_png=False\n\n")
 
     if "mesa" in deps:
         File.append(_conanfile(), "mesa:dri_search_path=/usr/lib/x86_64-linux-gnu/dri\n\n")
@@ -227,7 +233,10 @@ def run(compiler=Compiler.get()):
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/msvc']
 
     if Args.ios:
-        command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios']
+        if Args.device:
+            command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios']
+        else:
+            command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios_simulator']
 
     if Args.android:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/android']

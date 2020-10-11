@@ -56,9 +56,3 @@ class Compiler:
             
     def __str__(self):
         return self._str
-
-    def supports_optional(self):
-        if "clang" not in self.name:
-            return True
-        return self.major_version > 9
-

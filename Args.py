@@ -44,10 +44,6 @@ ios             = has(["--ios", "ios"])
 gcc             = has(["--gcc", "gcc"])
 run             = has(["--run"])
 ide             = has(["--ide", "ide"])
-ios6            = has(["--ios6", "ios6", "i6"])
-ios7            = has(["--ios7", "ios7", "i7"])
-ios8            = has(["--ios8", "ios8", "i8"])
-ios9            = has(["--ios9", "ios9", "i9"])
 vs15            = has(["--vs15", "vs15"])
 vs17            = has(["--vs17", "vs17"])
 vs19            = has(["--vs19", "vs19"])
@@ -82,13 +78,12 @@ update_deps     = has(["--update-deps", "update-deps", "ud"])
 force_build     = has(["--force-build", "force-build", "fb"])
 boost_python    = has(["--boost-python", "bp"])
 compilers_info  = has(["--compilers-info", "ci"])
-manual_compiler = has(["--manual-compiler"])
 
 register   = has(["--register",     "register",   "reg"])
 unregister = has(["--unregister", "unregister", "unreg"])
 
 start = has(["--start", "start", "star", "sta"])
-stop  = has(["--stop",  "stop",  "sto", "stp"])
+stop  = has(["--stop",  "stop",  "sto",  "stp"])
 
 no_conan        = has(["--no-conan", "no-conan", "noconan", "nc"])
 
@@ -102,37 +97,8 @@ no_bull3        = has(["--no-bullet3",  "nobullet3",  "nobullet", "nb3"])
 no_assimp       = has(["--no-assimp",   "noassimp",   "noassimp", "na"])
 no_freetype     = has(["--no-freetype", "nofreetype", "noft",     "nf"])
 
-_3gs = has(["--3gs", "3gs"])
-_4s  = has(["--4s", "4s"])
 
-if _3gs:
-    clean    = True
-    prepare  = True
-    ide      = True
-    ios      = True
-    device   = True
-    ios6     = True
-    x32      = True
-
-if _4s:
-    clean    = True
-    prepare  = True
-    ide      = True
-    ios      = True
-    device   = True
-    ios7     = True
-    x32      = True
-
-ios_version = "9.0"
-
-if ios6:
-    ios_version = "6.0"
-
-if ios7:
-    ios_version = "7.0"
-
-if ios8:
-    ios_version = "8.0"
+ios_version = "11.0"
 
 mobile = android or ios
 desktop_build = not mobile
