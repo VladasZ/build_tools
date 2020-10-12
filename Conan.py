@@ -207,7 +207,7 @@ def run(compiler=Compiler.get()):
         command += ['-g', 'cmake_multi']
         build_info_script_name = "conanbuildinfo_multi.cmake"
 
-    Cmake.add_var("CONAN_BUILD_INFO", "build/" + build_info_script_name)
+    Cmake.add_var("CONAN_BUILD_INFO", File.full_path(".") + "/" + build_info_script_name)
     Cmake.add_line("include(${CONAN_BUILD_INFO})")
 
     if not Args.mobile and not System.is_windows:
