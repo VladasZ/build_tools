@@ -14,27 +14,29 @@ atom = work + "/atom"
 my = dev + "/my"
 
 
-projects = {'~/.emacs.d': 'https://github.com/vladasz/.emacs.d',
-            '~/.shell'  : 'https://github.com/vladasz/.shell',
-            '~/deploy'  : 'https://github.com/vladasz/deploy',
+projects = {home + '/.emacs.d': 'https://github.com/vladasz/.emacs.d',
+            home + '/.shell'  : 'https://github.com/vladasz/.shell',
+            home + '/deploy'  : 'https://github.com/vladasz/deploy',
 
-            '~/.deps/build_tools' : 'https://github.com/vladasz/build_tools',
-            '~/.deps/cpp_utils'   : 'https://github.com/vladasz/cpp_utils',
-            '~/.deps/geometry'    : 'https://github.com/vladasz/geometry',
-            '~/.deps/gl_wrapper'  : 'https://github.com/vladasz/gl_wrapper',
-            '~/.deps/image'       : 'https://github.com/vladasz/image',
-            '~/.deps/scene'       : 'https://github.com/vladasz/scene',
-            '~/.deps/smon'        : 'https://github.com/vladasz/smon',
-            '~/.deps/test_engine' : 'https://github.com/vladasz/test_engine',
-            '~/.deps/ui'          : 'https://github.com/vladasz/ui',
+            home + '/.deps/build_tools' : 'https://github.com/vladasz/build_tools',
+            home + '/.deps/cpp_utils'   : 'https://github.com/vladasz/cpp_utils',
+            home + '/.deps/geometry'    : 'https://github.com/vladasz/geometry',
+            home + '/.deps/gl_wrapper'  : 'https://github.com/vladasz/gl_wrapper',
+            home + '/.deps/image'       : 'https://github.com/vladasz/image',
+            home + '/.deps/scene'       : 'https://github.com/vladasz/scene',
+            home + '/.deps/smon'        : 'https://github.com/vladasz/smon',
+            home + '/.deps/test_engine' : 'https://github.com/vladasz/test_engine',
+            home + '/.deps/ui'          : 'https://github.com/vladasz/ui',
 
-            '~/dev/work/tes/teslasuit-studio'    : 'https://gitlab.vrweartek.com/software/teslasuit-studio.git',
-            '~/dev/work/tes/glove/GloveCommon'   : 'https://gitlab.vrweartek.com/Research/GloveCommon.git',
-            '~/dev/work/tes/glove/glovefirmware' : 'https://gitlab.vrweartek.com/Research/glovefirmware.git',
-            '~/dev/work/tes/glove/GloveSoftware' : 'https://gitlab.vrweartek.com/Research/GloveSoftware.git',
-            '~/dev/work/tes/glove/GloveUnity'    : 'https://gitlab.vrweartek.com/Research/gloveunity.git',
+            home + '/dev/work/tes/teslasuit-studio'    : 'https://gitlab.vrweartek.com/software/teslasuit-studio.git',
+            home + '/dev/work/tes/glove/GloveCommon'   : 'https://gitlab.vrweartek.com/Research/GloveCommon.git',
+            home + '/dev/work/tes/glove/glovefirmware' : 'https://gitlab.vrweartek.com/Research/glovefirmware.git',
+            home + '/dev/work/tes/glove/GloveSoftware' : 'https://gitlab.vrweartek.com/Research/GloveSoftware.git',
+            home + '/dev/work/tes/glove/GloveUnity'    : 'https://gitlab.vrweartek.com/Research/gloveunity.git',
+            home + '/dev/work/tes/glove/node'          : 'https://gitlab.vrweartek.com/firmware/tglove-node',
 
-            '~/dev/my/LastTime'    : 'https://github.com/vladasz/LastTime',
-            '~/dev/my/SquareBalls' : 'https://github.com/vladasz/SquareBalls',
+            home + '/dev/my/LastTime'    : 'https://github.com/vladasz/LastTime',
+            home + '/dev/my/SquareBalls' : 'https://github.com/vladasz/SquareBalls',
 
-            '~/dev/work/atom/apg-ios' : 'https://gitlab.atomichronica.com/apg/app.git'}
+            #home + '/dev/work/atom/apg-ios' : 'https://gitlab.atomichronica.com/apg/app.git'
+            }
