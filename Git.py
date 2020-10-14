@@ -100,5 +100,5 @@ def remote(path):
 
 
 def clone_all_projects():
-    for path, remote in Paths.projects.items():
+    for path, remote in Paths.args_projects.items():
         clone(remote, path, delete_existing=False, recursive=True, ignore_existing=True)

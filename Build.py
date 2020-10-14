@@ -15,7 +15,7 @@ work_dirs = [
     Paths.deps,
     Paths.tes,
     Paths.glove,
-    #Paths.atom,
+    Paths.atom,
     Paths.my
 ]
 
