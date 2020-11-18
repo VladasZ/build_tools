@@ -55,7 +55,7 @@ def _create_conanfile():
         "boost"      : "boost/1.74.0",
         "openvr"     : "openvr/1.12.5",
         "sqlite"     : "sqlitecpp/2.5.0",
-        "bullet"     : "bullet3/2.89",
+        "bullet"     : "bullet3/3.06",
         "box2d"      : "box2d/2.4.0",
         "assimp"     : "assimp/5.0.1",
         "freetype"   : "freetype/2.10.2",
