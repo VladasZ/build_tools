@@ -15,7 +15,7 @@ atom = work + "/atom"
 my = dev + "/my"
 
 
-my_projects = {
+main_projects = {
     home + '/.emacs.d': 'https://github.com/vladasz/.emacs.d',
     home + '/.shell'  : 'https://github.com/vladasz/.shell',
     home + '/deploy'  : 'https://github.com/vladasz/deploy',
@@ -28,8 +28,10 @@ my_projects = {
     home + '/.deps/scene'       : 'https://github.com/vladasz/scene',
     home + '/.deps/smon'        : 'https://github.com/vladasz/smon',
     home + '/.deps/test_engine' : 'https://github.com/vladasz/test_engine',
-    home + '/.deps/ui'          : 'https://github.com/vladasz/ui',
+    home + '/.deps/ui'          : 'https://github.com/vladasz/ui'
+}
 
+my_projects = {
     home + '/dev/my/LastTime'    : 'https://github.com/vladasz/LastTime',
     home + '/dev/my/SquareBalls' : 'https://github.com/vladasz/SquareBalls'
 }
@@ -47,12 +49,15 @@ atom_projects = {
     home + '/dev/work/atom/apg-ios' : 'https://gitlab.atomichronica.com/apg/app.git'
 }
 
-args_projects = my_projects
+args_projects = main_projects
 
 all_projects = {}
-all_projects.update(my_projects)
+all_projects.update(main_projects)
 all_projects.update(tesla_projets)
 all_projects.update(atom_projects)
+
+if Args.my:
+    all_projects.update(my_projects)
 
 if Args.tesla:
     args_projects.update(tesla_projets)

@@ -38,6 +38,7 @@ def empty():
     return count() == 1
 
 
+my              = has(["--my", "my"])
 pi              = has(["--pi", "pi"])
 x32             = has(["--x32", "x32", "32"])
 ios             = has(["--ios", "ios"])
