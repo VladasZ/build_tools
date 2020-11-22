@@ -1,11 +1,11 @@
 [settings]
-arch=armv7
+arch=x86_64
 arch_build=x86_64
 os_build=Macos
 os=Android
-os.api_level=19
+os.api_level=21
 compiler=clang
 compiler.version=9
-compiler.libcxx=libc++
+compiler.libcxx=c++_shared
 [build_requires]
 android_ndk_installer/r21@bincrafters/stable
