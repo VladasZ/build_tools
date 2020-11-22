@@ -58,7 +58,7 @@ def _create_conanfile():
         "bullet"     : "bullet3/3.06",
         "box2d"      : "box2d/2.4.0",
         "assimp"     : "assimp/5.0.1",
-        "freetype"   : "freetype/2.10.2",
+        "freetype"   : "freetype/2.10.4",
         "magic_enum" : "magic_enum/0.6.6"
     }
 
