@@ -1,9 +1,9 @@
 [settings]
-arch=x86_64
+arch=armv7
 arch_build=x86_64
 os_build=Macos
 os=Android
-os.api_level=21
+os.api_level=19
 compiler=clang
 compiler.version=9
 compiler.libcxx=c++_shared
