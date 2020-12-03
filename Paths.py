@@ -57,10 +57,14 @@ all_projects.update(tesla_projets)
 all_projects.update(atom_projects)
 
 if Args.my:
-    all_projects.update(my_projects)
+    args_projects.update(my_projects)
 
 if Args.tesla:
     args_projects.update(tesla_projets)
 
 if Args.atom:
     args_projects.update(atom_projects)
+
+
+    # - sudo apt update
+    # sudo apt install xorg-dev libglu1-mesa-dev libgl1-mesa-dri libgl1-mesa-dev libx11-xcb-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libglu1-mesa-dev

@@ -76,9 +76,9 @@ def _create_conanfile():
     # if System.is_mac:
     #     File.append(_conanfile(), "libiconv/1.16\n")
 
-    if System.is_linux and "glew" in deps:
-        deps += ["gl"]
-        deps += ["mesa"]
+    # if System.is_linux and "glew" in deps:
+    #     deps += ["gl"]
+    #     deps += ["mesa"]
 
     if Args.no_freetype:
         deps.remove("freetype")
