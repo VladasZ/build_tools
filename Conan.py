@@ -54,6 +54,7 @@ def _create_conanfile():
         "poco"       : "poco/1.10.1",
         "boost"      : "boost/1.74.0",
         "openvr"     : "openvr/1.12.5",
+        "frozen"     : "frozen/1.0.0",
         "sqlite"     : "sqlitecpp/2.5.0",
         "bullet"     : "bullet3/3.06",
         "box2d"      : "box2d/2.4.0",
