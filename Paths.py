@@ -33,7 +33,10 @@ main_projects = {
 
 my_projects = {
     home + '/dev/my/LastTime'    : 'https://github.com/vladasz/LastTime',
-    home + '/dev/my/SquareBalls' : 'https://github.com/vladasz/SquareBalls'
+    home + '/dev/my/SquareBalls' : 'https://github.com/vladasz/SquareBalls',
+
+    home + '/dev/my/money/MoneyCommon' : 'https://github.com/VladasZ/MoneyCommon',
+    home + '/dev/my/money/MoneyServer' : 'https://github.com/VladasZ/MoneyServer',
 }
 
 tesla_projets = {
