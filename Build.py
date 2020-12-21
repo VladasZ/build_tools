@@ -16,7 +16,8 @@ work_dirs = [
     Paths.tes,
     Paths.glove,
     Paths.atom,
-    Paths.my
+    Paths.my,
+    Paths.money
 ]
 
 def all_repos():

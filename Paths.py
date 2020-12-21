@@ -14,6 +14,8 @@ atom = work + "/atom"
 
 my = dev + "/my"
 
+money = my + "/money"
+
 
 main_projects = {
     home + '/.emacs.d': 'https://github.com/vladasz/.emacs.d',
