@@ -45,11 +45,12 @@ def _create_conanfile():
         "gl"         : "opengl/system",
         "qt"         : "qt/5.14.2@bincrafters/stable",
         "glm"        : "glm/0.9.9.8",
+        "zlib"       : "zlib/1.2.8",
         "date"       : "date/2.4.1",
         "mesa"       : "mesa/20.0.1@bincrafters/stable",
         "glew"       : "glew/2.1.0",
         "glfw"       : "glfw/3.3.2",
-        "soil"       : "soil2/1.11@bincrafters/stable",
+        "soil"       : "soil2/1.20@bincrafters/stable",
         "json"       : "nlohmann_json/3.9.1",
         "poco"       : "poco/1.10.1",
         "boost"      : "boost/1.74.0",
@@ -72,14 +73,9 @@ def _create_conanfile():
 
     deps += subdeps
 
+    deps += ["zlib"]
+
     processed = []
-
-    # if System.is_mac:
-    #     File.append(_conanfile(), "libiconv/1.16\n")
-
-    # if System.is_linux and "glew" in deps:
-    #     deps += ["gl"]
-    #     deps += ["mesa"]
 
     if Args.no_freetype:
         deps.remove("freetype")
