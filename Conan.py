@@ -52,7 +52,7 @@ def _create_conanfile():
         "glfw"       : "glfw/3.3.2",
         "soil"       : "soil2/1.20@bincrafters/stable",
         "json"       : "nlohmann_json/3.9.1",
-        "poco"       : "poco/1.10.1",
+        "poco"       : "poco/1.9.4",
         "boost"      : "boost/1.74.0",
         "openvr"     : "openvr/1.12.5",
         "frozen"     : "frozen/1.0.0",
