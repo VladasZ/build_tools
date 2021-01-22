@@ -1,13 +1,10 @@
 import iOS
-import Git
-import File
 import Make
 import Time
 import Args
 import Deps
 import File
 import Shell
-import Debug
 import Conan
 import Cmake
 
@@ -19,7 +16,6 @@ def _root_dir(path='.'):
             return File.full_path(_path)
         else:
             return ""
-        _path = _path + "/.."
 
 
 root_dir = _root_dir()

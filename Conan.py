@@ -45,7 +45,6 @@ def _create_conanfile():
         "gl"         : "opengl/system",
         "qt"         : "qt/5.14.2@bincrafters/stable",
         "glm"        : "glm/0.9.9.8",
-        "zlib"       : "zlib/1.2.8",
         "date"       : "date/2.4.1",
         "mesa"       : "mesa/20.0.1@bincrafters/stable",
         "glew"       : "glew/2.1.0",
@@ -72,8 +71,6 @@ def _create_conanfile():
         deps += File.get_lines(_conan_deps())
 
     deps += subdeps
-
-    deps += ["zlib"]
 
     processed = []
 
@@ -160,7 +157,7 @@ def add_requires(file_path):
     global subdeps
     deps = File.get_lines(file_path)
     for dep in deps:
-        if not dep in subdeps:
+        if dep not in subdeps:
             subdeps += [dep]
 
 
@@ -209,7 +206,7 @@ def run(compiler=Compiler.get()):
 
     if not Args.mobile and not System.is_windows:
         command += [
-            '-scompiler='         + compiler.conan_name
+              '-scompiler='         + compiler.conan_name
             , '-scompiler.version=' + ("8" if Args.android else compiler.conan_version)
         ]
 

@@ -1,7 +1,6 @@
 import os
 import sys
 import shutil
-import getpass
 import zipfile
 import urllib.request
 import Paths

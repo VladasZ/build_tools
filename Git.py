@@ -40,7 +40,7 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
 
 def pull(path):
     if not is_git_repo(path):
-        #Debug.info(path + " :not a git repo. Skipping.")
+        # Debug.info(path + " :not a git repo. Skipping.")
         return
     Shell.run_string("git -C " + path + " pull")
 
@@ -89,7 +89,7 @@ def pull_folder(path):
             continue
         full_path = path + "/" + repo
         if has_changes(full_path):
-          Debug.throw(repo + " - has changes")
+            Debug.throw(repo + " - has changes")
         pull(full_path)
 
 

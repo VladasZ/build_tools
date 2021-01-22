@@ -1,17 +1,16 @@
 import Shell
 import System
 
-
 cask_map = {
-    "toolbox" : "jetbrains-toolbox",
-    "teams"   : "microsoft-teams",
-    "vk"      : "vk-messenger"
+    "toolbox": "jetbrains-toolbox",
+    "teams": "microsoft-teams",
+    "vk": "vk-messenger"
 }
 
 choco_map = {
-    "toolbox" : "jetbrainstoolbox",
-    "teams"   : "microsoft-teams",
-    "vk"      : "vkmessenger"
+    "toolbox": "jetbrainstoolbox",
+    "teams": "microsoft-teams",
+    "vk": "vkmessenger"
 }
 
 mac_only = [
@@ -40,7 +39,7 @@ apps = [
     "toolbox",
     "skype",
     "slack",
-  #  "deezer",
+    # "deezer",
     "teams",
     "steam",
     "vk"

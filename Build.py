@@ -20,11 +20,13 @@ work_dirs = [
     Paths.money
 ]
 
+
 def all_repos():
     result = []
     for dir in work_dirs:
         result += Git.list_repos(dir)
     return result
+
 
 def cpp():
 
@@ -93,7 +95,8 @@ def verilog():
         print("Verilog flash time: " + Time.duration())
     else:
         print("No argument provided to build script")
-    
+
+
 if Args.verilog:
     verilog()
     exit()
@@ -101,6 +104,5 @@ if Args.verilog:
 if Args.compilers_info:
     Compiler.print_info()
     exit()
-
 
 cpp()

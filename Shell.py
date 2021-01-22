@@ -17,7 +17,6 @@ def _execute(commands, silent):
     if not silent:
         print(command_string)
 
-    output_line = ""
     output = ""
 
     try:

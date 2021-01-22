@@ -8,7 +8,6 @@ import Shell
 import System
 import Compiler
 from inspect import getframeinfo, stack
-from pprint import pprint
 
 cmake_file_name = "CMakeLists.txt"
 cmake_search_default_depth = 3
@@ -104,17 +103,6 @@ def setup(compiler=Compiler.get()):
     Debug.info(compiler)
     Debug.info(compiler.CXX)
 
-    #
-    # if Args.android:
-    #     os.environ['CC']  = "/Users/vladas/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
-    #     os.environ['CXX'] = "/Users/vladas/Library/Android/sdk/ndk/20.1.5948944/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
-    # else if not System.is:
-    #     os.environ['CC']  = Shell.which(compiler.CC)
-    #     os.environ['CXX'] = Shell.which(compiler.CXX)
-    #
-    # Debug.info('CC = ' + os.environ['CC'])
-    # Debug.info('CXX = ' + os.environ['CXX'])
-
 
 def build():
     Shell.run(["cmake", "--build", "."])
@@ -169,9 +157,7 @@ def add_line(line):
         " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
 
 
-def setup_variables(compiler=Compiler.get()):
-
-    project_name = File.folder_name("..")
+def setup_variables():
 
     add_def_and_bool("RASPBERRY_BUILD",   Args.pi)
     add_def_and_bool("UNITY_BUILD",       Args.unity)
