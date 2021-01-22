@@ -56,12 +56,12 @@ def _create_conanfile():
         "boost"      : "boost/1.74.0",
         "openvr"     : "openvr/1.12.5",
         "frozen"     : "frozen/1.0.0",
-        "sqlite"     : "sqlitecpp/2.5.0",
-        "bullet"     : "bullet3/3.06",
+        "sqlite"     : "sqlitecpp/3.1.1",
+        "bullet"     : "bullet3/3.07",
         "box2d"      : "box2d/2.4.0",
         "assimp"     : "assimp/5.0.1",
         "freetype"   : "freetype/2.10.4",
-        "magic_enum" : "magic_enum/0.6.6"
+        "magic_enum" : "magic_enum/0.7.2"
     }
 
     desktop_only = ["glfw", "glew"]
