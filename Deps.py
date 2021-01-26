@@ -89,7 +89,7 @@ class Dep:
 
     def add_to_cmake(self):
 
-        Debug.info(self.name)
+        Debug.log(self.name)
 
         global _ready
 
@@ -102,7 +102,7 @@ class Dep:
         Cmake.add_var(self.name + "_PATH", self.path())
 
         if not self.needs_deps():
-            Debug.info(self.name + " no deps")
+            Debug.log(self.name + " no deps")
 
         for dep in self.deps():
             self.include_in_cmake(dep)
@@ -130,8 +130,8 @@ class Dep:
         Cmake.append_var(self.clean_name() + "_PROJECTS_TO_ADD", "\"" + dep.path()  + "\"")
 
     def clean(self):
-        File.rm(self.path() + "/dep_build")
-        File.rm(self.path() + "/build")
+        File.rm_match("dep_build_", self.path())
+        File.rm_match("build_", self.path())
 
     def clean_name(self):
         return self.name.replace("-", "_")
@@ -148,7 +148,7 @@ def _safe_to_delete():
         if _ignore_build_tools and dep == "build_tools":
             continue
         if Git.has_changes(Paths.deps + "/" + dep):
-            Debug.info("Dep " + dep + " has changes.")
+            Debug.log("Dep " + dep + " has changes.")
             return False
     return True
 

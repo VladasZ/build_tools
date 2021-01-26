@@ -26,7 +26,7 @@ def clone(link, destination, delete_existing=False, recursive=False, ignore_exis
 
     if File.exists(destination):
         if ignore_existing:
-            Debug.info(destination + " exists")
+            Debug.log(destination + " exists")
             return
         Debug.throw("Git repository: " + link + " already exists for path: " + File.full_path(destination))
 

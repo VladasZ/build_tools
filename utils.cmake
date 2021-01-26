@@ -143,7 +143,7 @@ endmacro()
 
 macro(add_deps project)
   foreach(var ${${project}_PROJECTS_TO_ADD})
-    add_subdirectory(${var} "${var}/dep_build")
+    add_subdirectory(${var} "${var}/${DEP_BUILD_FOLDER_NAME}")
   endforeach()
 endmacro()
 

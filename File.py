@@ -14,7 +14,7 @@ def is_file(path):
 
 
 def rm(path):
-    Debug.info("Deleting: " + path)
+    Debug.log("Deleting: " + path)
     if os.path.exists(path):
         if is_file(path):
             os.remove(path)
@@ -29,7 +29,7 @@ def convert_path(path):
 
 
 def copy(src, dst):
-    Debug.info("Copying:\n" + src + " to:\n" + dst)
+    Debug.log("Copying:\n" + src + " to:\n" + dst)
     if is_file(src):
         shutil.copyfile(src, dst)
     else:
@@ -45,6 +45,9 @@ def is_root(path='.'):
 
 
 def get_files(path='.'):
+    if is_file(path):
+        Debug.log(path + " is not a directory.")
+        return []
     return os.listdir(full_path(path))
 
 
@@ -71,6 +74,13 @@ def get_name(name):
 def config_path():
     mkdir(__build_config_dir)
     return __build_config_dir
+
+
+def rm_match(begin, path = "."):
+    files = get_files(path)
+    for file in files:
+        if file.startswith(begin):
+            rm(path + "/" + file)
 
 
 def mkdir(name):

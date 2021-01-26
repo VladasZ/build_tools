@@ -11,7 +11,7 @@ def has(flags):
     for flag in flags:
         global all_known
         if flag in all_known:
-            Debug.info("Dupicated flag: " + flag)
+            Debug.log("Dupicated flag: " + flag)
             Debug.throw()
     for arg in all_in_flags:
         for flag in flags:
@@ -53,6 +53,7 @@ msvc            = has(["--msvc", "msvc"])
 list            = has(["--list", "list"])
 hand            = has(["--hand"])
 test            = has(["--test"])
+cmake           = has(["--cmake", "cmake", "cm"])
 multi           = has(["--multi"])
 mingw           = has(["--mingw", "mingw", "mgw"])
 flash           = has(["--flash"])
@@ -123,8 +124,8 @@ if no_conan:
 
 
 if len(all_in_flags) != 1:
-    Debug.info("Unknown parameter:")
-    Debug.info(all_in_flags[1:])
+    Debug.log("Unknown parameter:")
+    Debug.log(all_in_flags[1:])
     Debug.throw()
 
 
@@ -143,5 +144,11 @@ def describe_string():
         result += "a"
     if mingw:
         result += "mgw"
+    if cmake:
+        result += "cm"
+    if vs17:
+        result += "vs17"
+    if vs19:
+        result += "vs19"
 
     return result

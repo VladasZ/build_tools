@@ -13,11 +13,11 @@ cmake_file_name = "CMakeLists.txt"
 cmake_search_default_depth = 3
 
 
-def cmake_config_file_name():
+def cmake_config_file_path():
     name = "build_tools_generated.cmake"
     if Args.android:
         return Cpp.root_dir + "/android/app/src/main/cpp/" + name
-    return name
+    return "../" + name
 
 
 def has_cmake_file(path="."):
@@ -100,8 +100,8 @@ def setup(compiler=Compiler.get()):
     if Args.ide:
         return
 
-    Debug.info(compiler)
-    Debug.info(compiler.CXX)
+    Debug.log(compiler)
+    Debug.log(compiler.CXX)
 
 
 def build():
@@ -109,13 +109,13 @@ def build():
 
 
 def _append(value):
-    File.append(cmake_config_file_name(), value)
+    File.append(cmake_config_file_path(), value)
 
 
 def reset_config():
-    Debug.info("RESET")
-    File.rm(cmake_config_file_name())
-    File.append(cmake_config_file_name(), "# GENERATED FILE.\n# DO NOT EDIT\n")
+    Debug.log("RESET")
+    File.rm(cmake_config_file_path())
+    File.append(cmake_config_file_path(), "# GENERATED FILE.\n# DO NOT EDIT\n")
 
 
 def add_var(name, value):
@@ -137,7 +137,7 @@ def append_var(name, value):
 
 
 def add_definition(definition):
-    Debug.info(definition)
+    Debug.log(definition)
     caller = getframeinfo(stack()[1][0])
     _append("add_definitions(-D" + definition + ")" +
             " #[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]\n")
@@ -172,5 +172,7 @@ def setup_variables():
     add_def_and_bool("LINUX_BUILD",   System.is_linux   and Args.desktop_build)
 
     add_def_and_bool("DEBUG", Args.debug)
+
+    add_var("DEP_BUILD_FOLDER_NAME", "dep_build_" + Args.describe_string())
 
     add_line("include(~/.deps/build_tools/utils.cmake)")

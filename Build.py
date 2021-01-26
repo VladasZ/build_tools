@@ -51,20 +51,8 @@ def cpp():
         repos_dict = {}
         for repo in all_repos():
             repos_dict[repo] = Git.remote(repo)
-        print(repos_dict);
+        print(repos_dict)
         exit()
-
-    if File.exists(Cpp.root_dir + "/Makefile"):
-        if Args.clean:
-            Arm.clean()
-            print("Clean successful")
-        if Args.run:
-            Arm.run()
-        elif Args.build:
-            Arm.build()
-        elif Args.flash:
-            Arm.flash()
-        return
 
     if Args.clean:
         Cpp.clean()

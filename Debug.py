@@ -3,7 +3,7 @@ from inspect import getframeinfo, stack
 from pprint import pprint
 
 
-def info(message=""):
+def log(message=""):
     caller = getframeinfo(stack()[1][0])
     print("[" + os.path.basename(caller.filename) + " - " + str(caller.lineno) + "]" + " : " + str(message))
 

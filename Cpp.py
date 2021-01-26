@@ -53,9 +53,6 @@ def prepare():
 
     print("Project prepare time: " + Time.duration())
 
-    if not Args.android:
-        File.cat("./build_tools_generated.cmake")
-
 
 def build():
     if not File.exists(build_dir):
@@ -80,5 +77,5 @@ def run():
 
 
 def clean():
-    File.rm(build_dir)
+    File.rm_match("build_")
     Deps.clean()
