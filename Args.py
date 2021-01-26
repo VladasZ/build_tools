@@ -126,3 +126,22 @@ if len(all_in_flags) != 1:
     Debug.info("Unknown parameter:")
     Debug.info(all_in_flags[1:])
     Debug.throw()
+
+
+def describe_string():
+    result = ""
+
+    result += "d" if debug else "r"
+
+    if desktop_build:
+        result += "d"
+    if mobile:
+        result += "m"
+    if ios:
+        result += "i"
+    if android:
+        result += "a"
+    if mingw:
+        result += "mgw"
+
+    return result

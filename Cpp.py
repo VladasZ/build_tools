@@ -20,7 +20,7 @@ def _root_dir(path='.'):
 
 root_dir = _root_dir()
 project_name = File.folder_name(root_dir)
-build_dir = root_dir + "/build"
+build_dir = root_dir + "/build_" + Args.describe_string()
 
 stamp = Time.stamp()
 
@@ -37,8 +37,8 @@ def prepare():
     Conan.setup()
     Cmake.setup()
 
-    File.mkdir('build')
-    File.cd('build')
+    File.mkdir(build_dir)
+    File.cd(build_dir)
 
     root_project = Deps.string_to_dep(project_name)
     root_project.custom_path = root_dir + "/.."
