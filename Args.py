@@ -37,6 +37,7 @@ def empty():
     return count() == 1
 
 
+ci              = has(["--ci", "ci"])
 my              = has(["--my", "my"])
 pi              = has(["--pi", "pi"])
 x32             = has(["--x32", "x32", "32"])
@@ -130,6 +131,10 @@ if len(all_in_flags) != 1:
 
 
 def describe_string():
+
+    if ci:
+        return "ci"
+
     result = ""
 
     result += "d" if debug else "r"
