@@ -16,29 +16,33 @@ my = dev + "/my"
 
 money = my + "/money"
 
+#repo_root = "https://github.com/vladasz/"
+repo_root = "git@github.com:VladasZ/"
+
+#git@github.com:VladasZ/test_engine.git
 
 main_projects = {
-    home + '/.emacs.d': 'https://github.com/vladasz/.emacs.d',
-    home + '/.shell'  : 'https://github.com/vladasz/.shell',
-    home + '/deploy'  : 'https://github.com/vladasz/deploy',
+    home + '/.emacs.d': repo_root + '.emacs.d.git',
+    home + '/.shell'  : repo_root + '.shell.git',
+    home + '/deploy'  : repo_root + 'deploy.git',
 
-    home + '/.deps/build_tools' : 'https://github.com/vladasz/build_tools',
-    home + '/.deps/cpp_utils'   : 'https://github.com/vladasz/cpp_utils',
-    home + '/.deps/geometry'    : 'https://github.com/vladasz/geometry',
-    home + '/.deps/gl_wrapper'  : 'https://github.com/vladasz/gl_wrapper',
-    home + '/.deps/image'       : 'https://github.com/vladasz/image',
-    home + '/.deps/scene'       : 'https://github.com/vladasz/scene',
-    home + '/.deps/smon'        : 'https://github.com/vladasz/smon',
-    home + '/.deps/test_engine' : 'https://github.com/vladasz/test_engine',
-    home + '/.deps/ui'          : 'https://github.com/vladasz/ui'
+    home + '/.deps/build_tools' : repo_root + 'build_tools.git',
+    home + '/.deps/cpp_utils'   : repo_root + 'cpp_utils.git',
+    home + '/.deps/geometry'    : repo_root + 'geometry.git',
+    home + '/.deps/gl_wrapper'  : repo_root + 'gl_wrapper.git',
+    home + '/.deps/image'       : repo_root + 'image.git',
+    home + '/.deps/scene'       : repo_root + 'scene.git',
+    home + '/.deps/smon'        : repo_root + 'smon.git',
+    home + '/.deps/test_engine' : repo_root + 'test_engine.git',
+    home + '/.deps/ui'          : repo_root + 'ui.git'
 }
 
 my_projects = {
-    home + '/dev/my/LastTime'    : 'https://github.com/vladasz/LastTime',
-    home + '/dev/my/SquareBalls' : 'https://github.com/vladasz/SquareBalls',
+    home + '/dev/my/LastTime'    : repo_root + 'LastTime.git',
+    home + '/dev/my/SquareBalls' : repo_root + 'SquareBalls.git',
 
-    home + '/dev/my/money/MoneyCommon' : 'https://github.com/VladasZ/MoneyCommon',
-    home + '/dev/my/money/MoneyServer' : 'https://github.com/VladasZ/MoneyServer',
+    home + '/dev/my/money/MoneyCommon' : repo_root + 'MoneyCommon.git',
+    home + '/dev/my/money/MoneyServer' : repo_root + 'MoneyServer.git',
 }
 
 tesla_projets = {
