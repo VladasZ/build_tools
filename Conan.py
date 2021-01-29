@@ -154,6 +154,7 @@ def _create_conanfile():
 
     if "boost" in deps:
         if Args.mobile:
+            File.append(_conanfile(), "boost:without_stacktrace=True\n")
             File.append(_conanfile(), "boost:without_locale=True\n")
             File.append(_conanfile(), "boost:without_log=True\n\n")
 
