@@ -152,6 +152,12 @@ def _create_conanfile():
 
         File.append(_conanfile(), "qt:qtconnectivity=True\n\n")
 
+    if "boost" in deps:
+        if Args.mobile:
+            File.append(_conanfile(), "boost:without_locale=True\n")
+            File.append(_conanfile(), "boost:without_log=True\n\n")
+
+
 
 def add_requires(file_path):
     global subdeps
