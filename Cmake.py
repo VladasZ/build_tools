@@ -159,6 +159,9 @@ def add_line(line):
 
 def setup_variables():
 
+    if System.is_mac:
+        add_def_and_bool("USING_OBJC", True)
+
     add_def_and_bool("RASPBERRY_BUILD",   Args.pi)
     add_def_and_bool("UNITY_BUILD",       Args.unity)
     add_def_and_bool("DESKTOP_BUILD",     Args.desktop_build)
