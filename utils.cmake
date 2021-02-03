@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
+set(DEPS_ROOT $ENV{HOME}/.deps)
+
+message(utils.cmake)
+
+include(${DEPS_ROOT}/build_tools/deps.cmake)
+
 set(CMAKE_CXX_STANDARD 17)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS TRUE)
