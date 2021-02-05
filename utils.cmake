@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
 set(DEPS_ROOT $ENV{HOME}/.deps)
 
-message(utils.cmake)
-
 include(${DEPS_ROOT}/build_tools/deps.cmake)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -108,7 +106,6 @@ endmacro()
 
 macro(setup_lib lib)
   project(${lib})
-  message("Add library ${PROJECT_NAME}")
   add_catalog_recursive(${PROJECT_SOURCE_DIR} / ${lib}_SOURCE)
   add_library(${PROJECT_NAME} ${${lib}_SOURCE})
   link_conan_if_needed()

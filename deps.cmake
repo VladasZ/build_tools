@@ -1,6 +1,4 @@
 
-message(deps.cmake)
-
 macro(clone_dep DEP)
     set(DEP_PATH ${DEPS_ROOT}/${DEP})
     set(${DEP}_path ${DEPS_ROOT}/${DEP}/source/${DEP})
