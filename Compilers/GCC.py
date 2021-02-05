@@ -8,7 +8,7 @@ def get():
     if not Shell.check(["gcc", "-dumpversion"]):
         return Compiler("gcc")
     
-    supported_versions    = [7, 8, 9]
+    supported_versions    = [7, 8, 9, 10]
     default_version       = Shell.get(["gcc", "-dumpversion"])
     default_major_version = Regex.first_number(default_version)
 

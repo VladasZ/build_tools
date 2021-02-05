@@ -101,6 +101,9 @@ def _create_conanfile():
     if Args.no_qt:
         deps.remove("qt")
 
+    if Args.no_menum:
+        deps.remove("magic_enum")
+
     for lib in deps:
 
         if lib not in versions:
@@ -232,6 +235,9 @@ def run(compiler=Compiler.get()):
 
     if Args.msvc:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/msvc']
+
+    if Args.cygwin:
+        command += ['--profile', Paths.deps + '/build_tools/conan_profiles/cygwin']
 
     if Args.ios:
         if Args.device:
