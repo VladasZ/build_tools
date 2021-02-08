@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
+cmake_policy(SET CMP0049 OLD)
+
 set(DEPS_ROOT $ENV{HOME}/.deps)
 
 include(${DEPS_ROOT}/build_tools/deps.cmake)
