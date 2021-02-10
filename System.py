@@ -52,4 +52,4 @@ def add_setup_conan_flag():
 
 conan_setup = has_flag('.conan_setup')
 
-android_ndk = File.exists(File.config_path() + '/android-ndk-r17b')
+android_ndk = File.exists(File.config_path() + '/linux_android-ndk-r17b')

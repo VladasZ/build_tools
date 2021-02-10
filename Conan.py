@@ -246,7 +246,12 @@ def run(compiler=Compiler.get()):
             command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios_simulator']
 
     if Args.android:
-        command += ['--profile', Paths.deps + '/build_tools/conan_profiles/android']
+        if System.is_linux:
+            command += ['--profile', Paths.deps + '/build_tools/conan_profiles/linux_android']
+        elif System.is_mac:
+            command += ['--profile', Paths.deps + '/build_tools/conan_profiles/mac_android']
+        else:
+            Debug.throw("No android build support on Windows yet.")
 
     if System.is_mac and not Args.mobile:
         command += ['-scompiler.libcxx=' + compiler.libcxx]

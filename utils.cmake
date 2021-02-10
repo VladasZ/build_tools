@@ -190,7 +190,7 @@ macro(setup_project project)
 endmacro()
 
 if(APPLE)
-  include("${DEPS_ROOT}/.deps/build_tools/ios.cmake")
+  include("${DEPS_ROOT}/build_tools/ios.cmake")
 endif()
 
 macro(setup_exe exe)
