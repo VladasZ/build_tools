@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
-cmake_policy(SET CMP0049 OLD)
-
 if(WIN32)
-  set(HOME_DIRECTORY $ENV{HOMEPATH})
+    set(HOME_DIRECTORY $ENV{HOMEPATH})
 else()
-  set(HOME_DIRECTORY $ENV{HOME})
+    set(HOME_DIRECTORY $ENV{HOME})
 endif()
+string(REPLACE "\\" "/" HOME_DIRECTORY ${HOME_DIRECTORY})
 
 set(DEPS_ROOT ${HOME_DIRECTORY}/.deps)
 
