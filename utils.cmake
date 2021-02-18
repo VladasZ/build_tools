@@ -1,10 +1,7 @@
 cmake_minimum_required(VERSION 3.9.2 FATAL_ERROR)
 
 if(WIN32)
-    set(HOME_DIRECTORY $ENV{HOMEPATH})
-    if (NOT HOME_DIRECTORY)
-      set(HOME_DIRECTORY $ENV{HOME})
-    endif()
+    set(HOME_DIRECTORY $ENV{HOME})
     if (NOT HOME_DIRECTORY)
       set(HOME_DIRECTORY $ENV{USERPROFILE})
     endif()
