@@ -223,6 +223,11 @@ def run(compiler=Compiler.get()):
     if System.is_windows:
         if Args.vs15:
             command += ["-scompiler.version=14"]
+        if Args.vs17:
+            command += ["-scompiler.version=15"]
+        if Args.vs19:
+            command += ["-scompiler.version=16"]
+
 
     if Args.pi:
         command += [
