@@ -16,8 +16,8 @@ my = dev + "/my"
 
 money = my + "/money"
 
-#repo_root = "https://github.com/vladasz/"
-repo_root = "git@github.com:VladasZ/"
+repo_root = "https://github.com/vladasz/"
+#repo_root = "git@github.com:VladasZ/"
 
 #git@github.com:VladasZ/test_engine.git
 
@@ -43,6 +43,8 @@ my_projects = {
 
     home + '/dev/my/money/MoneyCommon' : repo_root + 'MoneyCommon.git',
     home + '/dev/my/money/MoneyServer' : repo_root + 'MoneyServer.git',
+
+    home + '/dev/my/square_editor' : repo_root + 'square_editor.git',
 }
 
 tesla_projets = {
