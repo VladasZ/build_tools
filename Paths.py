@@ -45,6 +45,8 @@ my_projects = {
     home + '/dev/my/money/MoneyServer' : repo_root + 'MoneyServer.git',
 
     home + '/dev/my/square_editor' : repo_root + 'square_editor.git',
+
+    home + '/dev/my/money/HabitServer' : repo_root + 'HabitServer.git',
 }
 
 tesla_projets = {
