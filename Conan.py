@@ -244,6 +244,9 @@ def run(compiler=Compiler.get()):
     if Args.cygwin:
         command += ['--profile', Paths.deps + '/build_tools/conan_profiles/cygwin']
 
+    if Args.msys:
+        command += ['--profile', Paths.deps + '/build_tools/conan_profiles/msys']
+
     if Args.ios:
         if Args.device:
             command += ['--profile', Paths.deps + '/build_tools/conan_profiles/ios']

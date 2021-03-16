@@ -1,7 +1,14 @@
 import os
 import Args
+import Debug
 
-home = os.path.expanduser("~")
+
+def _get_home():
+    if "HOME" in os.environ:
+        return os.environ["HOME"]
+    return os.path.expanduser("~")
+
+home = _get_home()
 
 deps = home + "/.deps"
 dev = home + "/dev"
@@ -16,10 +23,10 @@ my = dev + "/my"
 
 money = my + "/money"
 
-#repo_root = "https://github.com/vladasz/"
-repo_root = "git@github.com:VladasZ/"
+repo_root = "https://github.com/vladasz/"
 
-#git@github.com:VladasZ/test_engine.git
+if Args.ssh:
+    repo_root = "git@github.com:VladasZ/"
 
 main_projects = {
     home + '/.emacs.d': repo_root + '.emacs.d.git',
@@ -49,8 +56,10 @@ my_projects = {
     home + '/dev/my/money/HabitServer' : repo_root + 'HabitServer.git',
 }
 
-#tesla_root = "https://gitlab.vrweartek.com/"
-tesla_root = "git@gitlab.vrweartek.com:"
+tesla_root = "https://gitlab.vrweartek.com/"
+
+if Args.ssh:
+    tesla_root = "git@gitlab.vrweartek.com:"
 
 tesla_projets = {
     home + '/dev/work/tes/teslasuit-studio'    : tesla_root + "software/teslasuit-studio.git",
