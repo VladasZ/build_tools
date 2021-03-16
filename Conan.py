@@ -65,12 +65,12 @@ def _create_conanfile():
 
     desktop_only = ["glfw", "glew"]
 
-    deps = []
+    deps = set()
 
     if File.exists(_conan_deps()):
-        deps += File.get_lines(_conan_deps())
+        deps.update(File.get_lines(_conan_deps()))
 
-    deps += subdeps
+    deps.update(subdeps)
 
     processed = []
 
