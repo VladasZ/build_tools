@@ -176,12 +176,6 @@ def setup():
     if Args.no_conan:
         return
 
-    if System.conan:
-        print('conan OK')
-    else:
-        Shell.run([System.pip_cmd, 'install', 'conan'])
-        System.add_conan_flag()
-
     if System.conan_setup and False:  # FIX THIS
         print('conan remotes OK')
     else:
