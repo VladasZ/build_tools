@@ -17,7 +17,8 @@ work_dirs = [
     Paths.glove,
     Paths.atom,
     Paths.my,
-    Paths.money
+    Paths.money,
+    Paths.sand
 ]
 
 
@@ -46,13 +47,6 @@ def cpp():
     if Args.pullall:
         for dir in work_dirs:
             Git.pull_folder(dir)
-        exit()
-
-    if Args.list:
-        repos_dict = {}
-        for repo in all_repos():
-            repos_dict[repo] = Git.remote(repo)
-        print(repos_dict);
         exit()
 
     if File.exists(Cpp.root_dir + "/Makefile"):
