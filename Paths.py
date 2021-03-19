@@ -13,6 +13,7 @@ home = _get_home()
 deps = home + "/.deps"
 dev = home + "/dev"
 work = dev + "/work"
+sand = dev + "/sand"
 
 tes = work + "/tes"
 glove = tes + "/glove"
@@ -42,6 +43,10 @@ main_projects = {
     home + '/.deps/smon'        : repo_root + 'smon.git',
     home + '/.deps/test_engine' : repo_root + 'test_engine.git',
     home + '/.deps/ui'          : repo_root + 'ui.git'
+}
+
+sand_projects = {
+    sand + "/rust_sand" : repo_root + 'rust_sand.git'
 }
 
 my_projects = {
@@ -89,3 +94,6 @@ if Args.tesla:
 
 if Args.atom:
     args_projects.update(atom_projects)
+
+if Args.sand:
+    args_projects.update(sand_projects)
