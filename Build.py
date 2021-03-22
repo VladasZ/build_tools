@@ -11,6 +11,7 @@ import Compiler
 
 
 work_dirs = [
+    Paths.sand,
     Paths.home,
     Paths.deps,
     Paths.tes,
@@ -18,7 +19,6 @@ work_dirs = [
     Paths.atom,
     Paths.my,
     Paths.money,
-    Paths.sand
 ]
 
 
