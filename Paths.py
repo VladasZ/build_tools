@@ -50,14 +50,6 @@ sand_projects = {
 }
 
 my_projects = {
-    home + '/dev/my/LastTime'    : repo_root + 'LastTime.git',
-    home + '/dev/my/SquareBalls' : repo_root + 'SquareBalls.git',
-
-    home + '/dev/my/money/MoneyCommon' : repo_root + 'MoneyCommon.git',
-    home + '/dev/my/money/MoneyServer' : repo_root + 'MoneyServer.git',
-
-    home + '/dev/my/square_editor' : repo_root + 'square_editor.git',
-
     home + '/dev/my/money/HabitServer' : repo_root + 'HabitServer.git',
 }
 
