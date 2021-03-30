@@ -49,7 +49,6 @@ def _create_conanfile():
         "mesa"       : "mesa/20.0.1@bincrafters/stable",
         "glew"       : "glew/2.1.0",
         "glfw"       : "glfw/3.3.2",
-        "soil"       : "soil2/1.20@bincrafters/stable",
         "json"       : "nlohmann_json/3.9.1",
         "poco"       : "poco/1.9.4",
         "boost"      : "boost/1.74.0",
@@ -91,10 +90,7 @@ def _create_conanfile():
 
     if Args.no_date:
         deps.remove("date")
-
-    if Args.no_soil:
-        deps.remove("soil")
-
+        
     if Args.no_glm:
         deps.remove("glm")
 
