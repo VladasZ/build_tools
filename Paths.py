@@ -11,6 +11,7 @@ def _get_home():
 home = _get_home()
 
 deps = home + "/.deps"
+rdeps = home + "/.rdeps"
 dev = home + "/dev"
 work = dev + "/work"
 sand = dev + "/sand"

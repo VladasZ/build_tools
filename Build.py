@@ -14,6 +14,7 @@ work_dirs = [
     Paths.sand,
     Paths.home,
     Paths.deps,
+    Paths.rdeps,
     Paths.tes,
     Paths.glove,
     Paths.atom,
