@@ -42,12 +42,11 @@ main_projects = {
     home + '/.deps/image'       : repo_root + 'image.git',
     home + '/.deps/scene'       : repo_root + 'scene.git',
     home + '/.deps/smon'        : repo_root + 'smon.git',
-    home + '/.deps/test_engine' : repo_root + 'test_engine.git',
-    home + '/.deps/ui'          : repo_root + 'ui.git'
-}
+    home + '/.deps/ui'          : repo_root + 'ui.git',
 
-sand_projects = {
-    sand + "/rust_sand" : repo_root + 'rust_sand.git'
+    home + '/.deps/test_engine_cpp' : repo_root + 'test_engine_cpp.git',
+
+    rdeps + "/test_engine" : repo_root + 'test_engine.git'
 }
 
 my_projects = {
@@ -88,5 +87,5 @@ if Args.tesla:
 if Args.atom:
     args_projects.update(atom_projects)
 
-if Args.sand:
-    args_projects.update(sand_projects)
+# if Args.sand:
+#     args_projects.update(sand_projects)
