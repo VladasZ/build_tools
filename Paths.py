@@ -25,10 +25,10 @@ my = dev + "/my"
 
 money = my + "/money"
 
-repo_root = "https://github.com/vladasz/"
+repo_root = "git@github.com:VladasZ/"
 
-if Args.ssh:
-    repo_root = "git@github.com:VladasZ/"
+if Args.https:
+    repo_root = "https://github.com/vladasz/"
 
 main_projects = {
     home + '/.emacs.d': repo_root + '.emacs.d.git',
@@ -59,16 +59,16 @@ if Args.ssh:
     tesla_root = "git@gitlab.vrweartek.com:"
 
 tesla_projets = {
-    home + '/dev/work/tes/teslasuit-studio'    : tesla_root + "software/teslasuit-studio.git",
-    # home + '/dev/work/tes/glove/GloveCommon'   : tesla_root + "Research/GloveCommon.git",
-    # home + '/dev/work/tes/glove/glovefirmware' : tesla_root + "Research/glovefirmware.git",
-    # home + '/dev/work/tes/glove/GloveSoftware' : tesla_root + "Research/GloveSoftware.git",
-    home + '/dev/work/tes/GloveUnity'    : tesla_root + "Research/gloveunity.git"
-    # home + '/dev/work/tes/glove/node'          : tesla_root + "firmware/tglove-node"
+    home + '/dev/work/tes/teslasuit-studio' : tesla_root + "software/teslasuit-studio.git",
+    home + '/dev/work/tes/GloveUnity'       : tesla_root + "Research/gloveunity.git"
 }
 
 atom_projects = {
     home + '/dev/work/atom/apg-ios' : 'https://gitlab.atomichronica.com/apg/app.git'
+}
+
+sand_projects = {
+    sand + '/rust_sand' : repo_root + 'rust_sand.git'
 }
 
 args_projects = main_projects
@@ -81,11 +81,11 @@ all_projects.update(atom_projects)
 if Args.my:
     args_projects.update(my_projects)
 
+if Args.sand:
+    args_projects.update(sand_projects)
+
 if Args.tesla:
     args_projects.update(tesla_projets)
 
 if Args.atom:
     args_projects.update(atom_projects)
-
-# if Args.sand:
-#     args_projects.update(sand_projects)
