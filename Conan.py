@@ -51,7 +51,7 @@ def _create_conanfile():
         "glfw"       : "glfw/3.3.2",
         "json"       : "nlohmann_json/3.9.1",
         "poco"       : "poco/1.9.4",
-        "boost"      : "boost/1.74.0",
+        "boost"      : "boost/1.76.0",
         "openvr"     : "openvr/1.12.5",
         "frozen"     : "frozen/1.0.0",
         "sqlite"     : "sqlitecpp/3.1.1",
