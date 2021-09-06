@@ -16,7 +16,7 @@ def is_file(path):
 def rm(path):
     Debug.info("Deleting: " + path)
     if os.path.exists(path):
-        if is_file(path):
+        if os.path.isfile(path):
             os.remove(path)
         else:
             shutil.rmtree(path)
