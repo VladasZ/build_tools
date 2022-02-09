@@ -11,20 +11,10 @@ def get():
     if not Shell.check(["clang", "-dumpversion"]):
         return Compiler("clang")
 
-    supported_versions = []
-
-    if System.is_mac:
-        supported_versions = [9, 10, 11, 12]
-    else:
-        supported_versions = [6]
-
     version_output = Shell.get(["clang", "-v"])
     full_version  = Regex.version(version_output)
 
     major_version = Regex.first_number(full_version)
-
-    if not major_version in supported_versions:
-        return Compiler("clang")
 
     conan_version = full_version[:3]
 
